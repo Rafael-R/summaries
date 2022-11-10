@@ -1,25 +1,21 @@
 \documentclass[twocolumn, 10pt]{article}
 \usepackage{blindtext}
 \usepackage{enumitem}
-\usepackage{geometry}
+\usepackage[a4paper, margin=10pt]{geometry}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{amsmath}
-\geometry{
-    a4paper,
-    top=10pt,
-    right=10pt,
-    bottom=10pt,
-    left=10pt
-}
+\usepackage[table]{xcolor}
+
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 
 \begin{document}
 
 \begin{itemize}[leftmargin=*, itemsep=0pt]
+    
     \item Boxplot:
-    \begin{itemize}[topsep=0pt, itemsep=0pt]
+    \begin{itemize}[topsep=0pt]
         \item $Q_{1}=N\times0.25$
         \item $Q_{2}=N\times0.5$
         \item $Q_{3}=N\times0.75$
@@ -32,10 +28,6 @@
     \item Spearman: Assign ranks and apply Pearson formula. \\
     Example: [20, 10, 20, 30, 20] $\rightarrow$ [3, 1, 3, 5, 3]
 
-    \item Information Gain: $IG(y_{out}|y_{i})=E(y_{out})-E(y_{out}|y_{i})$
-
-    \item Entropy: $E(y)=-\sum P(x_i) \log(P(x_i))$
-    
     \item Normalization:
     \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item MinMax: $\displaystyle \frac{y_i-min}{max-min}$
@@ -43,7 +35,7 @@
     \end{itemize}
 
     \item Binarization: 
-    \begin{itemize}[topsep=0pt, itemsep=0pt]
+    \begin{itemize}[topsep=0pt]
         \item Range\ (equal\ width): Depends on variable range \\
         Example: $y\in[-1,1]: [0.2, -0.1, 0.6] \rightarrow [1, 0, 1]$
         \item Frequency\ (equal\ depth): Depends on variable mean \\
@@ -51,30 +43,35 @@
     \end{itemize} 
 
     \item Confusion Matrix:
-    \begin{tabular}{ | M{0.5em} M{0.5em} | M{2em} M{2em} M{2em} | } \hline
-        & & & True & \\
-        & & A & B & C \\\hline
-        \multirow{3}{*}{\rotatebox[origin=c]{90}{Pred}} & A & TA & FA & FA \\
-        & B & FP & TB & FB \\
-        & C & FC & FC & TC \\\hline
+    \begin{tabular}{ | M{0em} M{0.5em} | M{1.5em} M{1.5em} M{1.5em} | M{0em} M{1.5em} } \cline{1-5}
+        & & & True & & & B \\
+        & & A & B & C & & \cellcolor{green!100}TP \\\cline{1-5}
+        \multirow{3}{*}{\rotatebox[origin=c]{90}{Pred}} & A & \cellcolor{red!50}TA & \cellcolor{red!20}FA & \cellcolor{red!50}FA & & \cellcolor{red!50}TN \\
+        & B & \cellcolor{green!20}FB & \cellcolor{green!100}TB & \cellcolor{green!20}FB & & \cellcolor{green!20}FP \\
+        & C & \cellcolor{red!50}FC & \cellcolor{red!20}FC & \cellcolor{red!50}TC & & \cellcolor{red!20}FN \\\cline{1-5}
     \end{tabular}
-    
+
     \item Metrics:
     \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item Accuracy = $\displaystyle \frac{TP+TN}{total}$
         \item Error rate = $\displaystyle 1-Accuracy=\frac{FP+FN}{total}$
         \item Recall = $\displaystyle \frac{TP}{TP+FN}$ (Sensitivity)
-        \item Fallout = $\displaystyle \frac{TN}{N}=\frac{TN}{TN+FP}$ (Specificity)
+        \item Fallout = $\displaystyle \frac{TN}{TN+FP}$ (Specificity)
         \item Precision = $\displaystyle \frac{TP}{TP+FP}$
         \item F$_1$ = $\displaystyle \frac{TP}{TP+\frac{1}{2}(FP+FN)}$
     \end{itemize}
-    
+
     \item Error:
     \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item MSE = $\sum(Z-\hat{Z})^2$
-        \item RMSE = $\sqrt[]{MSE}$
-        \item MAE = $\sum|Z-\hat{Z}|$
+        \item Sum of Squares Error: $SSE=\sum(Z-\hat{Z})^2$
+        \item Maen Squared Error: $MSE=\frac{1}{n}SSE$
+        \item Root Maen Squared Error: $RMSE=\sqrt[]{MSE}$
+        \item Mean Absolute Error: $MAE=\frac{1}{n}\sum|Z-\hat{Z}|$
     \end{itemize}
+
+    \item Information Gain: $IG(y_{out}|y_{i})=E(y_{out})-E(y_{out}|y_{i})$
+
+    \item Entropy: $E(y)=-\sum P(x_i) \log(P(x_i))$
 
     \item Decision trees:
     \begin{enumerate}[topsep=0pt, itemsep=0pt]
@@ -89,14 +86,48 @@
         \item Relabel twig as a leaf. \\ Example: $B(6/11), \ \ \#B>\#A$ 
     \end{enumerate}
 
+    \item Matrix Multiplication: \\[3pt]
+    $\begin{bmatrix}
+        \ldots & \ldots & n \\
+        \ldots & \ldots & \ldots \\
+        m & \ldots & \ldots \\
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+        \ldots & \ldots & l \\
+        \ldots & \ldots & \ldots \\
+        n & \ldots & \ldots \\
+    \end{bmatrix} =
+    \begin{bmatrix}
+        \ldots & \ldots & l \\
+        \ldots & \ldots & \ldots \\
+        m & \ldots & \ldots \\
+    \end{bmatrix}$
+
+    \newpage
     \item Gaussian Distribution:
-    \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item Mean: $\displaystyle \mu=\frac{1}{n}\sum y_i$
-        \item Standard Deviation: $\displaystyle \sigma=\sqrt[]{\frac{\sum(y_i-\mu)^2}{n-1}}$
+    \begin{itemize}[topsep=0pt]
+        \item Variance: $\displaystyle var=\frac{\sum(y_i-\mu)^2}{n(-1)}$
+        \item Standard Deviation: $\displaystyle \sigma=\sqrt[]{var}$
         \item $\displaystyle  P(y|\mu,\sigma)=\frac{1}{\sqrt[]{2\pi}\cdot\sigma}\cdot\exp\left(-\frac{1}{2}\left(\frac{y-\mu}{\sigma}\right)^2\right)$
     \end{itemize}
 
-    \newpage
+    \item Gaussian Mixture:
+    \begin{itemize}[topsep=0pt]
+        \item Covariance: $\displaystyle cov(y_1,y_2)=\frac{\sum(y_{1i}-\mu_1)(y_{2i}-\mu_2)}{n(-1)}$
+        \item Covariance Matrix: $\Sigma(y_1,y_2)=
+        \begin{bmatrix}
+            var(y_1) & cov(y_1,y_2) \\
+            cov(y_1,y_2) & var(y_2) \\
+        \end{bmatrix}$
+        \item $\left\lvert\Sigma\right\rvert=
+        \begin{vmatrix}
+            a & b \\
+            c & d \\
+        \end{vmatrix}
+        = ad-bc$
+        \item $\displaystyle P(y|\mu,\Sigma)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}\cdot exp\left(-\frac{1}{2}(y-\mu)^T\Sigma^{-1}(y-\mu)\right)$
+    \end{itemize}
+
     \item Naive Bayes: 
     \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item MAP: $\displaystyle P(C|x)=\frac{P(C)P(x|C)}{P(x)}$
@@ -132,56 +163,63 @@
 
     \item Perceptron: \\
     $\hat{Z}=a(W^TX)$, \ $a  \leftarrow$ activation function \\
-    Se $Z \neq \hat{Z} \longrightarrow W^{'}=W+\eta(Z - \hat{Z})X$  
+    If $Z \neq \hat{Z} \longrightarrow W^{'}=W+\eta(Z - \hat{Z})X$  
 
     \item Neural Networks (MLP):
-    \begin{itemize}[topsep=0pt, itemsep=0pt]
+    \begin{itemize}[topsep=0pt]
         \item Forward: $x^{[0]}\rightarrow z^{[1]}=w^{[1]}x^{[0]}+b^{[1]}\rightarrow x^{[1]}=a\left(z^{[1]}\right) \rightarrow \ldots \rightarrow z^{[i]}=w^{[i]}x^{[i-1]}+b^{[i]} \rightarrow x^{[i]}=a\left(z^{[i]}\right) \rightarrow E $
         \item Backward:
-        \begin{itemize}[topsep=0pt]
+        \begin{itemize}[topsep=0pt, itemsep=3pt]
             \item $\displaystyle \delta^{[last]}=\frac{\partial E}{\partial x^{[last]}}\circ \frac{\partial x^{[last]}}{\partial z^{[last]}}$
-            \item $\displaystyle \delta^{[i]}=\left(\frac{\partial z^{[i+1]}}{\partial x^{[i]}}\right)^T\cdot\delta^{[i+1]}\circ\frac{\partial x^{[i]}}{\partial z^{[i]}}$
-            \item $\displaystyle w^{[i]'}=w^{[i]}-\eta\frac{\partial E}{\partial w^{[i]}}$
-            \item $\displaystyle \frac{\partial E}{\partial w^{[i]}}=\delta^{[i]}\cdot \left(\frac{\partial z^{[i]}}{\partial w^{[i]}}\right)^T$
-            \item $\displaystyle b^{[i]'}=b^{[i]}-\eta\frac{\partial E}{\partial b^{[i]}}$
-            \item $\displaystyle \frac{\partial E}{\partial b^{[i]}}=\delta^{[i]}$
-            \item
-            \begin{tabular}{ M{7.2em} M{7em} M{4em} }
-                $\displaystyle \frac{\partial z^{[i+1]}}{\partial x^{[i]}}=w^{[i+1]}$ &
-                $\displaystyle \frac{\partial z^{[i]}}{\partial w^{[i]}}=x^{[i-1]}$ &
-                $\displaystyle \frac{\partial z^{[i]}}{\partial b^{[i]}}=1$
-            \end{tabular}
+            \item $\displaystyle \delta^{[i]}=\left(w^{[i+1]}\right)^T\cdot\delta^{[i+1]}\circ\frac{\partial x^{[i]}}{\partial z^{[i]}}$
+            \item $\displaystyle w^{[i]'}=w^{[i]}-\eta\frac{\partial E}{\partial w^{[i]}}$ \;\;\;\, $*\ \displaystyle \frac{\partial E}{\partial w^{[i]}}=\delta^{[i]}\cdot \left(x^{[i-1]}\right)^T$
+            \item $\displaystyle b^{[i]'}=b^{[i]}-\eta\frac{\partial E}{\partial b^{[i]}}$ \;\;\;\;\;\;\;\  $*\ \displaystyle \frac{\partial E}{\partial b^{[i]}}=\delta^{[i]}$
         \end{itemize}
-        {\renewcommand{\arraystretch}{2}
-        \begin{tabular}{ | M{7em} | M{8em} | M{7em} | } \hline
-            Name & Error function & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\\hline
-            Squared Error & $\displaystyle\frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\\hline
-            Cross-entropy & $\displaystyle-\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $x^{[i]}-t$ \\\hline
+        \newpage
+        \item Derivates: \\[3pt]
+        {\renewcommand{\arraystretch}{1.6}
+        \begin{tabular}{ | M{6em} | M{8em} | M{7em} | } \hline
+            Name & Error \ \ \ \ \ \ \ function & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\\hline
+            Squared \ \ \ \ Error & $\displaystyle\frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\\hline
+            Cross-\ \ \ \ -entropy & $\displaystyle-\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $x^{[i]}-t$ \\\hline
         \end{tabular}}
-        {\renewcommand{\arraystretch}{2.2}
-        \begin{tabular}{ | M{7em} | M{7em} | M{8em} | } \hline
+        {\renewcommand{\arraystretch}{1.6}
+        \begin{tabular}{ | M{6em} | M{6em} | M{9em} | } \hline
             Name & Activation function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\\hline
-            Sigmoid & $\displaystyle \frac{1}{1+e^{-x}}$ & $\sigma(z^{[i]})(1-\sigma(z^{[i]}))$ \\\hline
-            Hyperbolic tangent & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\tanh\left(z^{[i]}\right)^2$ \\\hline
+            Sigmoid \ \ \ \ $\sigma\left(x\right)$ & $\displaystyle \frac{1}{1+e^{-x}}$ & $\sigma\left(z^{[i]}\right)\left(1-\sigma\left(z^{[i]}\right)\right)$ \\\hline
+            Hyper. tan. $\tanh\left(x\right)$ & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\tanh^2\left(z^{[i]}\right)$ \\\hline
+            ReLU \ \ \ \ $R(x)$ & $0\mbox{ if }x<0$ $x\mbox{ if }x\geq 0$ & $0\mbox{ if }x<0$ \ \ \ \ $1\mbox{ if }x\geq 0$ \\\hline
+            Softmax \ $S(x)$ & $\displaystyle \frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$ & $S\left(z^{[i]}\right)\left(1-S\left(z^{[i]}\right)\right)$ \\\hline
+        \end{tabular}}
+        {\renewcommand{\arraystretch}{1.6}
+        \begin{tabular}{ | M{6em} | M{6em} | M{9em} | } \hline
+            Name & Function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\\hline
+            & $\displaystyle e^{f(x)}$ & $e^x\times f'(x)$ \\\hline
         \end{tabular}}
     \end{itemize}
 
-    \newpage
-    \item Gaussian Mixture:
-    \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item Covariance Matrix: $\Sigma=$ 
-        \begin{bmatrix}
-            TODO & TODO \\
-            symmetric & TODO \\
-        \end{bmatrix}
-        \item $\displaystyle P(y|\mu,\Sigma)=\\\frac{1}{(2\pi)^{d/2}|\Sigma_{k}|^{1/2}}\cdot exp\left(-\frac{1}{2}(y-\mu)^T\Sigma^{-1}(u-\mu)\right)$
+    \item K-Means:
+    \begin{enumerate}[topsep=0pt, itemsep=0pt]
+        \item Assign each point to a cluster.
+        \item Update centroids: centroid$_{new}=$\ mean of cluster points
+        \item Repeat until centroids don't change.
+    \end{enumerate}
+
+    \item EM:
+    \begin{itemize}[topsep=0pt]
+        \item Initializaion: Initial mixture parameters
+        \item Expectation (E-step): \\[2pt]
+        Calculate weights for each datapoint x$_i$ for each cluster c$_k$: 
+        $\displaystyle \gamma_{ki}=\frac{\mathcal{N}(x_i|\mu_k,\Sigma_k)\cdot\pi_k}{\sum_{j = 1}^{k}\mathcal{N}(x_{i}|\mu_{j},\Sigma_{j})\cdot\pi_{j}}$
+        \item Maximization (M-step): \\[2pt]
+        Update parameters for each cluster: (for n observations)
+        \begin{itemize}
+            \item $\displaystyle N_{k}={\sum_{i=1}^{n}\gamma_{ki}}$
+            \item $\displaystyle \mu_{k}={\frac{1}{N_{k}}\sum_{i=1}^{n}\gamma_{ki}\cdot x_{i}}$
+            \item $\displaystyle \Sigma_{k} = \frac{1}{N_{k}}\sum_{i=1}^{n}\gamma_{ki} \cdot (x_{i} - \mu_{k}) \cdot (x_{i} - \mu_{k})^T$
+            \item $\displaystyle \pi_{k}={\frac{N_{k}}{N}}$
+        \end{itemize}
     \end{itemize}
-
-    \item K-Means: \\
-    TODO
-
-    \item EM: \\
-    TODO
 
 \end{itemize}
 

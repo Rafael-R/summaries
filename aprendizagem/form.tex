@@ -86,6 +86,10 @@
         \item Relabel twig as a leaf. \\ Example: $B(6/11), \ \ \#B>\#A$ 
     \end{enumerate}
 
+    \item Vector Norm: \\[2pt]
+    $\displaystyle\left\lVert x\right\rVert _p=\sqrt[p]{\sum_{i=1}^n\left\lvert x_i\right\rvert ^p}$ \;\;\;\;\; $\displaystyle\left\lVert x\right\rVert _\infty=max \left\lvert x_i\right\rvert  $
+
+    \newpage
     \item Matrix Multiplication: \\[3pt]
     $\begin{bmatrix}
         \ldots & \ldots & n \\
@@ -103,7 +107,6 @@
         m & \ldots & \ldots \\
     \end{bmatrix}$
 
-    \newpage
     \item Gaussian Distribution:
     \begin{itemize}[topsep=0pt]
         \item Variance: $\displaystyle var=\frac{\sum(y_i-\mu)^2}{n(-1)}$
@@ -176,12 +179,12 @@
             \item $\displaystyle b^{[i]'}=b^{[i]}-\eta\frac{\partial E}{\partial b^{[i]}}$ \;\;\;\;\;\;\;\  $*\ \displaystyle \frac{\partial E}{\partial b^{[i]}}=\delta^{[i]}$
         \end{itemize}
         \newpage
-        \item Derivates: \\[3pt]
+        \item Derivatives: \\[3pt]
         {\renewcommand{\arraystretch}{1.6}
         \begin{tabular}{ | M{6em} | M{8em} | M{7em} | } \hline
             Name & Error \ \ \ \ \ \ \ function & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\\hline
-            Squared \ \ \ \ Error & $\displaystyle\frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\\hline
-            Cross-\ \ \ \ -entropy & $\displaystyle-\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $x^{[i]}-t$ \\\hline
+            Squared \ \ \ \ Error & $\displaystyle \frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\\hline
+            Cross-\ \ \ \ -entropy & $\displaystyle -\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $\displaystyle -\frac{t}{x^{[i]}}+\frac{1-t}{1-x^{[i]}}$ \\\hline
         \end{tabular}}
         {\renewcommand{\arraystretch}{1.6}
         \begin{tabular}{ | M{6em} | M{6em} | M{9em} | } \hline
@@ -193,9 +196,14 @@
         \end{tabular}}
         {\renewcommand{\arraystretch}{1.6}
         \begin{tabular}{ | M{6em} | M{6em} | M{9em} | } \hline
-            Name & Function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\\hline
+            Name & Function & Derivative \\\hline
             & $\displaystyle e^{f(x)}$ & $e^x\times f'(x)$ \\\hline
-        \end{tabular}}
+        \end{tabular}} \\[4pt]
+        NOTE:
+        \begin{itemize}
+            \item When cross-entropy and softmax are combined: \\[2pt]
+            $\displaystyle \delta^{[last]}=\frac{\partial E}{\partial z^{[last]}}=x^{[last]}-t$
+        \end{itemize}
     \end{itemize}
 
     \item K-Means:
@@ -219,6 +227,20 @@
             \item $\displaystyle \Sigma_{k} = \frac{1}{N_{k}}\sum_{i=1}^{n}\gamma_{ki} \cdot (x_{i} - \mu_{k}) \cdot (x_{i} - \mu_{k})^T$
             \item $\displaystyle \pi_{k}={\frac{N_{k}}{N}}$
         \end{itemize}
+    \end{itemize}
+
+    \item Sillhouette: $\in$ [-1,1] (the closer to 1 the better)
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item For an observation x$_i$:
+        \begin{itemize}[topsep=0pt, itemsep=0pt]
+            \item $a$ = average distance of x$_i$ to the points in it's cluster
+            \item $b$ = average distance of x$_i$ to points in closest cluster
+            \item $\displaystyle s_{observation}=\frac{b-a}{max(a,b)}$
+        \end{itemize}
+        \item For a cluster: \\[2pt]
+        Average of the cluster's observations silhouettes
+        \item For the solution: \\[2pt]
+        Average of the clusters silhouettes
     \end{itemize}
 
 \end{itemize}

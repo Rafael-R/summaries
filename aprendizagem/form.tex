@@ -185,7 +185,7 @@
             \item $\displaystyle b^{[i]'}=b^{[i]}-\eta\frac{\partial E}{\partial b^{[i]}}$ \;\;\;\;\;\;\;\  $*\ \displaystyle \frac{\partial E}{\partial b^{[i]}}=\delta^{[i]}$
         \end{itemize}
         \newpage
-        \item Derivatives: \\[3pt]
+        \item Derivatives: \\[4pt]
         \begin{tblr}{
             colspec = { X[c,m]X[c,m]X[c,m] },
             hlines = {black},
@@ -194,7 +194,7 @@
             Name & {Error \\ function} & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\
             {Squared \\ Error} & $\displaystyle \frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\
             {Cross-\\-entropy} & $\displaystyle -\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $\displaystyle -\frac{t}{x^{[i]}}+\frac{1-t}{1-x^{[i]}}$ \\
-        \end{tblr}
+        \end{tblr} \\[4pt]
         \begin{tblr}{
             colspec = { X[c,m]X[c,m]X[c,m] },
             hlines = {black},
@@ -202,17 +202,10 @@
         }
             Name & Activation function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\
             {Sigmoid \\ $\sigma\left(x\right)$} & $\displaystyle \frac{1}{1+e^{-x}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
+            {ArcTan \\ $\arctan(x)$} & {$\arctan(x)$ \\ \mbox{or } $\tan^{-1}(x)$} & $\displaystyle \frac{1}{\left(x^{[i]}\right)^2+1}$ \\
             {Hyper. tan. \\ $\tanh\left(x\right)$} & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\left(x^{[i]}\right)^2$ \\
             {ReLU \\ $R(x)$} & {$0\mbox{ if }x<0$ \\ $x\mbox{ if }x\geq 0$} & {$0\mbox{ if }x<0$ \\ $1\mbox{ if }x\geq0$} \\
             {Softmax \\ $S(x)$} & $\displaystyle \frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
-        \end{tblr}
-        \begin{tblr}{
-            colspec = { X[c,m]X[c,m] },
-            hlines = {black},
-            vlines = {black},
-        }
-            Function & Derivative \\
-            $\displaystyle e^{f(x)}$ & $e^x\times f'(x)$ \\
         \end{tblr} \\[4pt]
         NOTE:
         \begin{itemize}
@@ -257,6 +250,22 @@
         \item For the solution: \\[2pt]
         Average of the clusters silhouettes
     \end{itemize}
+
+    \newpage
+    \NewColumnType{C}{>{$}Q[c,m]<{$}}
+    \item More Derivatives: \\[4pt]
+    \begin{tblr}{
+        colspec = {CC},
+        row{1} = {c},
+        hlines = {black},
+        vlines = {black},
+    }
+        \mbox{Function} & \mbox{Derivative} \\
+        u^n & n\ u^{n-1}\ u' \\
+        uv & u'v+v'u \\
+
+        e^u & e^{u}u' \\
+    \end{tblr} \\[4pt]
 
 \end{itemize}
 

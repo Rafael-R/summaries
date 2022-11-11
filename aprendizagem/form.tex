@@ -1,14 +1,10 @@
 \documentclass[twocolumn, 10pt]{article}
-\usepackage{blindtext}
-\usepackage{enumitem}
 \usepackage[a4paper, margin=10pt]{geometry}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{graphicx}
+\usepackage{enumitem}
 \usepackage{amsmath}
-\usepackage[table]{xcolor}
-
-\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tabularray}
 
 \begin{document}
 
@@ -43,13 +39,23 @@
     \end{itemize} 
 
     \item Confusion Matrix:
-    \begin{tabular}{ | M{0em} M{0.5em} | M{1.5em} M{1.5em} M{1.5em} | M{0em} M{1.5em} } \cline{1-5}
-        & & & True & & & B \\
-        & & A & B & C & & \cellcolor{green!100}TP \\\cline{1-5}
-        \multirow{3}{*}{\rotatebox[origin=c]{90}{Pred}} & A & \cellcolor{red!50}TA & \cellcolor{red!20}FA & \cellcolor{red!50}FA & & \cellcolor{red!50}TN \\
-        & B & \cellcolor{green!20}FB & \cellcolor{green!100}TB & \cellcolor{green!20}FB & & \cellcolor{green!20}FP \\
-        & C & \cellcolor{red!50}FC & \cellcolor{red!20}FC & \cellcolor{red!50}TC & & \cellcolor{red!20}FN \\\cline{1-5}
-    \end{tabular}
+    \begin{tblr}{ 
+        columns = {1.4em,c},
+        column{1,6} = {0.4em},
+        rowsep = 1pt,
+        hline{3,6} = {1-5}{black}, hline{1,4-5} = {3-5}{black},
+        vline{3,6} = {black}, vline{1,4-5} = {3-5}{black},
+        cell{4}{4} = {green7}, cell{2}{7} = {green7},
+        cell{3,5}{3,5} = {red7}, cell{3}{7} = {red7},
+        cell{4}{3,5} = {green9}, cell{4}{7} = {green9},
+        cell{3,5}{4} = {red9}, cell{5}{7} = {red9},
+    }
+        & & \SetCell[c=3]{c} True & & & & B \\
+        & & A & B & C & & TP \\
+        \SetCell[r=3]{c}\rotatebox[origin=c]{90}{Pred} & A & TA & FA & FA & & TN \\
+        & B & FB & TB & FB & & FP \\
+        & C & FC & FC & TC & & FN \\
+    \end{tblr}
 
     \item Metrics:
     \begin{itemize}[topsep=0pt, itemsep=0pt]
@@ -180,25 +186,34 @@
         \end{itemize}
         \newpage
         \item Derivatives: \\[3pt]
-        {\renewcommand{\arraystretch}{1.6}
-        \begin{tabular}{ | M{6em} | M{8em} | M{7em} | } \hline
-            Name & Error \ \ \ \ \ \ \ function & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\\hline
-            Squared \ \ \ \ Error & $\displaystyle \frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\\hline
-            Cross-\ \ \ \ -entropy & $\displaystyle -\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $\displaystyle -\frac{t}{x^{[i]}}+\frac{1-t}{1-x^{[i]}}$ \\\hline
-        \end{tabular}}
-        {\renewcommand{\arraystretch}{1.6}
-        \begin{tabular}{ | M{6em} | M{6em} | M{9em} | } \hline
-            Name & Activation function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\\hline
-            Sigmoid \ \ \ \ $\sigma\left(x\right)$ & $\displaystyle \frac{1}{1+e^{-x}}$ & $\sigma\left(z^{[i]}\right)\left(1-\sigma\left(z^{[i]}\right)\right)$ \\\hline
-            Hyper. tan. $\tanh\left(x\right)$ & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\tanh^2\left(z^{[i]}\right)$ \\\hline
-            ReLU \ \ \ \ $R(x)$ & $0\mbox{ if }x<0$ $x\mbox{ if }x\geq 0$ & $0\mbox{ if }x<0$ \ \ \ \ $1\mbox{ if }x\geq 0$ \\\hline
-            Softmax \ $S(x)$ & $\displaystyle \frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$ & $S\left(z^{[i]}\right)\left(1-S\left(z^{[i]}\right)\right)$ \\\hline
-        \end{tabular}}
-        {\renewcommand{\arraystretch}{1.6}
-        \begin{tabular}{ | M{6em} | M{6em} | M{9em} | } \hline
-            Name & Function & Derivative \\\hline
-            & $\displaystyle e^{f(x)}$ & $e^x\times f'(x)$ \\\hline
-        \end{tabular}} \\[4pt]
+        \begin{tblr}{
+            colspec = { X[c,m]X[c,m]X[c,m] },
+            hlines = {black},
+            vlines = {black},
+        }
+            Name & {Error \\ function} & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\
+            {Squared \\ Error} & $\displaystyle \frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\
+            {Cross-\\-entropy} & $\displaystyle -\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $\displaystyle -\frac{t}{x^{[i]}}+\frac{1-t}{1-x^{[i]}}$ \\
+        \end{tblr}
+        \begin{tblr}{
+            colspec = { X[c,m]X[c,m]X[c,m] },
+            hlines = {black},
+            vlines = {black},
+        }
+            Name & Activation function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\
+            {Sigmoid \\ $\sigma\left(x\right)$} & $\displaystyle \frac{1}{1+e^{-x}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
+            {Hyper. tan. \\ $\tanh\left(x\right)$} & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\left(x^{[i]}\right)^2$ \\
+            {ReLU \\ $R(x)$} & {$0\mbox{ if }x<0$ \\ $x\mbox{ if }x\geq 0$} & {$0\mbox{ if }x<0$ \\ $1\mbox{ if }x\geq0$} \\
+            {Softmax \\ $S(x)$} & $\displaystyle \frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
+        \end{tblr}
+        \begin{tblr}{
+            colspec = { X[c,m]X[c,m] },
+            hlines = {black},
+            vlines = {black},
+        }
+            Function & Derivative \\
+            $\displaystyle e^{f(x)}$ & $e^x\times f'(x)$ \\
+        \end{tblr} \\[4pt]
         NOTE:
         \begin{itemize}
             \item When cross-entropy and softmax are combined: \\[2pt]

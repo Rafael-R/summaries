@@ -96,19 +96,16 @@
     \newpage
     \item Matrix Multiplication: \\[3pt]
     $\begin{bmatrix}
-        \ldots & \ldots & n \\
-        \ldots & \ldots & \ldots \\
-        m & \ldots & \ldots \\
+        \ldots & n \\
+        m & \ldots \\
     \end{bmatrix} \cdot
     \begin{bmatrix}
-        \ldots & \ldots & l \\
-        \ldots & \ldots & \ldots \\
-        n & \ldots & \ldots \\
+        \ldots & l \\
+        n & \ldots \\
     \end{bmatrix} =
     \begin{bmatrix}
-        \ldots & \ldots & l \\
-        \ldots & \ldots & \ldots \\
-        m & \ldots & \ldots \\
+        \ldots  & l \\
+        m  & \ldots \\
     \end{bmatrix}$
 
     \item Gaussian Distribution:
@@ -126,7 +123,7 @@
             var(y_1) & cov(y_1,y_2) \\
             cov(y_1,y_2) & var(y_2) \\
         \end{bmatrix}$
-        \item $\left\lvert\Sigma\right\rvert=
+        \item $det\left\lvert\Sigma\right\rvert=det
         \begin{vmatrix}
             a & b \\
             c & d \\
@@ -144,7 +141,6 @@
         \item Calculate $P(C)$ for each class.
         \item Calculate $P(y|C)$ for each variable for each class.
         \item Calculate likelihood: $P(x|C)=P(y_1|C)\times\ldots\times P(y_d|C)$
-        \item Normalize or compare: $P(C)P(x|C)$
     \end{enumerate}
     
     \item K-Nearest Neighbors:

@@ -159,15 +159,18 @@
         or mode if it is categoric.
     \end{enumerate}
 
-    \item Regressions:
+    \item Regressions: \; $\hat{z}=Xw=(w^TX^T)^T$
     \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item Linear: $W=(X^TX)^{-1}X^TZ$
-        \item Ridge: $W=(X^TX+\lambda I)^{-1}X^TZ$
+        \item Linear: $y=w_0+w_1x$
+        \item Polynomial: $w=(X^TX)^{-1}X^Tz$
+        \item Ridge: $w=(X^TX+\lambda I)^{-1}X^Tz$
     \end{itemize}
 
     \item Perceptron: \\
-    $\hat{Z}=a(W^TX)$, \ $a  \leftarrow$ activation function \\
-    If $Z \neq \hat{Z} \longrightarrow W^{'}=W+\eta(Z - \hat{Z})X$  
+    $\hat{z}=a(w^Tx)$, \ $a  \leftarrow$ activation function \\[2pt]
+    Gradient Descent: \\
+    $w^{new}=w^{old}+\Delta w$ \; where \; 
+    $\displaystyle \Delta w=-\eta\frac{\partial E}{\partial w}$
 
     \item Neural Networks (MLP):
     \begin{itemize}[topsep=0pt]
@@ -198,9 +201,10 @@
             Name & Activation function & $\displaystyle \frac{\partial x^{[i]}}{\partial z^{[i]}}$ \\
             {Sigmoid \\ $\sigma\left(x\right)$} & $\displaystyle \frac{1}{1+e^{-x}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
             {ArcTan \\ $\arctan(x)$} & {$\arctan(x)$ \\ \mbox{or } $\tan^{-1}(x)$} & $\displaystyle \frac{1}{\left(x^{[i]}\right)^2+1}$ \\
-            {Hyper. tan. \\ $\tanh\left(x\right)$} & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\left(x^{[i]}\right)^2$ \\
-            {ReLU \\ $R(x)$} & {$0\mbox{ if }x<0$ \\ $x\mbox{ if }x\geq 0$} & {$0\mbox{ if }x<0$ \\ $1\mbox{ if }x\geq0$} \\
-            {Softmax \\ $S(x)$} & $\displaystyle \frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
+            Hyperbolic tangent & $\displaystyle \frac{e^x-e^{-x}}{e^x+e^{-x}}$ & $1-\left(x^{[i]}\right)^2$ \\
+            ReLU & {$0\mbox{ if }x<0$ \\ $x\mbox{ if }x\geq 0$} & {$0\mbox{ if }x^{[i]}<0$ \\ $1\mbox{ if }x^{[i]}\geq0$} \\
+            Softmax & $\displaystyle \frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$ & $x^{[i]}\left(1-x^{[i]}\right)$ \\
+            Sign & {$1\mbox{ if }x\geq 0$ \\ $0\mbox{ if }x<0$} & \\
         \end{tblr} \\[4pt]
         NOTE:
         \begin{itemize}

@@ -8,19 +8,9 @@
 \usepackage{mathtools}
 
 \newenvironment{nsflalign*}
-    {\setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{0pt}%
+    {\setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{0pt}
         \csname flalign*\endcsname}
     {\csname endflalign*\endcsname\ignorespacesafterend}
-
-\newcommand{\twopartdef}[2]
-{
-	\left\{
-		\begin{array}{ll}
-			#1 \\
-			#2 
-		\end{array}
-	\right.
-}
 
 \NewColumnType{C}{>{$}Q[c,m]<{$}}
 
@@ -85,10 +75,13 @@
         \item F$_1$ = $\displaystyle \frac{TP}{TP+\frac{1}{2}(FP+FN)}$
     \end{itemize}
 
-    \item Error: \\
-    Sum of Squares Error: $\sum(z-\hat{z})^2$ \\
-    Root Maen Squared Error: $\sqrt[]{\frac{1}{n}SSE}$ \\
-    Mean Absolute (Percentage) Error: $\displaystyle \frac{1}{n}\sum|\frac{z-\hat{z}}{(z)}|$
+    \item Error:
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Sum of Squares Error: $\sum(z-\hat{z})^2$
+        \item Root Maen Squared Error: $\sqrt[]{\frac{1}{n}SSE}$
+        \item Mean Absolute (Percentage) Error: $\displaystyle \frac{1}{n} 
+              \sum\left\lvert \frac{z-\hat{z}}{(z)}\right\rvert$
+    \end{itemize}
 
     \item Information Gain: $IG(class|y_i)=E(class)-E(class|y_i)$
 
@@ -109,7 +102,7 @@
     \end{enumerate}
 
     \item Vector Norm: \\[2pt]
-    $\displaystyle\left\lVert x\right\rVert _p=\sqrt[p]{\sum_{i=1}^n\left\lvert x_i\right\rvert ^p}$ \;\;\;\;\; $\displaystyle\left\lVert x\right\rVert _\infty=max \left\lvert x_i\right\rvert  $
+    $\displaystyle\left\lVert x\right\rVert _p=\sqrt[p]{\sum\left\lvert x_i\right\rvert ^p}$ \;\;\;\;\; $\displaystyle\left\lVert x\right\rVert _\infty=max \left\lvert x_i\right\rvert$
 
     \newpage
     \item Matrix Multiplication: \\[3pt]
@@ -191,7 +184,7 @@
     $\displaystyle \Delta w=-\eta\frac{\partial E}{\partial w}$
 
     \item Neural Networks (MLP):
-    \begin{itemize}[topsep=0pt]
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item Forward: $x^{[0]}\rightarrow z^{[1]}=w^{[1]}x^{[0]}+b^{[1]}\rightarrow x^{[1]}=a\left(z^{[1]}\right) \rightarrow \ldots \rightarrow z^{[i]}=w^{[i]}x^{[i-1]}+b^{[i]} \rightarrow x^{[i]}=a\left(z^{[i]}\right)$
 
         \item Backward:
@@ -204,7 +197,7 @@
         \newpage
 
         \item Multiple observations:
-        \begin{enumerate}
+        \begin{enumerate}[topsep=0pt, itemsep=0pt]
             \item Apply forward propagation for each observation.
             \item Calculate $\delta_i^{[l]}$ for each observation.
             \item $\displaystyle \frac{\partial E}{\partial w^{[l]}} = 
@@ -290,14 +283,14 @@
 
     \newpage
     \item EM:
-    \begin{itemize}[topsep=0pt]
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item Initializaion: Initial mixture parameters
         \item Expectation (E-step): \\[2pt]
-        Calculate weights for each datapoint x$_i$ for each cluster c$_k$: 
+        Calculate weights for each datapoint x$_i$ for each cluster c$_k$: \\[2pt]
         $\displaystyle \gamma_{ki}=\frac{\mathcal{N}(x_i|\mu_k,\Sigma_k)\cdot\pi_k}{\sum_{j = 1}^{k}\mathcal{N}(x_{i}|\mu_{j},\Sigma_{j})\cdot\pi_{j}}$
         \item Maximization (M-step): \\[2pt]
         Update parameters for each cluster: (for n observations)
-        \begin{itemize}
+        \begin{itemize}[topsep=0pt, itemsep=0pt]
             \item $\displaystyle N_{k}={\sum_{i=1}^{n}\gamma_{ki}}$
             \item $\displaystyle \mu_{k}={\frac{1}{N_{k}}\sum_{i=1}^{n}\gamma_{ki}\cdot x_{i}}$
             \item $\displaystyle \Sigma_{k} = \frac{1}{N_{k}}\sum_{i=1}^{n}\gamma_{ki} \cdot (x_{i} - \mu_{k}) \cdot (x_{i} - \mu_{k})^T$
@@ -309,7 +302,7 @@
     $\displaystyle ax^2+bx+c=0 \;\Rightarrow\; x=\frac{-b\pm\sqrt[]{b^2-4ac}}{2a}$
 
     \item PCA: \; $\Sigma u=(\lambda I) u$
-    \begin{itemize}[topsep=0pt]
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item $\Sigma$: Covariance Matrix
         \item $I$: Identity Matrix
         \item Eigenvalue ($\lambda$):\;
@@ -368,7 +361,7 @@
     \end{itemize}
 
     \item Model complexity:
-    \begin{itemize}[topsep=0pt]
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item Perceptron with $d$ inputs: $d+1$
         \item Tree with $d$ features que tomam $n$ valores: $\displaystyle n^d$
         \item MLP: estimated by the number of weights

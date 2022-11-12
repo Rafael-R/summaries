@@ -67,17 +67,15 @@
         \item F$_1$ = $\displaystyle \frac{TP}{TP+\frac{1}{2}(FP+FN)}$
     \end{itemize}
 
-    \item Error:
-    \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item Sum of Squares Error: $SSE=\sum(Z-\hat{Z})^2$
-        \item Maen Squared Error: $MSE=\frac{1}{n}SSE$
-        \item Root Maen Squared Error: $RMSE=\sqrt[]{MSE}$
-        \item Mean Absolute Error: $MAE=\frac{1}{n}\sum|Z-\hat{Z}|$
-    \end{itemize}
+    \item Error: \\
+    Sum of Squares Error: $\sum(z-\hat{z})^2$ \\
+    Root Maen Squared Error: $\sqrt[]{\frac{1}{n}SSE}$ \\
+    Mean Absolute (Percentage) Error: $\displaystyle \frac{1}{n}\sum|\frac{z-\hat{z}}{(z)}|$
 
-    \item Information Gain: $IG(y_{out}|y_{i})=E(y_{out})-E(y_{out}|y_{i})$
+    \item Information Gain: $IG(class|y_i)=E(class)-E(class|y_i)$
 
-    \item Entropy: $E(y)=-\sum P(x_i) \log(P(x_i))$
+    \item Entropy: $\displaystyle E(y)=\sum_{i=1}^{k} \frac{|y_i|}{|y|}
+                                       \sum_{j=1}^{n} -P(y_{ij})\log(P(y_{ij}))$
 
     \item Decision trees:
     \begin{enumerate}[topsep=0pt, itemsep=0pt]
@@ -87,9 +85,9 @@
     \end{enumerate}
     Prune: (Given a twig)
     \begin{enumerate}[topsep=0pt, itemsep=0pt]
-        \item Count it's leaves labels. \\ Example: $\#A=5, \ \#B=6$
+        \item Count it's leaves labels. \; Example: $\#A=5, \ \#B=6$
         \item Remove it's leaves.
-        \item Relabel twig as a leaf. \\ Example: $B(6/11), \ \ \#B>\#A$ 
+        \item Relabel twig as a leaf. \; Example: $B(6/11), \ \ \#B>\#A$ 
     \end{enumerate}
 
     \item Vector Norm: \\[2pt]

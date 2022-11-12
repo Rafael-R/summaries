@@ -143,9 +143,10 @@
         \item ML: $\displaystyle P(C|x)=P(x|C)$
     \end{itemize}
     \begin{enumerate}[topsep=0pt, itemsep=0pt]
-        \item Calculate probability for each class.
-        \item Calculate $P(x|C)$ for each attribute and each class.
-        \item TODO
+        \item Calculate $P(C)$ for each class.
+        \item Calculate $P(y|C)$ for each variable for each class.
+        \item Calculate likelihood: $P(x|C)=P(y_1|C)\times\ldots\times P(y_d|C)$
+        \item Normalize or compare: $P(C)P(x|C)$
     \end{enumerate}
     
     \item K-Nearest Neighbors:
@@ -158,10 +159,10 @@
             {\sqrt[]{\sum y_{1i}^2}\ \sqrt[]{\sum y_{2i}^2}}$
             \item Hamming: \#Differences
         \end{itemize}
+        \item If weighted, for each variable multiply by weight.
         \item Choose K nearest neighbors.
         \item Classify using mean if variable is numeric, \\
         or mode if it is categoric.
-        \item If weighted, divide by weight.
     \end{enumerate}
 
     \item Regressions:
@@ -217,7 +218,7 @@
     \item K-Means:
     \begin{enumerate}[topsep=0pt, itemsep=0pt]
         \item Assign each point to a cluster.
-        \item Update centroids: centroid$_{new}=$\ mean of cluster points
+        \item Update centroids: centroid$_{new}=\mu$\ of cluster's points
         \item Repeat until centroids don't change.
     \end{enumerate}
 
@@ -263,9 +264,61 @@
         \mbox{Function} & \mbox{Derivative} \\
         u^n & n\ u^{n-1}\ u' \\
         uv & u'v+v'u \\
-
         e^u & e^{u}u' \\
     \end{tblr} \\[4pt]
+
+    \item PCA: \\[2pt]
+    $C u_i=(\lambda_iI) u_i$
+    \begin{itemize}[topsep=0pt]
+        \item $C$: Covariance Matrix
+        \item $I$: Identity Matrix
+        \item Eigenvector ($u$): $(C-\lambda I)u=\vec{0}$
+        \item Eigenvalue ($\lambda$): $det\left\lvert C-\lambda I\right\rvert=0$
+        \item Higher eigenvalue means more variation
+    \end{itemize}
+    Example:
+    \begin{flalign*}
+        \left(\begin{bmatrix}
+            1.333 & 0.667 \\
+            0.667 & 1.667 \\
+        \end{bmatrix} - 
+        \begin{bmatrix}
+            2.187 & 0 \\
+            0 & 2.187 \\
+        \end{bmatrix}\right)
+        \begin{bmatrix}
+            x_1 \\
+            x_2 \\
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            0 \\
+            0 \\
+        \end{bmatrix} \Leftrightarrow \\
+        \begin{bmatrix}
+            0.854 & 0.667 \\
+            0.667 & 0.52  \\
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1 \\
+            x_2 \\
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            0 \\
+            0 \\
+        \end{bmatrix} \Leftrightarrow \\
+    \end{flalign*}
+
+    \item Model complexity:
+    \begin{itemize}[topsep=0pt]
+        \item Perceptron with $d$ inputs: $d+1$
+        \item Tree with $d$ features que tomam $n$ valores: $\displaystyle n^d$
+        \item MLP: estimated by the number of weights
+        \item Bayesian Classifier: estimated by the number of parameters
+        \begin{itemize}[topsep=0pt, itemsep=0pt]
+            \item With $c$ classes: $c-1\ priors$
+            \item With $d$ dimension: $\displaystyle (d\ averages+\frac{d(d+1)}{2}\Sigma)\times c$
+        \end{itemize}
+    \end{itemize}
 
 \end{itemize}
 

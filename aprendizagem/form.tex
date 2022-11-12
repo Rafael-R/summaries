@@ -251,11 +251,9 @@
         vlines = {black},
     }
         \mbox{Function} & \mbox{Derivative} \\
-        k & 0 \\
-        x & 1 \\
-        u^n & n\ u^{n-1}\ u' \\
-        uv & u'v+v'u \\
-        e^u & e^{u}u' \\
+        x\pm y & x'\pm y'\\
+        xy & x'y+y'x \\
+        \displaystyle\frac{x}{y} & \displaystyle\frac{xy'+y'x}{y^2} \\
     \end{tblr}
     \begin{tblr}{
         colspec = {CC},
@@ -264,11 +262,9 @@
         vlines = {black},
     }
         \mbox{Function} & \mbox{Derivative} \\
-        k & 0 \\
-        x & 1 \\
-        u^n & n\ u^{n-1}\ u' \\
-        uv & u'v+v'u \\
-        e^u & e^{u}u' \\
+        f(x)^a & af(x)^{a-1}f'(x) \\
+        a^{f(x)} & a^{f(x)}f'(x)\ln a \\
+        \log_a f(x) & \displaystyle\frac{f'(x)}{f(x)\ln a} \\
     \end{tblr}
 
     \item K-Means:

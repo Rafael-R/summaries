@@ -77,16 +77,17 @@
 
     \item Error:
     \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item Sum of Squares Error: $\sum(z-\hat{z})^2$
-        \item Root Maen Squared Error: $\sqrt[]{\frac{1}{n}SSE}$
+        \item Sum of Squares Error: $\displaystyle \sum(z-\hat{z})^2$
+        \item Root Maen Squared Error: $\displaystyle \sqrt[]{\frac{1}{n}SSE}$
         \item Mean Absolute (Percentage) Error: $\displaystyle \frac{1}{n} 
               \sum\left\lvert \frac{z-\hat{z}}{(z)}\right\rvert$
     \end{itemize}
 
-    \item Information Gain: $IG(class|y_i)=E(class)-E(class|y_i)$
+    \item $\displaystyle IG(y)=E(class)-\sum\frac{|class_v|}{|class|}E(class_v)\ , \;\;
+           v \in \mbox{Values of } y$
 
-    \item Entropy: $\displaystyle E(y)=\sum_{i=1}^{k} \frac{|y_i|}{|y|}
-                                       \sum_{j=1}^{n} -P(y_{ij})\log(P(y_{ij}))$
+    \item $\displaystyle E(y)=-\sum P(y_c)\log_2 P(y_c)\ , \;\; 
+           c \in \mbox{Values of } class$
 
     \item Decision trees:
     \begin{enumerate}[topsep=0pt, itemsep=0pt]

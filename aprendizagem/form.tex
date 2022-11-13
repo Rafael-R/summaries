@@ -86,7 +86,7 @@
     \item $\displaystyle IG(y)=E(class)-\sum\frac{|class_v|}{|class|}E(class_v)\ , \;\;
            v \in \mbox{Values of } y$
 
-    \item $\displaystyle E(y)=-\sum P(y_c)\log_2 P(y_c)\ , \;\; 
+    \item $\displaystyle E(y)=-\sum P(y_c)\log_2 (P(y_c))\ , \;\; 
            c \in \mbox{Values of } class$
 
     \item Decision trees:
@@ -198,7 +198,7 @@
         \newpage
 
         \item Multiple observations:
-        \begin{enumerate}[topsep=0pt, itemsep=0pt]
+        \begin{enumerate}[topsep=0pt]
             \item Apply forward propagation for each observation.
             \item Calculate $\delta_i^{[l]}$ for each observation.
             \item $\displaystyle \frac{\partial E}{\partial w^{[l]}} = 
@@ -215,7 +215,7 @@
         }
             Name & {Error \\ function} & $\displaystyle \frac{\partial E}{\partial x^{[i]}}$ \\
             {Squared \\ Error} & $\displaystyle \frac{1}{2}\left(x^{[i]}-t\right)^2$ & $x^{[i]}-t$ \\
-            {Cross-\\-entropy} & $\displaystyle -\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $\displaystyle -\frac{t}{x^{[i]}}+\frac{1-t}{1-x^{[i]}}$ \\
+            {Cross-\\-entropy} & $\displaystyle -\sum_{i=1}^{n}t_{i}\log\left(x_{i}^{[i]}\right)$ & $\displaystyle \frac{x^{[i]}-t}{x^{[i]}\left(1-x^{[i]}\right)}$ \\
         \end{tblr} \\[4pt]
         \begin{tblr}{
             colspec = { X[c,m]X[c,m]X[c,m] },
@@ -245,6 +245,7 @@
         vlines = {black},
     }
         \mbox{Function} & \mbox{Derivative} \\
+        ax & a \\
         x\pm y & x'\pm y'\\
         xy & x'y+y'x \\
         \displaystyle\frac{x}{y} & \displaystyle\frac{xy'+y'x}{y^2} \\
@@ -256,6 +257,7 @@
         vlines = {black},
     }
         \mbox{Function} & \mbox{Derivative} \\
+        f[g(x)] & f'[g(x)]\times g'(x) \\
         f(x)^a & af(x)^{a-1}f'(x) \\
         a^{f(x)} & a^{f(x)}f'(x)\ln a \\
         \log_a f(x) & \displaystyle\frac{f'(x)}{f(x)\ln a} \\
@@ -277,9 +279,9 @@
             \item $\displaystyle s_{observation}=\frac{b-a}{max(a,b)}$
         \end{itemize}
         \item For a cluster: \\[2pt]
-        Average of the cluster's observations silhouettes
+        Average of the cluster's observations silhouettes.
         \item For the solution: \\[2pt]
-        Average of the clusters silhouettes
+        Average of the solutions's clusters silhouettes.
     \end{itemize}
 
     \newpage
@@ -287,7 +289,7 @@
     \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item Initializaion: Initial mixture parameters
         \item Expectation (E-step): \\[2pt]
-        Calculate weights for each datapoint x$_i$ for each cluster c$_k$: \\[2pt]
+        Calculate weights for observation x$_i$ for each cluster c$_k$: \\[2pt]
         $\displaystyle \gamma_{ki}=\frac{\mathcal{N}(x_i|\mu_k,\Sigma_k)\cdot\pi_k}{\sum_{j = 1}^{k}\mathcal{N}(x_{i}|\mu_{j},\Sigma_{j})\cdot\pi_{j}}$
         \item Maximization (M-step): \\[2pt]
         Update parameters for each cluster: (for n observations)
@@ -361,15 +363,17 @@
         
     \end{itemize}
 
-    \item Model complexity:
+    \item Model complexity: ($n$ observations, $m$ number of features)
     \begin{itemize}[topsep=0pt, itemsep=0pt]
-        \item Perceptron with $d$ inputs: $d+1$
-        \item Tree with $d$ features que tomam $n$ valores: $\displaystyle n^d$
+        \item K-Nearest Neighbors: $n\times m$
+        \item Regressions: $m$
+        \item Perceptron: $m+1$
+        \item Tree with $m$ features that assume $n$ values: $\displaystyle n^m$
         \item MLP: estimated by the number of weights
-        \item Bayesian Classifier: estimated by the number of parameters
+        \item Bayesian Classifier: estimated by the \#parameters
         \begin{itemize}[topsep=0pt, itemsep=0pt]
             \item With $c$ classes: $c-1\ priors$
-            \item With $d$ dimension: $\displaystyle (d\ averages+\frac{d(d+1)}{2}\Sigma)\times c$
+            \item With $m$ features: $\displaystyle (m\ averages+\frac{m(m+1)}{2}\Sigma)\times c$
         \end{itemize}
     \end{itemize}
 

@@ -79,8 +79,8 @@
     \begin{itemize}[topsep=0pt, itemsep=0pt]
         \item Sum of Squares Error: $\displaystyle \sum(z-\hat{z})^2$
         \item Root Maen Squared Error: $\displaystyle \sqrt[]{\frac{1}{n}SSE}$
-        \item Mean Absolute (Percentage) Error: $\displaystyle \frac{1}{n} 
-              \sum\left\lvert \frac{z-\hat{z}}{(z)}\right\rvert$
+        \item Mean Absolute [Percentage] Error: $\displaystyle \frac{1}{n} 
+              \sum\left\lvert \frac{z-\hat{z}}{[z]}\right\rvert$
     \end{itemize}
 
     \item $\displaystyle IG(y)=E(class)-\sum\frac{|class_v|}{|class|}E(class_v)\ , \;\;
@@ -122,14 +122,14 @@
 
     \item Gaussian Distribution:
     \begin{itemize}[topsep=0pt]
-        \item Variance: $\displaystyle var=\frac{\sum(y_i-\mu)^2}{n(-1)}$
+        \item Variance: $\displaystyle var=\frac{\sum(y_i-\mu)^2}{n[-1]}$
         \item Standard Deviation: $\displaystyle \sigma=\sqrt[]{var}$
         \item $\displaystyle  P(y|\mu,\sigma)=\frac{1}{\sqrt[]{2\pi}\cdot\sigma}\cdot\exp\left(-\frac{1}{2}\left(\frac{y-\mu}{\sigma}\right)^2\right)$
     \end{itemize}
 
     \item Gaussian Mixture:
     \begin{itemize}[topsep=0pt]
-        \item Covariance: $\displaystyle cov(y_1,y_2)=\frac{\sum(y_{1i}-\mu_1)(y_{2i}-\mu_2)}{n(-1)}$
+        \item Covariance: $\displaystyle cov(y_1,y_2)=\frac{\sum(y_{1i}-\mu_1)(y_{2i}-\mu_2)}{n[-1]}$
         \item Covariance Matrix: $\Sigma(y_1,y_2)=
         \begin{bmatrix}
             var(y_1) & cov(y_1,y_2) \\
@@ -319,7 +319,7 @@
             \begin{bmatrix} -0.690^{-1} \\ 0.723^{-1} \end{bmatrix} \\ =&
             \begin{bmatrix} -0.084 \\ 0.088 \end{bmatrix} \circ
             \begin{bmatrix} -0.690^{-1} \\ 0.723^{-1} \end{bmatrix} \\ =&
-            \begin{bmatrix} 1.122 \\ 1.122 \end{bmatrix}
+            \begin{bmatrix} 0.122 \\ 0.122 \end{bmatrix}
         \end{nsflalign*}
         \item Eigenvector ($u$):\;
             $(\Sigma-\lambda I)u=\vec{0}$ \\

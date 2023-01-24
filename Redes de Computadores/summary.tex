@@ -8,6 +8,7 @@
 \usepackage{mathtools}
 
 \graphicspath{ {./images/} }
+\setlength{\parindent}{0pt}
 
 \begin{document}
 
@@ -72,21 +73,13 @@ Packet Switching é excelente para comunicação bursty, cujas necessidade de re
 
 \subsection{Protocol Layers}
 
-To provide structure to the design of network protocols, network designers organize them in layers. \\
+To provide structure to the design of network protocols, network designers organize them in layers.
+
 Each layer provides its service by (1) performing certain actions within
-that layer and by (2) using the services of the layer directly below it.
-\vspace{0.5cm} \\
+that layer and by (2) using the services of the layer directly below it. \\
+
 Advantage → Layering provides a structured way to discuss system components. \\
 Disadvantage → One layer may duplicate lower-layer functionality. \\
-
-\begin{tabular}{ | c | }
-    \hline Application \\
-    \hline Transport \\
-    \hline Network \\
-    \hline Link \\
-    \hline Physical \\ 
-    \hline
-\end{tabular}
 
 \newpage
 
@@ -102,27 +95,89 @@ An application-layer protocol is distributed over multiple end systems, with the
 
 \begin{itemize}
     \item Client-Server Architecture:
-        \begin{itemize}
-            \item One host (server) to many hosts (clients).
-            \item Clients do not directly communicate with each other.
-            \item The server has a fixed, well-known IP address, meaning a client can always contact the server.
+        \begin{itemize}[topsep=0pt]
+            \item Um host (servidor) para vários hosts (clientes).
+            \item Servidor sempre ligado, com endereço IP permanente.
+            \item Clientes não precisam de estar conectados continuamente, podem utilizar IPs dinâmicos.
+            \item Clientes não comunicam diretamente entre eles.
+            \item Escalável com server farms.
         \end{itemize}
     \item P2P Architecture:
-        \begin{itemize}
-            \item Scalable
-            \item Hard to manage
+        \begin{itemize}[topsep=0pt]
+            \item Não há servidor sempre ligado, peers comunicam entre si diretamente.
+            \item Peers não precisam de estar conectados continuamente e podem mudar de IP.
+            \item Bastante escalável, mas díficil de gerir.
         \end{itemize}
+    \item Híbrido \\
+        Exemplo do Skype: Servidor dá aos clientes os endereços, mas chamadas voz são feitas diretamente entre os clientes utilizando uma aplicação Voice-over-IP P2P.
 \end{itemize}
 
 \subsubsection{Processes Communicating}
 
-\subsection{The Web and HTTP (Port 80)}
+\subsection{The Web and HTTP [Port 80]}
 
-\subsubsection{Overview of HTTP}
+É o protocolo da Camada de Aplicação usado na WWW (World Wide Web), usando o protocolo TCP da Camada de Transporte. Existem várias versões:
+
+\begin{itemize}
+    \item HTTP 1.0
+        \begin{itemize}[topsep=0pt]
+            \item Versão não persistente.
+            \item Cada objeto transferido exige a criação e uso de uma sessão de TCP diferente.
+        \end{itemize}
+    \item HTTP 1.1
+        \begin{itemize}[topsep=0pt]
+            \item Versão persistente, permitindo a transferência de vários objetos na mesma sessão de TCP.
+            \item Permite pipelining - se existem referências a um dado objeto numa dada transferência, o cliente pode pedi-los imediatamente, em vez de ter de esperar pela resposta de um pedido antes de fazer o próximo.
+        \end{itemize}
+    \item HTTP 2.0
+        \begin{itemize}[topsep=0pt]
+            \item redução dos overheads dos cabeçalhos (são usados códigos para representar o conteúdo dos pedidos e respostas).
+            \item permite que várias tabs de um dado browser partilhem a mesma ligação TCP.
+            \item \textbf{Server Push}: O servidor analisa o HTML e vê que outros ficheiros são necessários (e consequentemente, serão pedidos) e envia-os assim que possível, não sendo necessário um pedido por parte do utilizador.
+            \item \textbf{Mitigação de HOL blocking}: Os objetos são divididos em pacotes e a transferência é intercalada, de forma a transmitir os ficheiros mais pequenos primeiro.
+        \end{itemize}
+    \item HTTP 3.0
+        \begin{itemize}[topsep=0pt]
+            \item Invés do protocolo de comunicação, usa-se o protocolo QUIC - mistura do protocolo UDP com algumas diferenças e com encriptação.
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{Non-Persistent and Persistent Connections}
 
+\begin{itemize}
+    \item Non-Persistent Connection: \\
+        Cada par pedido/resposta é feito numa ligação TCP diferente.
+        \begin{itemize}[topsep=0pt]
+            \item 2 RTT por objeto HTML. 
+            \item $2+2N\ RTT$
+        \end{itemize}
+    \item Persistent Connection: \\
+        Todos os pares pedido/resposta são feitos na mesma ligação TCP.
+        \begin{itemize}[topsep=0pt, itemsep=0pt]
+            \item 2 RTT para o primeiro objeto HTML.
+            \item 1 RTT para os restantes objetos.
+            \item $2+N\ RTT$
+        \end{itemize}
+\end{itemize}
+
+Com pipelining:
+
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item 1 RTT para todos os objetos referenciados.
+    \item $2+1\ RTT$
+\end{itemize}
+
 \subsubsection{HTTP Message Format}
+
+Response status:
+\begin{itemize}
+    \item 200 OK - O pedido teve sucesso. O objeto pedido está no fim da mensagem;
+    \item 301 Moved Permanently - O objeto pedido trocou de sítio. A sua nova localização está no header Location;
+    \item 400 Bad Request - O servidor não entendeu o pedido porque o pedido tem erros;
+    \item 404 Not Found - O documento pedido não se encontra no servidor;
+    \item 500 Internal Server Error - Erro do servidor;
+
+\end{itemize}
 
 \subsubsection{User-Client Interaction: Cookies}
 
@@ -136,9 +191,35 @@ O servidor envia cookies (cookie header) na resposta HTTP.
 Quando é solicitado um objeto que o browser já tem guardado em cache, o browser envia um GET condicional ao servidor, para verificar que a cópia guardada em cache está atualizada. \par
 O servidor responde, mas caso não tenha sido modificado, o objeto não é enviado de modo a poupar bandwidth e melhorar o desempenho.
 
-\subsection{Electronic Mail in the Internet [Port 25]}
+\subsection{Electronic Mail in the Internet}
 
-\subsubsection{SMTP}
+Os clientes compõem mensagens de e-mail que são transmitidas usando o protocolo SMTP para o servidor que hospeda os e-mails. \\
+Depois, ainda através do protocolo SMTP, os e-mails são transmitidos pela internet até chegarem ao servidor que hospeda o endereço de destino. \\
+Finalmente, este servidor entrega o e-mail usando o protocolo Mail Access.
+
+\subsubsection{SMTP [TCP Port 25]}
+
+Este protocolo é muito simples, apenas contendo 5 comandos:
+
+\begin{itemize}
+    \item HELO ou EHLO - serve para dois servidores SMTP estabelecerem uma ligação entre sí;
+    \item MAIL FROM - indica quem é o remetente (quem envia) do e-mail;
+    \item RCPT TO - indica o destinatário do e-mail;
+    \item DATA - indica os dados que se pretendem enviar;
+    \item QUIT - fecha a ligação;
+\end{itemize}
+
+O protocolo apenas olha para o cabeçalho e apenas aceita caracteres ASCII de 7 bits.
+
+\subsubsection{Mail Access Protocols}
+
+Os protocolos usado pela aplicação de leitura de e-mail quando se liga ao servidor onde as mensagens estão armazenadas são:
+
+\begin{itemize}
+    \item Post Office Protocol - Version 3 (POP3)
+    \item Internet Mail Access Protocol (IMAP)
+    \item HTTP
+\end{itemize}
 
 \subsubsection{Comparison with HTTP}
 
@@ -250,10 +331,59 @@ The Internet's transport layer transports application-layer messages between app
     \item Quando recebe datagrama UDP, entrega ao socket com esse IP:porto
     \item Sem ligações nem garantias de ordem ou entrega
     \item Sem controlo de congestão
-    \item Checksum (opcional): %TODO
+    \item Checksum (opcional):
+
+    Este campo dos segmentos serve para detetar erros num dado segmento transmitido.
+    Quando o segmento é enviado, o emissor calcula e guarda a soma dos dois endereços IP enviados (considerados números para ser possível fazer a soma) no campo Checksum.
+
+    Quando o segmento é recebido, o recetor faz a mesma soma e verifica-se se o resultado é igual ao valor que está no campo Checksum.
+
+    Se tiver existido alguma corrupção, ou seja, pelo menos algum bit que tenha sido mal transmitido, a soma dará um valor diferente e então o erro será detetado.
+    Se for esse o caso, o pacote é apenas ignorado/dropped (no caso de TCP, o segmento seria antes pedido novamente ao emissor).
+    
+    Contudo, este sistema continua a não ser muito confiável - podem existir várias combinações de erros que gerem a mesma soma e um erro pode também estar no checksum.
+    
+    Uma melhoria que se pode fazer é considerar mais valores para o cálculo da soma do checksum, de forma a aumentar a entropia do erro - pode-se, por exemplo, também considerar valores dos cabeçalhos de outras camadas.
 \end{itemize}
 
 Headers pequenos, é simples e rápido. Usado para streaming, DNS e SNMP.
+
+\subsection{Reliable Data Transfer (RDT)}
+
+\subsubsection{Stop-and-Wait}
+
+Protocolo de janela deslizante em que a janela de transmissão tem dimensão igual a 1, e janela de receção também tem dimensão igual a 1.
+
+Eficiência de utilização de linha: 
+$\displaystyle \frac{\frac{L}{R}}{\frac{L}{R}+RTT}$
+
+\subsubsection{Sliding Window}
+
+Este esquema tem uma "janela" de tempo onde se podem enviar pacotes.\\
+Depois dessa janela acabar (ou seja, quando se chegar ao limite de N pacotes pendentes), espera-se pela receção de pelo menos um pacote para poder enviar mais.\\
+O ideal seria dimensionar o envio de tal forma que não exista tempo perdido.\\
+Contudo, ainda podem existir vários tipos de perdas, como apresentado no RDT 3.0.
+Para resolver esses problemas, existem "sub-protocolos".
+
+\subsubsection*{Go-Back-N (GBN)}
+
+Go-back-N é um protocolo em que a janela de transmissão pode ter dimensão $N>1$, mas a janela de receção tem sempre dimensão = 1.
+
+\begin{itemize}
+    \item Emissor pode ter até N pacotes enviados à espera de ACK.
+    \item ACKs são cumulativos $\left(ACKn \Leftrightarrow  ACK1, ACK2, \cdots, ACKn\right)$
+    \item Timer para pacote sem ACK enviado há mais tempo, se expira \textbf{reenvia todos os pacotes seguintes} contidos na janela.
+\end{itemize}
+
+\subsubsection*{Selective Repeat (SR)}
+
+Selective Repeat é um protocolo em que a janela de transmissão tem a mesma dimensão da janela de receção.
+
+\begin{itemize}
+    \item Emissor pode ter até N pacotes na janela.
+    \item ACKs individuais, não cumulativos.
+    \item Um timer por pacote unACKed enviado, quando o tempo expira só reenvia esse pacote.
+\end{itemize}
 
 \subsection{Transmission Control Protocol (TCP)}
 
@@ -261,7 +391,6 @@ Headers pequenos, é simples e rápido. Usado para streaming, DNS e SNMP.
     \item Um socket TCP é identificado pelo tuplo: (src IP, src port, dest IP, dest port)
     \item Há 1 socket por ligação (cliente), cada uma abre um socket novo.
     \item Entrega fiável e ordenada.
-    \item 
 \end{itemize}
 
 \newpage
@@ -285,7 +414,7 @@ The primary role of the network layer is to move packets from the sending host t
 \begin{enumerate}
     \item Forwarding → When a packet arrives at a router's input link, it must move the packet to the appropriate output link. A packet might also be blocked from exiting a router or duplicated and sent over multiple outgoing links. \\
     \textbf{Forwarding is router-local}, and is the key function performed by the data-plane functionality.
-    \item Routing → The network layer must determine the path taken by packets as they flow from a sender to a receiver. To do so, the network layer uses multiple routing algorithms. Routing refers to the network-wide.
+    \item Routing → The network layer must determine the path taken by packets as they flow from a sender to a receiver. To do so, the network layer uses multiple routing algorithms. Routing refers to the network-wide.   
     \textbf{Routing is a network-wide process}.
 \end{enumerate}
 
@@ -328,6 +457,34 @@ Outras mensagens:
 
 A abordagem usando SDN para a implementação da camada de rede considera que apenas o plano de dados (\textbf{Data Plane}) é implementado em cada encaminhador.
 
+\subsection{Routing Algorithms}
+
+\subsubsection{Link-State (LS) - Djkstra}
+
+Um encaminhador pode receber mais do que uma cópia de um dado LSP (Link State Packet).
+
+\subsubsection{Distance-Vector (DV) - Bellman-Ford}
+
+\subsection{Broadcast e Multicast}
+
+\subsubsection*{Broadcast}
+
+O objetivo de um Broadcast é enviar um pacote para todos os outros nós da rede.
+
+Contudo, fazer um broadcast pode gerar problemas entre routers. \\
+
+Numa situação em que existe um anel que fará com que o pacote seja enviado de volta para routers que já o receberam - a este problema chama-se Flooding. \\
+
+Para o resolver, um nó só faz broadcast de um pacote se ainda não fez broadcast desse mesmo pacote (Os routers guardam os identificadores dos pacotes) - Controlled Flooding. \\
+
+Outra alternativa seria construir uma Spanning Tree - árvore que cobre todos os routers com o menor número de ligações e sem loops.
+
+\subsubsection*{Multicast}
+
+O objetivo de um Multicast é uma mensagem ser entregue a um grupo de destinatários específico. \\
+
+É usado um endereço IP especial, juntamente com protocolos para gestão local de pertença a um grupo e para a criação de uma árvore de distribuição.
+
 \newpage
 
 \section{Link Layer}
@@ -337,30 +494,156 @@ The Internet's network layer routes a datagram through a series of routers betwe
 The services provided by the link layer depend on the specific link-layer protocol that is employed over the link. For example, some link-layer protocols provide reliable delivery, from transmitting node, over one link, to receiving node. Note that this reliable delivery service is different from the reliable delivery service of TCP, which provides reliable delivery from one end system to another. Examples of link-layer protocols include Ethernet, WiFi, and the cable access network's DOCSIS protocol. As datagrams typically need to traverse several links to travel from source to destination, a datagram may be handled by different link-layer protocols at different links along its route. For example, a datagram may be handled by Ethernet on one link and by PPP on the next link. The network layer will receive a different service from each of the different link-layer protocols. In this book, we'll refer to the link-layer packets as
 frames.
 
-\subsection{}
+\subsection{Introduction to the Link Layer}
 
 \subsection{Error Detection and Correction Techniques}
 
+Os dados, por diversos motivos, podem sofrer erros de transmissão, fazendo com que um ou mais bits venham trocados.
+
+Para detetar esses erros, existem várias formas:
+
 \subsubsection{Parity Checks}
+
+Forma antiga de detetar erros.
+
+No fim da transmissão, era acrescentado um bit que dependia do número de bits totais da mensagem:
+
+\begin{itemize}
+    \item Se o número de bits fosse par, colocava-se um 0;
+    \item Se o número de bits fosse ímpar, colocava-se um 1.
+\end{itemize}
+
+Não é uma forma muito boa pois não deteta um número par de erros.
 
 \subsubsection{Cyclic Redundancy Check (CRC)}
 
+Muito usado atualmente. É feita uma operação matemática, usando divisão de polinómios.
+
+\begin{itemize}
+    \item Para gerar mensagem com CRC: \\[4pt]
+        Dada uma mensagem: $1001\ 1010$ \\
+        Dado um polinómio gerador: $x^3+x^2+1 \ \rightarrow\  1101\ (n=3)$
+        \begin{enumerate}
+            \item Fazemos shift left da mensagem correspondente ao grau do polinómio ($n$): \\
+            $1001\ 1010 \ \rightarrow\  100\ 1101\ 0000$
+            \item Fazemos a divisão da mensagem shiftada pelo polinómio gerador, obtendo um resto: \\
+            $100\ 1101\ 0000 \div 1101 = quociente + 101$
+            \item A mensagem que será transmitida é a soma da mensagem shiftada com o resto: \\
+            $100\ 1101\ 0000 + 101 = 100\ 1101\ 0101$ 
+        \end{enumerate}
+    \item Para verificar se a mensagem recebida tem erros: \\[4pt]
+        Dada uma mensagem recebida: $10\ 1010\ 0111$ \\
+        Dado um polinómio gerador: $x^3+x^2+1 \ \rightarrow\  1101$
+        \begin{enumerate}
+            \item Fazemos a divisão da mensagem recebida pelo polinómio gerador, obtendo um resto: \\
+            $10\ 1010\ 0111 \div 1101 = quociente + 001$
+            \item Se o resto da divisão for diferente de zero significa que foi detetado um erro.
+        \end{enumerate}
+\end{itemize}
+
+
+
+
 \subsection{Multiple Access Links and Protocols}
+
+Quando é feito um broadcast FF:FF:FF:FF:FF:FF, este é partilhado por todos os membros da rede. Isto implica que o canal possa sofrer colisões muito facilmente, bastando que um nó receba dois ou mais sinais ao mesmo tempo. \\
+
+Protocolos Multiple Access Control - algoritmos distribuídos que determinam como é que os nós partilham um canal, ou seja, quando é que um dado nó pode transmitir.
+
+Existem vários protocolos que implementam o acesso de formas diferentes:
 
 \subsubsection{Channel Partitioning Protocols}
 
-\subsubsection{Random Access Protocols}
+\begin{itemize}
+    \item Dividir o canal em "pedaços" menores (intervalos de tempo, frequências, códigos, ...);
+    \item Alocar um pedaço para o nó para uso exclusivo.
+\end{itemize}
+
+\subsubsection*{Frequency Division Multiple Access (FDMA)}
+
+Neste tipo de particionamento, o espectro de canal é dividido em faixas de frequência. Assim, é atribuída a cada estação uma faixa de frequência fixa mas o tempo de transmissão não utilizado nas faixas de frequência não é aproveitado.
+
+\subsubsection*{Time Division Multiple Access (TDMA)}
+
+O acesso ao canal é feito em rondas. É atribuído a cada host uma fatia temporal em cada ronda. Também aqui, o tempo não utilizado não é aproveitado.
+
+\subsubsection*{Code Division Multiple Access (CDMA)}
+
+Cada utilizador tem acesso à frequência completa, durante todo o tempo.
+São usados diferentes códigos para distinguir os utilizadores.
 
 \subsubsection{Dynamic Allocation Protocols (Taking-Turns)}
 
-\subsection*{Summary of MAC Protocols}
+\begin{itemize}
+    \item Os nós tomam a vez (mas os nós com mais dados para enviar podem transmitir com mais frequência);
+\end{itemize}
 
-\begin{tabular}{ | c | c | c | }
-    \hline
-    & Dynamic Allocation & Random Access \\ \hline
-    High Loads & Efficient & Collision overhead \\ \hline
-    Low  Loads & Active nodes have to wait for idle nodes & Efficient \\ \hline
-\end{tabular}
+\subsubsection*{Poll / Select}
+
+Um computador central controla a atividade dos outros.
+
+\subsubsection*{Token Passing}
+
+Um token que dá a permissão de transmissão é passado entre os hosts.
+
+Quando um host acaba de transmitir, passa o token para outro host.\\
+
+Esta medida não é ideal se não existir muito tráfego, pois existe dependência que os hosts transmitam mensagens.
+
+\subsubsection{Random Access Protocols}
+
+\begin{itemize}
+    \item O canal não é dividido, logo permite colisões;
+    \item É possível recuperar das colisões.
+\end{itemize}
+
+\subsubsection*{ALOHA}
+
+É um protocolo simples que não tem sincronização. \\
+Existe uma colisão se duas ou mais tramas se sobrepuserem, sendo programada uma retransmissão para um instante futuro aleatório.
+
+\subsubsection*{Slotted ALOHA}
+
+Igual ao protocolo anterior, mas o tempo é dividido em slots temporais do mesmo tamanho. \\
+Os nós só podem começar a transmitir no início de um slot.
+
+\subsubsection*{Carrier Sense Multiple Access (CSMA)}
+
+Baseia-se em não causar interrupções:
+
+\begin{itemize}
+    \item Se o canal estiver calado, transmite a trama inteira;
+    \item Se o canal estiver ocupado, adia a transmissão.
+\end{itemize}
+
+Contudo, ainda podem existir colisões devido ao tempo de propagação, o que implica que toda a transmissão de um pacote tenha que ser descartada.
+
+\subsubsection*{CSMA with Collision Detection (CSMA$\backslash$CD)}
+
+Versão aprimorada do protocolo anterior, onde consegue detetar colisões mais rapidamente. Ao ser detetada uma colisão, as transmissões são imediatamente abortadas, reduzindo a ocupação do canal.
+
+\subsection{Summary of MAC Protocols}
+
+Channel Partitioning Protocols:
+
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Eficientes com uma carga alta e constante de todos os nós;
+    \item Ineficientes em cargas baixas ou desequilibradas.
+\end{itemize}
+
+Dynamic Allocation Protocols (Taking-Turns):
+
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Compartilham o canal de forma eficiente e justa em cargas altas;
+    \item Baixa carga: ineficiente, pois os nós ativos precisam esperar pelos nós sem/com pouca atividade para "passarem a vez";
+\end{itemize}
+
+Random Access Protocols:
+
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Eficientes em carga baixa: um único nó pode utilizar unicamente o canal;
+    \item Carga alta: sobrecarga de colisão.
+\end{itemize}
 
 \subsection{Switched Local Area Networks}
 
@@ -368,13 +651,29 @@ frames.
 
 \subsubsection*{MAC Addresses}
 
+Estes endereços têm propósitos diferentes dos endereços IP: os endereços MAC têm um propósito mais local enquanto que os endereços IP têm um contexto mais geográfico. 
+
+O que cria esta distinção é o facto de os endereços MAC serem intrínsecos das placas de rede, ou seja, são como uma fingerprint; Já os endereços IP podem ser alterados facilmente e é possível ser construído um sistema e uma divisão hierárquica da sua distribuição, através das máscaras de rede. \\
+
+Para um dado endereço MAC, os três primeiros bytes identificam o fabricante enquanto que os os três últimos bytes identificam o equipamento. \\
+
+Nestes endereços também é possível ser feito um broadcast, fazendo-o para o endereço \\ FF:FF:FF:FF:FF:FF. Ao enviar um pacote para esse endereço, esse pacote será reencaminhado para todos os hosts da rede local.
+
 \subsubsection*{Address Resolution Protocol (ARP)}
+
+O router precisa de saber o endereço MAC correspondente ao endereço IP recebido.
+Para tal, usa-se o protocolo ARP - Address Resolution Protocol:
+
+\begin{enumerate}
+    \item O router faz um ARP Request, ou seja, um broadcast, enviando para o endereço FF:FF:FF:FF:FF a pergunta: Quem tem este endereço IP?
+    \item O host com o endereço IP responde com o seu endereço MAC.
+\end{enumerate}
+
+De forma a não se estarem sempre a repetir estes pedidos, os hosts guardam numa tabela (tabela ARP), o mapeamento entre endereço IP e endereço MAC - (endereço IP, endereço MAC, TTL).
 
 \subsubsection{Ethernet}
 
 \subsubsection{Link-Layer Switches}
-
-\subsubsection*{}
 
 \subsubsection*{Self-Learning}
 
@@ -414,20 +713,38 @@ A configuration $C_1$ is said to be better than $C_2$ if (ordered by decreasing 
 
 \subsubsection{Virtual Local Area Networks (VLANs)}
 
-\newpage
+Existem switches que suportam o uso de VLANs - Virtual LANs, ou seja, permitem configurar redes virtuais para as suas portas.\\
 
-\section{Wireless and Mobile Networks}
+As VLANs têm algumas vantagens:
 
-\subsection{WiFi [802.11]}
+\begin{enumerate}
+    \item dividem a rede em partes, reduzindo o domínio de broadcast o que, consequentemente, aumenta a bandwidth pois as mensagens não são enviadas para portas desnecessárias;
+    \item adicionam segurança, pois hosts em diferentes VLANs não conseguem comunicar entre si diretamente;
+\end{enumerate}
+
+Para as VLANs comunicarem entre si, isso é feito através de routing (pelos Routers).
+
+\subsection{Wireless [802.11]}
 
 \subsubsection{Architecture}
 
-
-
 \subsubsection{MAC Protocol}
 
-\subsubsection*{Multiple Access}
+\subsubsection*{Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA)}
 
-\subsubsection*{Collision Avoidance}
+Este algoritmo é bastante similar ao básico CSMA. O que difere dele é que, para além de esperar que o canal fique livre, ainda espera um tempo aleatório depois do canal se libertar, e esse tempo só é descontado quando o canal está livre.
+Assim, o "sortudo" que teve o tempo menor começa a transmitir e os outros voltam a ficar à espera que o canal fique livre.
+
+Depois de uma transmissão, o AP devolve um ACK para confirmar o sucesso da transmissão. Isto ajuda a resolver o problema do terminal escondido - porém não o resolve de todo pois podem haver tempos em que o início das transmissões coincide.
+
+Para resolver isto, surgiu a variante com RTS-CTS.
+
+\subsubsection*{CSMA/CA com Request-To-Send e Clear-To-Send (RTS-CTS)}
+
+Esta variante consiste numa reserva do canal - o emissor, no lugar de começar a sua transmissão imediatamente, envia antes um pedido de reserva do canal.
+Desta forma, o AP irá-lhe reservar o canal e dar-lhe um OK, fazendo broadcast de um CTS com a informação de quem vai emitir.
+Assim, um outro host que não oiça o emissor, ouvirá certamente o AP e não irá transmitir.
+
+Se tiver existido uma colisão nesse pedido, esta terá um impacto muito reduzido, pois foi apenas transmitido um pacote.
 
 \end{document}

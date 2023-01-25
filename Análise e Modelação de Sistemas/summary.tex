@@ -1,0 +1,147 @@
+\documentclass[12pt]{article}
+\usepackage[paper=letterpaper,margin=2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tabularray}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        \textbf{Análise e Modelação de Sistemas}
+        \vspace{0.5cm}
+
+        Resumo
+        \vspace{1.5cm}
+
+        \textbf{Rafael Rodrigues}
+        \vfill
+        LEIC \\
+        Instituto Superior Técnico \\
+        2022/2023
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\textbf{Engenharia de Sistemas} - disciplina que considera diversos fatores complexos de forma a criar e implementar sistemas úteis.
+\\[6pt]
+\textbf{Hard Systems} - problema bem definido cujo ponto de vista é partilhado pelos "stakeholders" envolvidos, permitindo uma abordagem científica na resolução do problema. Lida apenas com fatores ligados à engenharia e o seu propósito é definir uma solução ideal que lida com todos os problemas dos "stakeholders". 
+\\[6pt]
+\textbf{Soft Systems} - problema vago ligado a um objetivo pouco preciso onde os "stakeholders" envolvidos têm uma interpretação diferente do problema permitindo diferentes abordagens de resolução do problema distintas. Lida com fatores sócio-técnicos e humanos para além dos de engenharia. Encontrar uma solução ideal pode não ser um objetivo, propósitos alternativos incluem aprendizagem e melhor compreensão do sistema.
+\\[6pt]
+\textbf{Black-Box} \\
+Perspetiva do utilizador (qual é a funcionalidade?)
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Funcionalidade: input e output
+    \item Comportamento: manifestação da funcionalidade com o passar do tempo
+\end{itemize} 
+\vspace{6pt}
+\textbf{White-Box} \\ 
+Perspetiva do construtor (como é feito?)
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Construção: componentes e relações de interação
+    \item Operação: manifestação dos componentes com o passar do tempo
+\end{itemize}
+\vspace{6pt}
+\textbf{Sistema} - conjunto de entidades que interagem com o objetivo específico que não pode ser realizado por nenhuma das entidades individuais.
+\\[6pt]
+\textbf{Abordagem de Engenharia de Sistemas}
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Identificação e quantificação dos objetivos
+    \item Criação de design alternativos
+    \item Seleção e implementação do melhor design
+    \item Verificação do design
+    \item Verificação pós-implementação
+\end{itemize}
+\vspace{6pt}
+\textbf{Sistema de Informação} - sistema de processamento de informação em conjunto com recursos organizacionais humanos, técnicos e financeiros que providenciam e distribuem informação.
+\\[6pt]
+\textbf{Modelo} - artefacto que representa algo.
+\\[6pt]
+\textbf{Arquitetura} - define os concelhos ou prioridades de um sistema num ambiente através dos seus elementos, relações e princípios do seu design e evolução.
+
+\newpage
+
+\section{Engenharia de Requisitos}
+
+\textbf{Requisito}:
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Condição ou capacidade necessária para que o utilizador resolva um problema ou atinja um objetivo.
+    \item Condição ou capacidade que tem de ser cumprida ou possuída por um sistema ou componente para satisfazer um contrato, standard, especificação ou outra formalidade imposta por documentação.
+\end{itemize}
+\vspace{6pt}
+\textbf{Requisito Funcional} - declarações de serviços que o sistema deve proporcionar, como deve reagir a inputs específicos e situações. Em alguns casos o requisito deve referir o que o sistema não deve fazer.
+\\[6pt]
+\textbf{Requisito de Usabilidade} - são definidos de forma mais vaga e abstrata do que os requisitos funcionais.
+\\[6pt]
+\textbf{Requisito Não-funcional/Não-específico} - ambíguo e pouco específico.
+\\[6pt]
+\textbf{Requisito de Qualidade} - define uma propriedade ou qualidade do sistema ou de um dado componente, serviço ou função.
+\\[6pt]
+\textbf{Restrição} - é um requisito organizacional ou tecnológico que restringe a forma como o sistema é desenvolvido.
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item Restrições que afetam o sistema.
+    \item Restrições que afetam o desenvolvimento.
+\end{itemize}
+\vspace{6pt}
+\textbf{Use case} (User Requirement)
+\\[6pt]
+\textbf{Goal} (Business Requirement) - intenção relacionada com os objetivos, propriedades ou uso do sistema.
+\\[6pt]
+\textbf{Cenário} - exemplo concreto de satisfação ou falha na satisfação de um goal, definido o conjunto de passos de interação executados.
+
+\subsubsection*{SMART Requirements}
+
+\begin{itemize}
+    \item \textbf{Specific} - claro, consistente, simples, apropriadamente detalhado.
+    \item \textbf{Measurable} - quantificável e avaliável quanto ao cumprimento de objetivos.
+    \item \textbf{Achievable} - possível exibir um comportamento de acordo com os requisitos.
+    \item \textbf{Realizable} - possível de ser feito de acordo com as restrições de desenvolvimento.
+    \item \textbf{Traceable} - possível seguir um requisito dada a sua especificação até ao design, implementação e teste.  
+\end{itemize}
+
+\textbf{Requirements elicitation} - é uma das 3 atividades básicas da engenharia de requisitos e o seu objetivo é:
+\begin{enumerate}[topsep=0pt, itemsep=0pt]
+    \item Identificar fontes de requisitos importantes.
+    \item Obter requisitos das fontes identificadas.
+    \item Desenvolver requisitos novos e inovadores.
+\end{enumerate}
+
+\textbf{Documentação} - especificação dos requisitos "elicited" de acordo com a documentação definida e regras específicas.
+\\[6pt]
+\textbf{Negociação} - explicitar conflitos entre os pontos de vista dos "stakeholders" e resolvê-los.
+\\[6pt]
+\textbf{Validação} - de artefactos requeridos, atividades chave e contexto.
+\\[6pt]
+\textbf{Traceability} - é possível seguir o desenvolvimento de um requisito em qualquer fase do processo.
+
+\newpage
+
+\section{ArchiMate}
+
+
+
+\newpage
+
+\section{BPMN}
+
+
+
+\newpage
+
+\section{UML}
+
+\end{document}

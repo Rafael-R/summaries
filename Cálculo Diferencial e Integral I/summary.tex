@@ -1,0 +1,281 @@
+\documentclass[11pt]{article}
+\usepackage[paper=letterpaper,margin=2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tabularray}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0pt}
+
+\newcommand{\twopartdef}[4]
+{ \displaystyle
+	\left\{
+		\begin{array}{ll}
+			#1, & \mbox{se } #2 \\
+			#3, & \mbox{se } #4
+		\end{array}
+	\right.
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        \textbf{\LARGE Cálculo Diferencial e Integral I}
+        \vspace{0.5cm}
+
+        \Large Resumo
+        \vspace{1.5cm}
+
+        \textbf{Rafael Rodrigues}
+        \vfill
+        LEIC \\
+        Instituto Superior Técnico \\
+        2022/2023
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\section{\MakeUppercase{Números Reais: \\ Revisões e Propriedades}}
+
+\subsection{Propriedades dos Números Reais}
+
+\begin{itemize}[topsep=0pt]
+    \item Números Naturais: $\mathbb{N} = \left\{1, 2, 3, ...\right\}$
+    \item Números Inteiros: $\mathbb{Z} = \left\{..., -2, -1, 0, 1, 2, ...\right\}$
+    \item Números Racionais: $\mathbb{Q} = \displaystyle \left\{\frac{p}{q}:p,q\in \mathbb{Z},\ q \neq 0\right\}$
+\end{itemize}
+
+\subsubsection{Propriedades Básicas das Operações}
+
+\begin{enumerate}
+    \item Propriedades da Soma:
+    \begin{itemize}[topsep=0pt]
+        \item Propriedade Comutativa: $a + b = b + a$
+        \item Propriedade Associativa: $\left(a + b\right) + c = a + \left(b + c\right)$
+        \item Elemento Neutro: $a + 0 = 0 + a = a$
+        \item Elemento Simétrico: $a + \left(-a\right) = \left(-a\right) + a = 0$
+    \end{itemize}
+    \item Propriedades da Produto
+    \begin{itemize}[topsep=0pt]
+        \item Propriedade Comutativa: $a \cdot b = b \cdot a$
+        \item Propriedade Associativa: 
+            $\left(a \cdot b\right) \cdot c = a \cdot \left(b \cdot c\right)$
+        \item Elemento Neutro: $a \cdot 1 = 1 \cdot a = a$
+        \item Elemento Inverso: 
+            $\displaystyle a \cdot \frac{1}{a} = \frac{1}{a} \cdot a = 1 \ 
+            \left(\frac{1}{a} = a^{-1}\right)$
+        \item Propriedade Distributiva: $(a + b) \cdot c = a \cdot c + b \cdot c$
+    \end{itemize}
+    \item Propriedades da Relação (Ordem)
+    \begin{itemize}[topsep=0pt]
+        \item Relação de ordem: $?$
+        \item Compatibilidade da Soma: $a \leq b \Rightarrow a + c \leq b + c$
+        \item Compatibilidade do Produto: 
+            $a \leq b \ e \ c > 0 \ ent\tilde{a}o \ ac \leq bc$
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Majorantes e Minorantes}
+
+Seja $A \subset \mathbb{R}$:
+\begin{itemize}[topsep=2pt, itemsep=2pt]
+    \item $A$ diz-se $majorado$ se existe $b \in \mathbb{R}$ tal que $x \leq b$, para qualquer $x \in A$ (ou seja, $A \subseteq\ ]-\infty ,b]$). \\ Neste caso, b diz-se um majorante de A.
+    \item $A$ diz-se $minorado$ se existe $a \in \mathbb{R}$ tal que $x \geq a$, para qualquer $x \in A$ (ou seja, $A \subseteq\ [a, +\infty[$). \\ Neste caso, a diz-se um minorante de A.
+    \item $A$ diz-se $limitado$ se é majorado e minorado. Neste caso, existem $a, b \in \mathbb{R}$ tais que $a \leq x \leq b$, para qualquer $x \in A$ (ou seja $A \subset [a, b]$).
+\end{itemize}
+
+\subsubsection{Supremo e Ínfimo}
+
+Seja $A \subset \mathbb{R}$:
+\begin{itemize}[topsep=2pt, itemsep=2pt]
+    \item Chama-se \textit{supremo} de $A\ (\sup A)$ ao menor dos majorantes de $A$, se existir.
+    \item Chama-se \textit{ínfimo} de $A\ (\inf A)$ ao maior dos minorantes de $A$, se existir.
+\end{itemize}
+
+\subsubsection{Máximo e Mínimo}
+
+Definimos o \textit{máximo} e \textit{mínimo} de um conjunto como o maior e o menor dos seus elementos (se existirem). Isto é equivalente a dizer que:
+\begin{itemize}[topsep=2pt, itemsep=2pt]
+    \item $\max A = M$ se $M$ é majorante e $M \in A$;
+    \item $\min A = m$ se $m$ é minorante e $m \in A$.
+\end{itemize}
+
+\subsection{Módulo}
+
+O módulo ou valor absoluto de um número real $x \in R$ é definido por:
+\begin{align*}
+    |x| = \twopartdef{x}{x \geq 0}{-x}{x < 0}
+\end{align*}
+
+\subsubsection{Propriedades do Módulo}
+
+\begin{itemize}[itemsep=2pt]
+    \item $|x| \geq 0$
+    \item $|x| = 0 \Leftrightarrow  x = 0$
+    \item $|-x| = |x|$
+    \item $|xy| = |x||y|$
+    \item $|x|^2 = \left\lvert x^2\right\rvert = x^2$
+    \item $|x + y| \leq |x| + |y|$
+    \item $x^2 < a^2 \Leftrightarrow |x| < |a|$
+\end{itemize}
+
+\subsubsection{Inequações com Módulos}
+
+Geralmente, com expressões algébricas tem-se:
+\begin{align*}
+    & \left\lvert f(x)\right\rvert < g(x)\ \Leftrightarrow\ -g(x) < f(x) < g(x)\ \Leftrightarrow\ f(x) > -g(x)\,\land \,f(x) < g(x) \\
+    & \left\lvert f(x)\right\rvert > g(x)\ \Leftrightarrow\ f(x) < -g(x)\,\lor\,f(x) > g(x)
+\end{align*}
+
+\subsubsection{Vizinhança}
+
+Define-se a \textit{vizinhança} de $centro\ a$ e $raio\ R > 0$, 
+\begin{align*}
+    V_R(a) = \left\{x \in \mathbb{R}:|x-a| < R\right\} =\ ]a-R, a+R[
+\end{align*}
+como o conjunto dos pontos cuja distância a $a$ é inferior a $R$.
+
+\subsection{Método de Indução}
+
+Seja $P(n)$ uma proposição para cada $n\in\mathbb{N}$. Suponhamos que:
+\begin{enumerate}
+    \item $P(1)$ é verdadeira;
+    \item sempre que $P(n)$ é verdadeira para $algum\ n$, então $P(n+1)$ também é verdadeira.
+\end{enumerate}
+Então conclui-se que $P(n)$ é verdadeira para $todo$ o $n\in\mathbb{N}$.
+
+\subsubsection{Demonstração}
+
+\begin{enumerate}
+    \item Verificar que $P(1)$ é verdadeiro. (\textit{base de indução})
+    \item Assumindo que $P(n)$ é verdadeiro (\textit{hipótese de indução}) provar que $P(n+1)$ é verdadeiro. (\textit{tese})
+\end{enumerate}
+
+\subsection{Somatórios}
+
+
+
+\newpage
+
+\section{\MakeUppercase{Funções Reais de Variável Real: \\ Limite e Continuidade}}
+
+\subsection{Classes de funções elementares}
+
+\subsection{Funções Injetivas e suas Inversas}
+
+\subsection{Limite de uma função num ponto}
+
+\subsection{Propriedades do Limite de Funções num Ponto}
+
+\subsection{Limites Relativos e Laterais}
+
+\subsection{Limites na recta acabada}
+
+\subsection{Continuidade de Funções Reais de Variável Real}
+
+\subsection{Algumas Propriedades Locais das Funções Contínuas}
+
+\subsection{Propriedades Globais das Funções Contínuas}
+
+
+
+\newpage
+
+\section{\MakeUppercase{Cálculo Diferencial}}
+
+
+
+\newpage
+
+\section{\MakeUppercase{Primitivação}}
+
+\subsection{Definição de Primitiva e Aplicações}
+
+\subsection{Primitivas Imediatas}
+
+\subsection{Primitivas Quase-Imediatas}
+
+\subsection{Primitivação por Partes}
+
+\subsection{Primitivas de Funções Racionais}
+
+\subsection{Primitivação por Substituição}
+
+\subsection{Primitivação de Funções Polinomiais de Senos e Cossenos}
+
+\subsection{Primitivação de Funções Racionais de Senos e Cossenos}
+
+\subsection{Resolução de equações diferenciais ordinárias de variáveis separáveis}
+
+
+
+\newpage
+
+\section{\MakeUppercase{Cálculo Integral}}
+
+\subsection{Motivação para a Noção de Integral}
+
+\subsection{Partições, Somas Inferiores e Superiores}
+
+\subsection{Integral Superior e Inferior}
+
+\subsection{Funções Integráveis e Nao-Integráveis}
+
+\subsection{Critérios de integrabilidade e exemplos}
+
+\subsection{Propriedades do integral}
+
+\subsection{Integral Indefinido}
+
+\subsection{Teorema Fundamental do Calculo. Regra de Barrow}
+
+\subsection{Algumas aplicações do integral}
+
+
+
+\newpage
+
+\section{\MakeUppercase{Sucessões e Séries}}
+
+\subsection{\MakeUppercase{Sucessões}}
+
+\subsubsection{Introdução e exemplos}
+
+\subsubsection{Limite de uma Sucessão}
+
+\subsubsection{Propriedades do Limite de Sucessões}
+
+\subsubsection{Sucessões Monótonas e Limitadas}
+
+\subsubsection{Escala de Sucessões}
+
+\subsection{\MakeUppercase{Séries Numéricas}}
+
+\subsubsection{Introdução e exemplos}
+
+\subsubsection{Operações algébricas sobre séries}
+
+\subsubsection{Condição necessária para convergência}
+
+\subsubsection{Séries de Termos Não-Negativos e Critérios de Convergência}
+
+\subsubsection{Convergência Simples e Absoluta}
+
+\subsubsection{Séries Alternadas e Critérios de Convergência}
+
+\subsection{\MakeUppercase{Séries de Potências}}
+
+\subsubsection{Definições e resultados gerais}
+
+\subsubsection{Séries de Taylor}
+
+
+
+\end{document}

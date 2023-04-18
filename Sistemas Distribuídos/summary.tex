@@ -33,6 +33,132 @@
 
 \newpage
 
-\section{}
+\section{Introdução}
+
+\textbf{Sistema Distribuído} - Sistema de componentes software ou hardware localizados em computadores ligados em rede que comunicam e coordenam as suas ações através de troca de mensagens.
+
+\newpage
+
+\section{Remote Procedure Call (RPC)}
+
+\subsection{Arquitetura cliente-servidor}
+
+\begin{itemize}
+    \item Servidores mantêm recursos e server pedidos de operações sobre esses recursos.
+    \item Servidores podem ser clientes de outros servidores.
+    \item Simples e permite distribuir sistemas centralizados muito diretamente.
+    \item Limitado pela capacidade do servidor e pela rede que o liga aos clientes.
+\end{itemize}
+
+\newpage
+
+\section{Fundamentos: Tempo}
+
+\subsection{Sincronização de Relógios}
+
+\begin{itemize}
+    \item \textbf{Externa} - relógios dos processos são sincronizados através de uma \textbf{referência externa}
+    \item \textbf{Interna} - relógios dos processos de um sistema \textbf{sincronizam-se entre si}
+\end{itemize}
+
+\subsubsection{Algoritmo de Cristian}
+
+Os relógios dos clientes são sincronizados pelo relógio de um \textbf{servidor de tempo} (sincronização externa).
+
+\begin{enumerate}
+    \item Servidor $S$ lê o valor dos outros relógios. \\[2pt]
+        $T_{S_i} = T_{env_i} + T_{rec_i}/2$ \\
+        $delta_i = T_S - T_i$ \\
+        $erro_i = \pm\ RTT_i/2$
+    \item Indica a todos os participantes para ajustarem o seu relógio (incluindo o seu). \\[2pt]
+        $ajuste_i = \overline{T} + delta_i $
+\end{enumerate}
+
+Diferença máxima = Soma dos dois maiores valores de erro
+
+\subsubsection{Algoritmo de Berkeley}
+
+\begin{enumerate}
+    \item É escolhido um líder através de um processo de eleição.
+    \item O líder pergunta os tempos aos seus servidores.
+    \item O líder calcula o tempo de cada máquina tendo em atenção o RTT.
+    \item O líder calcula a média dos tempos, ignorando os outliers.
+    \item Envia o valor (positivo ou negativo) que cada máquina deve ajustar.
+\end{enumerate}
+
+\subsubsection{Network Time Protocol (NTP)}
+
+\newpage
+
+\subsection{Relógios Lógicos}
+
+Relacão happens-before/aconteceu-antes ($\rightarrow$)
+
+\begin{enumerate}
+    \item se $a$ e $b$ são eventos do mesmo processo, se $a$ ocorre antes de $b$, então $a \rightarrow b$
+    \item se $a$ indica um evento envio de mensagem, e $b$ o evento da receção dessa mensagem, então $a \rightarrow b$
+\end{enumerate}
+
+\textbf{Transitividade}: se $a \rightarrow b$ e $b \rightarrow c$, então $a \rightarrow c$ \\
+\textbf{Eventos concorrentes}: se nem $a \rightarrow b$, nem $b \rightarrow a$, então $a \parallel b$
+
+\subsubsection{Lamport}
+
+\begin{enumerate}
+    \item se $a \rightarrow b$, então $C(a) < C(b)$
+    \begin{itemize}[topsep=0pt]
+        \item se os eventos ocorrerem no mesmo processo, e $a$ ocorre $antes$ de $b$, então $C(a) < C(b)$
+        \item se $a$ for o evento envio de mensagem e $b$ a sua receção, então $C(a) < C(b)$
+    \end{itemize}
+    \item o valor de $C(e)\ nunca\ decresce$
+    \begin{itemize}[topsep=0pt]
+        \item As correções ao relógio devem ser feitas sempre por incrementos
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Vector clocks}
+
+\begin{enumerate}
+    \item se $C(a) < C(b)$, então $a \rightarrow b$
+    \begin{itemize}[topsep=0pt]
+        \item $V_a < V_b$ se pelo menos um elemento de $V_a$ for menor e nenhum for maior que $V_b$
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+
+\section{Fundamentos: Coordenação}
+
+\subsection{Exclusão Mútua}
+
+\subsubsection{Algoritmo de Maekawa}
+
+\subsection{Eleição de líder}
+
+\subsubsection{Algoritmo baseado em anel}
+
+\subsubsection{Algoritmo "bully"}
+
+\newpage
+
+\section{Replicação}
+
+\subsection{Coerência fraca}
+
+\subsubsection{Gossip}
+
+\subsubsection{Bayou}
+
+\subsection{Coerência forte}
+
+\subsubsection{Primary-backup}
+
+\subsubsection{Replicação de máquina de estados}
+
+\subsubsection{Registo distribuído coerente}
+
+\newpage
+
+
 
 \end{document}

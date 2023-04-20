@@ -39,7 +39,11 @@
 
 \newpage
 
-\section{Remote Procedure Call (RPC)}
+\section{Remote Procedure Call (RPC) }
+
+Estrutura a programação distribuída com base na chamada (pelo clientes) de procedimentos que se executam remotamente (no servidor).
+
+O cliente envia um pedido e o servidor envia uma resposta.
 
 \subsection{Arquitetura cliente-servidor}
 
@@ -52,16 +56,14 @@
 
 \newpage
 
-\section{Fundamentos: Tempo}
-
-\subsection{Sincronização de Relógios}
+\section{Sincronização de Relógios}
 
 \begin{itemize}
     \item \textbf{Externa} - relógios dos processos são sincronizados através de uma \textbf{referência externa}
     \item \textbf{Interna} - relógios dos processos de um sistema \textbf{sincronizam-se entre si}
 \end{itemize}
 
-\subsubsection{Algoritmo de Cristian}
+\subsection{Algoritmo de Cristian}
 
 Os relógios dos clientes são sincronizados pelo relógio de um \textbf{servidor de tempo} (sincronização externa).
 
@@ -76,7 +78,9 @@ Os relógios dos clientes são sincronizados pelo relógio de um \textbf{servido
 
 Diferença máxima = Soma dos dois maiores valores de erro
 
-\subsubsection{Algoritmo de Berkeley}
+Precisão = $\pm \left(RTT/2 - min\right) $
+
+\subsection{Algoritmo de Berkeley}
 
 \begin{enumerate}
     \item É escolhido um líder através de um processo de eleição.
@@ -86,11 +90,11 @@ Diferença máxima = Soma dos dois maiores valores de erro
     \item Envia o valor (positivo ou negativo) que cada máquina deve ajustar.
 \end{enumerate}
 
-\subsubsection{Network Time Protocol (NTP)}
+\subsection{Network Time Protocol (NTP)}
 
 \newpage
 
-\subsection{Relógios Lógicos}
+\section{Relógios Lógicos}
 
 Relacão happens-before/aconteceu-antes ($\rightarrow$)
 
@@ -102,7 +106,7 @@ Relacão happens-before/aconteceu-antes ($\rightarrow$)
 \textbf{Transitividade}: se $a \rightarrow b$ e $b \rightarrow c$, então $a \rightarrow c$ \\
 \textbf{Eventos concorrentes}: se nem $a \rightarrow b$, nem $b \rightarrow a$, então $a \parallel b$
 
-\subsubsection{Lamport}
+\subsection{Lamport}
 
 \begin{enumerate}
     \item se $a \rightarrow b$, então $C(a) < C(b)$
@@ -116,7 +120,7 @@ Relacão happens-before/aconteceu-antes ($\rightarrow$)
     \end{itemize}
 \end{enumerate}
 
-\subsubsection{Vector clocks}
+\subsection{Vector clocks}
 
 \begin{enumerate}
     \item se $C(a) < C(b)$, então $a \rightarrow b$
@@ -125,29 +129,35 @@ Relacão happens-before/aconteceu-antes ($\rightarrow$)
     \end{itemize}
 \end{enumerate}
 
+\section{Registos}
+
+\section{Espaços de tuplos}
+
 \newpage
 
-\section{Fundamentos: Coordenação}
+\section{Estados Globais}
 
-\subsection{Exclusão Mútua}
+\newpage
 
-\subsubsection{Algoritmo de Maekawa}
+\section{Eleição de líder}
 
-\subsection{Eleição de líder}
+\subsection{Algoritmo baseado em anel}
 
-\subsubsection{Algoritmo baseado em anel}
+\subsection{Algoritmo "bully"}
 
-\subsubsection{Algoritmo "bully"}
+\section{Exclusão Mútua}
+
+\subsection{Algoritmo de Ricart-Agrawala}
+
+\subsection{Algoritmo de Maekawa}
+
+\newpage
+
+\section{Difusão em ordem total}
 
 \newpage
 
 \section{Replicação}
-
-\subsection{Coerência fraca}
-
-\subsubsection{Gossip}
-
-\subsubsection{Bayou}
 
 \subsection{Coerência forte}
 
@@ -157,8 +167,45 @@ Relacão happens-before/aconteceu-antes ($\rightarrow$)
 
 \subsubsection{Registo distribuído coerente}
 
+\subsection{Coerência fraca}
+
+\subsubsection{Gossip}
+
+\subsubsection{Bayou}
+
 \newpage
 
+\section{Consenso}
 
+\subsection{Floodset consensus}
+
+\newpage
+
+\section{Transações distribuídas}
+
+Uma transação distribuída implica executar múltiplas suboperações em nós diferentes.
+\begin{itemize}
+    \item Caso tudo corra bem, todas as suboperações são confirmadas \textbf{(commit)}.
+    \item Caso algo corra mal, todas as suboperações são anuladas \textbf{(abort)}.
+\end{itemize}
+
+Propriedades ACID:
+\begin{itemize}
+    \item Atomic - Atomicidade
+    \item Consistent - Coerência
+    \item Isolated - Isolamento
+    \item Durable - Durabilidade
+\end{itemize}
+
+\subsection{2-phase commit (2PC)}
+
+\begin{enumerate}
+    \item O coordenador envia uma mensagem denominada "prepare" a todos os participantes.
+    \item 
+\end{enumerate}
+
+\newpage
+
+\section{Segurança}
 
 \end{document}

@@ -35,7 +35,7 @@
 
 \section{Introdução}
 
-\textbf{Sistema Distribuído} - Sistema de componentes software ou hardware localizados em computadores ligados em rede que comunicam e coordenam as suas ações através de troca de mensagens.
+\textbf{Sistema Distribuído} - Sistema de componentes software ou hardware localizados em computadores ligados em rede, que comunicam e coordenam as suas ações através de troca de mensagens.
 
 \newpage
 
@@ -53,6 +53,161 @@ O cliente envia um pedido e o servidor envia uma resposta.
     \item Simples e permite distribuir sistemas centralizados muito diretamente.
     \item Limitado pela capacidade do servidor e pela rede que o liga aos clientes.
 \end{itemize}
+
+\subsection{Interfaces de comunicação}
+
+\subsubsection{UDP}
+
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item \textbf{Socket sem ligação}: 
+     \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Normalmente serve mais de 2 interlocutores (1 para n).
+        \item Normalmente não fiável (perdas, duplicação, reordenação).
+     \end{itemize}
+    \item \textbf{Socket Datagram}: canal sem ligação, bidirecional, não fiável, interface tipo mensagem.
+    \item Maior eficiência.
+    \item Menor overhead.
+\end{itemize}
+
+\subsubsection{TCP}
+
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item \textbf{Socket com ligação}: 
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Normalmente serve 2 interlocutores.
+        \item Normalmente fiável, bidirecional e garante sequencialidade.
+    \end{itemize}
+    \item \textbf{Socket Stream}: canal com ligação, bidirecional, fiável, interface tipo sequência de octetos.
+    \item Oferece um canal fiável sobre uma \underline{rede não fiável}.
+    \item Para cada invocação remota precisamos de \underline{2 pares de mensagens adicionais}.
+    \item Gestão de fluxo é \underline{redundante} para as invocações simples do nosso sistema.
+    \item ACKs \underline{desnecessários}.
+    \item É usado caso as mensagens sejam \underline{maiores que um datagrama UDP}.
+\end{itemize}
+
+\subsection{Serialização}
+
+\newpage
+
+\subsection{Semânticas de execução}
+
+\textbf{Função idempotente} - Operação que, se executada repetidamente, produz o mesmo estado no servidor e resultado devolvido ao cliente do que se só executada 1 vez
+
+\begin{itemize}
+    \item \textbf{Talvez (maybe)} - Protocolo não pretende tolerar nenhuma falta pelo que nada faz para recuperar de uma situação de erro.
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item O stub cliente não recebe uma resposta num prazo limite
+        \item O timeout expira e a chamada retorna com erro
+        \item Neste caso o cliente não sabe se o pedido foi executado ou não
+    \end{itemize}
+    \item \textbf{Pelo-menos-uma-vez (at-least-once)} - Para serviços com funções idempotentes.
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item O stub cliente não recebe uma resposta num prazo limite
+        \item O timeout expira e o stub cliente repete o pedido até obter uma resposta
+        \item Se receber uma resposta o cliente tem a garantia que o pedido foi executado pelo menos uma vez
+        \item Para evitar que o cliente fique permanentemente bloqueado em caso de falha do servidor existe um segundo timeout mais amplo
+    \end{itemize}
+    \item \textbf{No-máximo-uma-vez (at-most-once)} - Protocolo de controlo tem de: (1) identificar os pedidos para detetar repetições no servidor; (2) manter estado no servidor acerca dos pedidos em curso ou que já foram atendidos.
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item O stub cliente não recebe uma resposta num prazo limite
+        \item O timeout expira e o stub cliente repete o pedido
+        \item O servidor não executa pedidos repetidos
+        \item Se receber uma resposta, o cliente tem a garantia que o pedido foi executado no máximo uma vez
+    \end{itemize}
+    \item \textbf{Exatamente-uma-vez (exactly-once)} - Servidor e cliente com funcionamento transacional
+    \begin{itemize}
+        \item O stub cliente não recebe uma resposta num prazo limite
+        \item O timeout expira e o stub cliente repete o pedido
+        \item O servidor não executa pedidos repetidos
+        \item Se o servidor falhar existe a garantia de fazer rollback ao
+        estado do servidor de modo a não ficar com pedidos “a meio”
+    \end{itemize}
+\end{itemize}
+
+\subsection{Serviços de Nomes}
+
+\newpage
+
+\subsection{Web Services}
+
+\subsubsection{SOAP}
+
+Desvantagens:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item Obriga ao uso de XML
+    \item Desempenho e escalabilidade limitados
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Representações em XML são longas, marshalling/unmarshalling é pesado
+        \item Não permite caching de dados do lado do cliente
+    \end{itemize}
+    \item Relativamente difícil de implementar
+\end{itemize}
+
+\subsubsection{REST}
+
+Vantagens:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item Permite uso de alternativas ao XML, como o JSON (mais eficiente).
+    \item Clientes que pretendam agir sobre um recurso, recebem cópia por inteiro dos dados
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Permite caching no cliente (melhor escalabilidade)
+    \end{itemize}
+\end{itemize}
+
+\newpage
+
+\subsection{gRPC}
+
+É um mecanismo de RPC moderno, com estrutura semelhante aos RPC tradicionais, mas desenvolvido com foco em serviços cloud. 
+
+Usado em comunicação para sistemas distribuídos com requisitos de baixa latência e elevada escalabilidade.
+
+É um protocolo \textbf{eficiente}, \textbf{preciso} e \textbf{independente da linguagem} de programação.
+
+\vspace{12pt}
+Características do sistema gRPC:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item O gRPC usa uma IDL (protobuf) para definir os tipos de dados e as operações.
+    \item Disponibiliza ferramenta de geração de código a partir do IDL
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Trata da conversão de dados
+        \item Gestão da invocação remota
+    \end{itemize}
+    \item Permite ter chamadas remotas síncronas e assíncronas
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item \textbf{Chamadas síncronas} - esperam pela resposta
+        \item \textbf{Chamadas assíncronas} - a resposta é verificada mais tarde
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Protocol Buffers (protobuf)}
+
+\begin{itemize}
+    \item Os protocol buffers (protobuf) são uma IDL para descrever mensagens e operações
+    \begin{itemize}
+        \item Permite estender/modificar os esquemas, mantendo compatibilidade
+        com versões anteriores
+        \item O protobuf é um formato canónico
+        \item A apresentação de dados tem uma estrutura explícita
+    \end{itemize}
+    \item O compilador protoc converte a IDL em código para uma grande
+    variedade de linguagens de programação
+    \item As camadas mais baixas do gRPC não dependem da IDL
+    \begin{itemize}
+        \item Em teoria é possível usar alternativas ao protobuf
+    \end{itemize}
+\end{itemize}
+
+Formato \textbf{mais eficiente} que JSON e XML.\\
+Permite uma boa integração com várias linguagens
+
+\subsubsection{Stubs}
+
+Objeto usado pelo cliente, que expõe a interface do serviço. A invocação de um método no stub vai serializar e traduzir os dados do pedido. Segue-se depois a invocação remota. É no stub que as restrições de interface e dos tipos de dados são verificadas.
+
+\subsubsection{Run-time}
+
+\subsubsection{Gestor de nomes}
 
 \newpage
 
@@ -131,19 +286,102 @@ Relacão happens-before/aconteceu-antes ($\rightarrow$)
 
 \section{Registos}
 
+\subsection{Modêlos de Coerência}
+
+\begin{itemize}
+    \item Safe
+    \begin{itemize}[topsep=0pt]
+        \item Apenas um processo pode escrever e vários podem ler (1 escritor - múltiplos leitores)
+        \item Se uma leitura não for concorrente com uma escrita, lê o último valor escrito.
+        \item Se uma leitura for concorrente com uma escrita, pode retornar um valor arbitrário
+    \end{itemize}
+    \item Regular
+    \begin{itemize}[topsep=0pt]
+        \item Apenas um processo pode escrever e vários podem ler (1 escritor - múltiplos leitores)
+        \item Se uma leitura não for concorrente com uma escrita, lê o último valor escrito.
+        \item Se uma leitura for concorrente com uma escrita, retorna o valor anterior ou o valor que está a ser escrito
+    \end{itemize}
+    \item Atomic
+    \begin{itemize}[topsep=0pt]
+        \item O resultado da execução é equivalente ao resultado de uma execução em que todas as escritas e leituras ocorrem instantaneamente num ponto entre o início e o fim da operação.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Algoritmo ABD}
+
+
+
+\newpage
+
 \section{Espaços de tuplos}
+
+Operações num espaço de tuplos:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item Put: coloca um tuplo no espaço
+    \item Read: lê um tuplo do espaço
+    \item Take: lê e remove um tuplo do espaço
+\end{itemize}
+
+\vspace{10pt}
+O Read e Take são \textbf{operações bloqueantes} (se não existir o
+tuplo) e aceitam “wildcards”.\\
+
+O Take, sendo bloqueante, permite sincronizar processos.\\
+
+A exclusão mútua pode ser concretizada através de um tuplo $<token>$
+\begin{itemize}[topsep=0pt, itemsep=0pt]
+    \item um processo remove (Take) do espaço antes de aceder ao recurso
+    \item e volta a colocar no espaço depois de aceder ao recurso\\
+\end{itemize}
+
+Abstração muito elegante pois permite partilha de memória e sincronização através de uma interface uniforme.\\
+
+Num espaço de tuplos, podem existir várias cópias do mesmo tuplo.\\
+
+O equivalente a uma escrita é feito através de um Take seguido de um Put.\\
+
+O Take permite fazer operações que noutros tipos de memória partilhada mais “convencionais” requerem uma instrução do tipo compare-and-swap. \\
+
+A operação Take requer ordem total.
+
+\subsection{Implementação do Put}
+
+\begin{enumerate}[itemsep=0pt]
+    \item A réplica onde o pedido é feito faz multicast do Put para todas as outras réplicas e responde ao cliente
+    \item Ao receber o pedido, as réplicas inserem o tuplo e enviam ACK
+    \item O passo 1 é repetido até a réplica original receber o ACK de todas as outras réplicas
+\end{enumerate}
+
+\subsection{Implementação do Read}
+
+\begin{enumerate}
+    \item A réplica onde o pedido é feito faz multicast do Read para todas as outras réplicas
+    \item Ao receber o pedido, as réplicas retornam o tuplo que faz “match”
+    \item Ao receber a primeira resposta, a réplica retorna ao cliente, ignorando as respostas seguintes
+    \item O passo 1 é repetido até se receber uma resposta
+\end{enumerate}
+
+\subsection{Implementação do Take}
+
+
 
 \newpage
 
 \section{Estados Globais}
 
-\newpage
+Dado um evento $e_2$ pertencente ao corte, se $e_1 \rightarrow e_2$ então, para o corte ser coerente, $e_1$ tem de pertencer ao corte. Se $e_1 \rightarrow e_2$ e apenas $e_1$ pertencer ao corte, este continua a ser coerente.
 
 \section{Eleição de líder}
 
 \subsection{Algoritmo baseado em anel}
 
+
+
 \subsection{Algoritmo "bully"}
+
+
+
+No melhor cenário, o algoritmo de "Bully" consegue terminar a eleição trocando menos mensagens que o de anel.
 
 \section{Exclusão Mútua}
 
@@ -161,21 +399,76 @@ Relacão happens-before/aconteceu-antes ($\rightarrow$)
 
 \subsection{Coerência forte}
 
-\subsubsection{Primary-backup}
+\subsubsection{Primary-backup (replicação passiva)}
 
-\subsubsection{Replicação de máquina de estados}
+\begin{enumerate}
+    \item FE envia pedido ao primário (usando no-máximo-uma-vez)
+    \item Primário ordena os pedidos por ordem de chegada
+    \item Primário executa pedido e guarda resposta
+    \item Primário envia aos secundários: (novo estado, resposta, id.pedido) e  espera por ack de todos os secundários
+    \item Primário responde ao front-end, que retorna ao cliente
+\end{enumerate}
 
-\subsubsection{Registo distribuído coerente}
+\subsubsection{Replicação de máquina de estados (replicação ativa)}
+
+\begin{enumerate}
+    \item FE envia pedido (juntamente com um relógio lógico de Lamport) a \textbf{todas as réplicas usando difusão em ordem total} (mas sem esperar pelas réplicas em falha)
+    \item O algoritmo de difusão entrega o pedido a todas (quando chegar a ver deste pedido na ordem total)
+    \item Cada réplica executa o pedido
+    \item Cada réplica responde ao cliente, que usa a primeira resposta
+\end{enumerate}
+
+Os pedidos necessitam de ser entregues por ordem total.
+
+\subsubsection{Primary-backup vs RME}
+
+\begin{itemize}
+    \item Primário-secundário
+    \begin{itemize}
+        \item Suporta operações não deterministas (o líder decide o resultado)
+        \item Se o líder produzir um valor errado, este valor é propagado para as réplicas
+    \end{itemize}
+    \item Replicação máquina de estados
+    \begin{itemize}
+        \item Se uma réplica produzir um valor errado não afeta as outras réplicas
+        \item A operações necessitam de ser deterministas
+    \end{itemize}
+\end{itemize}
+
+\subsection{Checkpoint recovery}
+
+Técnica que para tolerar faltas guarda o estado da aplicação periodicamente, de forma a poder relançar a mesma sem ter de começar do início.
 
 \subsection{Coerência fraca}
 
 \subsubsection{Gossip}
+
+Pedidos de leitura (query):
+\begin{itemize}
+    \item Réplica verifica se $pedido.prev \leq valueTS$
+\end{itemize}
+
+Pedidos de escrita (update):
+\begin{itemize}
+    \item responde e incrementa $pedido.prev_{[i]}$
+\end{itemize}
+
 
 \subsubsection{Bayou}
 
 \newpage
 
 \section{Consenso}
+
+\begin{itemize}
+    \item Conjunto de N processos
+    \item Cada processo propõe um valor (input)
+    \item Todos os processos decidem o mesmo valor (output)
+    \begin{itemize}
+        \item O valor decidido deve ser um dos valores propostos
+        \item Pode ser qualquer um dos valores propostos
+    \end{itemize}
+\end{itemize}
 
 \subsection{Floodset consensus}
 
@@ -201,8 +494,24 @@ Propriedades ACID:
 
 \begin{enumerate}
     \item O coordenador envia uma mensagem denominada "prepare" a todos os participantes.
-    \item 
+    \item Se o participante pode confirmar a transação envia "ok" ao coordenador.
+    \item Se o participante não puder confirmar a transação envia "not-ok" ao coordenador.
+    \item Se o coordenador receber “ok” de todos os participantes decide:
+    \begin{itemize}
+        \item confirmar a transacção
+        \item Acrescenta ao seu “log” uma entrada indicando que a transação foi confirmada
+        \item e avisa os outros (que registam no seu log)
+    \end{itemize}
+    \item Se o coordenador receber “not-ok” de pelo menos um participante decide:
+    \begin{itemize}
+        \item abortar a transacção
+        \item Acrescenta ao seu “log” uma entrada indicando que a transação foi
+        abortada
+        \item e avisa os outros (que registam no seu log)
+    \end{itemize}
 \end{enumerate}
+
+Este algoritmo é bloqueante se o coordenador falha
 
 \newpage
 

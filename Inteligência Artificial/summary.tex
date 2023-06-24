@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[paper=letterpaper,margin=2cm]{geometry}
+\usepackage[a4paper,margin=2cm]{geometry}
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -35,18 +35,154 @@
 
 \section{Introdução}
 
+A Inteligência Artificial pode ser vista de 4 perspetivas diferentes, como ilustradas abaixo:
 
+\begin{tabular}[t]{ | l | c | c | }
+    \hline
+        & Desempenho Humano & Racionalidade \\\hline
+    Processos e Raciocínio & Pensar como os humanos & Pensar racionalmente \\\hline
+    Comportamento & Atuar como os humanos & Atuar racionalmente \\\hline
+\end{tabular}
+\vspace{10pt}
+
+A perspetiva seguida na cadeira é a última apresentada, focando-se no estudo de agentes racionais capazes de, tal como o nome sugere, \textbf{atuar racionalmente}.
+
+\subsection{Acting humanly: The Turing Test approach}
+
+Esta abordagem é baseada nos pressupostos do \textbf{Testes de Turing}, o teste é passado se um humano não conseguir distinguir se está a responder a perguntas (ou a interagir) com um humano ou computador. \vspace{10pt}
+
+Um computador, para passar a este teste teria de ter as seguintes capacidades:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item \textbf{Capacidade de processar língua natural} - comunicar
+    \item \textbf{Representação de conhecimento} - guardar conhecimento
+    \item \textbf{Raciocínio automático} - usar o conhecimento para responder
+    \item \textbf{Aprendizagem} - adaptar-se
+\end{itemize}
+
+\subsection{Thinking Humanly: The Cognitive Modeling Approach}
+
+Para esta abordagem é necessário compreender como é que os humanos pensam e não só o que pensam. Existem 2 formas de fazer isto:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item \textbf{Introspeção}
+    \item \textbf{Experiências psicológicas}
+\end{itemize}
+O campo da ciência cognitiva junta os modelos computacionais de IA com as técnicas
+experimentais de psicologia para criar teorias precisas e testáveis da mente humana. Quando se tem uma teoria precisa sobre o funcionamento da mente, podemos implementá-la e testar.
+
+\subsection{Thinking Rationally: The “laws of thought” approach}
+
+Esta abordagem é baseada em \textbf{lógica} - que faz uso de regras e notação específicas para traduzir conhecimento. \vspace{10pt}
+
+Existem algumas barreiras a esta abordagem como:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item É difícil traduzir conhecimento informal e codificá-lo em lógica.
+    \item É fácil esgotar os recursos computacionais se não existir nenhum guia da resolução do problema.
+\end{itemize}
+
+\subsection{Acting Rationally: The rational agent approach}
+
+O \textbf{comportamento racional} é traduzido em tomar a decisão correta - definida como aquela que maximiza a expetativa de alcançar um objetivo.
 
 \newpage
 
 \section{Agentes Inteligentes}
 
+\subsection{Agents and Environments}
 
+Um \textbf{agente} é tudo o que é capaz de captar/perceber o \textbf{ambiente} onde se encontra através de \textbf{sensores} e atuar nesse ambiente através de \textbf{atuadores}. Deve ser \textbf{autónomo}, ou seja, capaz de agir de forma independente de outros agentes e do utilizador.\vspace{10pt}
+
+Uma \textbf{sequência de perceções} é a história completa de tudo o que agente alguma vez percebeu.\vspace{10pt}
+
+Em geral, a escolha de ação de um agente a qualquer instante pode depender de toda a sequência de perceções observada até a data, mas não de algo que ele ainda não percecionou.\vspace{10pt}
+
+Matematicamente, dizemos que o comportamento de um agente é descrito como a \textbf{função agente} que mapeia uma sequência de perceções numa ação. O \textbf{programa agente} é uma implementação concreta executada num sistema físico.
+
+\subsection{Good Behavior: The Concept of Rationality}
+
+Por cada sequência de perceções possível, um \textbf{agente racional} deve selecionar uma ação que é suposto \textbf{maximizar a sua medida de desempenho}, dada a informação disponibilizada pela sequência de perceções e eventualmente pelo conhecimento que o agente possui.\vspace{10pt}
+
+\textbf{Medida de desempenho}: critério objetivo que mede o sucesso do comportamento do agente.\vspace{10pt}
+
+A escolha da ação dependerá do conhecimento adquirido até à data, e não do conhecimento do resultado da ação à priori. Diz-se por isso que um agente deve aprender e ser \textbf{autónomo}.
+
+\subsection{The Nature of Environments}
+
+Os ambientes são os problemas para os quais agentes racionais são a solução.
+
+Um agente pode ser caracterizado pelo acrónimo PEAS:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item Performance
+    \item Environment
+    \item Atuadores
+    \item Sensores
+\end{itemize}
+
+\subsubsection{Tipos de Ambientes}
+
+\begin{itemize}
+    \item \textbf{Observável vs Parcialmente Observável}
+
+    Os sensores do agente dão acesso ao estado completo do ambiente em cada instante de tempo, pelo que não é necessário manter um estado interno sobre o mundo. Quanto mais observável é um ambiente mais fácil a criação de agentes que nele operem.
+
+    \item \textbf{Determinístico vs Estocástico}
+
+    Se o próprio estado do ambiente é completamente determinado pelo estado atual e da ação do agente, então estamos num ambiente determinístico. Num ambiente estocástico há uma probabilidade de incerteza associada. Se um ambiente é sempre determinístico exceto para ações de outros agentes, então o ambiente é \textbf{estratégico}.
+
+    \item \textbf{Episódico vs Sequencial}
+    
+    A experiência do agente está divida em episódio atómicos. Em cada episódio o agente perceciona e depois executa uma ação. O próximo episódio não depende no anterior. Em ambientes sequenciais, a decisão atual pode afetar as próximas.
+    
+    \item \textbf{Estático vs Dinâmico}
+    
+    Um ambiente estático é aquele em que o ambiente não é alterado enquanto o agente decide que a ação vai tomar. Um ambiente semi-dinâmico permanece inalterado com a passagem do tempo mas a qualidade do desempenho do agente é alterada. Um ambiente dinâmico está em constante alteração pelo que as ações dos agentes podem falhar frequentemente.
+    
+    \item \textbf{Discreto vs Contínuo}
+
+    Num ambiente discreto há um número restrito de estado, ações e perceções enquanto que num agente contínuo o ambiente está em constante mudança.
+
+    \item \textbf{Agente único vs Multi-agente}
+    
+    Só existe um agente no ambiente.
+\end{itemize}
+
+\subsection{The Structure of Agents}
+
+\begin{itemize}
+    \item \textbf{Agentes de Reflexos Simples}
+    
+    Estes agentes atuam com base na sua \textbf{perceção atual}. Não operam bem em ambientes parcialmente observáveis.
+
+    \item \textbf{Agentes de Reflexos baseados em Modelos}
+    
+    O agente tem um estado interno, que depende do seu histórico de perceções, manter informações do ambiente que não consegue perceber atualmente.
+
+    \item \textbf{Agentes baseados em Objetivos}
+    
+    O agente atua para atingir o seu objetivo.
+
+    \item \textbf{Agentes baseados em Utilidade}
+    
+    Os agentes baseados em utilidade têm uma função de utilidade que permite estabelecer preferências entre sequências de estados que permitem atingir os mesmos objetivos. Este agente toma as decisões baseadas na utilidade esperada dos resultados esperados.
+
+    \item \textbf{Agentes com Aprendizagem}
+    
+    A aprendizagem permite um agente operar num ambiente inicialmente desconhecido e tornar-se mais competente. 
+
+    Um agente com aprendizagem pode ser dividido em 4 componentes conceituais:
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item \textbf{Elemento de aprendizagem}: torna o agente mais eficiente.
+        \item \textbf{Elemento de desempenho}: seleciona as ações do agente.
+        \item \textbf{Elemento de crítica}: dá feedback ao elemento de aprendizagem  e determina se o elemento de performance deve ser modificado no futuro.
+        \item \textbf{Elemento de geração de problemas}: sugere ações experimentais que podem trazer informação útil.
+    \end{itemize}
+\end{itemize}
 
 \newpage
 
 \section{Resolução de Problemas com Procura}
 
+
+\subsection{Problem-Solving Agents}
 
 
 \subsection{Procura não Informada}
@@ -89,17 +225,17 @@
 
 \subsubsection{Greedy Best-First Search}
 
-
+$f(n) = h(n)$
 
 \subsubsection{A* Search}
 
 
 
-\subsubsection{Iterative Deepening A* Search}
+\subsubsection{Iterative Deepening A* Search (IDA*)}
 
 
 
-\subsubsection{Recursive Best-First Search}
+\subsubsection{Recursive Best-First Search (RBFS)}
 
 
 \newpage
@@ -108,13 +244,15 @@
 
 
 
+\textbf{Heurística Admissível} - para qualquer estado $n$ pertencente ao espaço de estados, o valor da função heurística, $h(n)$, não é superior ao custo mínimo desde esse estado até uma solução, $h^*(n)$, isto é, a heurística nunca sobrestima o custo. $h(n)\leq h^*(n)$
+
 \newpage
 
 \section{Procura em Ambientes Complexos}
 
 
 
-\subsection{Procura local}
+\subsection{Procura Local}
 
 
 
@@ -126,7 +264,7 @@
 
 
 
-\subsection{Procura em Mmbientes Parcialmente Observáveis}
+\subsection{Procura em Ambientes Parcialmente Observáveis}
 
 
 

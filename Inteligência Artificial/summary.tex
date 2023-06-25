@@ -1,13 +1,22 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{amsfonts}
 \usepackage{tabularray}
-\usepackage{mathtools}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 \setlength{\parindent}{0pt}
 
+\titleformat*{\section}{\Large\bf\MakeUppercase}
+\titleformat*{\subsection}{\large\bf}
 
 \begin{document}
 
@@ -32,8 +41,7 @@
 \tableofcontents
 
 \newpage
-
-\section{Introdução}
+\section{Introduction}
 
 A Inteligência Artificial pode ser vista de 4 perspetivas diferentes, como ilustradas abaixo:
 
@@ -84,8 +92,7 @@ Existem algumas barreiras a esta abordagem como:
 O \textbf{comportamento racional} é traduzido em tomar a decisão correta - definida como aquela que maximiza a expetativa de alcançar um objetivo.
 
 \newpage
-
-\section{Agentes Inteligentes}
+\section{Intelligent Agents}
 
 \subsection{Agents and Environments}
 
@@ -138,7 +145,7 @@ Um agente pode ser caracterizado pelo acrónimo PEAS:
     
     \item \textbf{Discreto vs Contínuo}
 
-    Num ambiente discreto há um número restrito de estado, ações e perceções enquanto que num agente contínuo o ambiente está em constante mudança.
+    Num ambiente discreto há um número restrito de estados, ações e perceções enquanto que num agente contínuo o ambiente está em constante mudança.
 
     \item \textbf{Agente único vs Multi-agente}
     
@@ -178,8 +185,7 @@ Um agente pode ser caracterizado pelo acrónimo PEAS:
 \end{itemize}
 
 \newpage
-
-\section{Resolução de Problemas com Procura}
+\section{Solving Problems By Searching}
 
 
 \subsection{Problem-Solving Agents}
@@ -218,7 +224,6 @@ Um agente pode ser caracterizado pelo acrónimo PEAS:
 
 
 \newpage
-
 \subsection{Procura Informada}
 
 
@@ -239,7 +244,6 @@ $f(n) = h(n)$
 
 
 \newpage
-
 \subsection{Funções Heurísticas}
 
 
@@ -247,53 +251,180 @@ $f(n) = h(n)$
 \textbf{Heurística Admissível} - para qualquer estado $n$ pertencente ao espaço de estados, o valor da função heurística, $h(n)$, não é superior ao custo mínimo desde esse estado até uma solução, $h^*(n)$, isto é, a heurística nunca sobrestima o custo. $h(n)\leq h^*(n)$
 
 \newpage
-
-\section{Procura em Ambientes Complexos}
-
-
-
-\subsection{Procura Local}
+\section{Beyond Classical Search}
 
 
 
-\subsection{Procura em Espaços Contínuos}
+\subsection{Local Search Algorithms And Optimization Problems}
+
+\subsubsection{Hill-climbing search}
+
+
+\subsubsection{Simulated annealing}
+
+
+\subsubsection{Local beam search}
+
+
+\subsubsection{Genetic algorithms}
+
+
+\subsection{Local Search in Continuous Spaces}
 
 
 
-\subsection{Procura com Ações não Determinísticas}
+\subsection{Searching with Nondeterministic Actions}
+
+\subsubsection{AND-OR search trees}
 
 
-
-\subsection{Procura em Ambientes Parcialmente Observáveis}
-
+\subsubsection{Try, try again}
 
 
-\subsection{Agentes de Procura Online e Ambientes Desconhecidos}
+\subsection{Searching with Partial Observations}
+
+\subsubsection{Searching with no observation}
+
+
+\subsubsection{Searching with observations}
+
+
+\subsection{Online Search Agents and Unknown Environments}
+
+\subsubsection{Online search problems}
+
+
+\subsubsection{Online search agents}
+
+
+\subsubsection{Online local search}
+
+
+\subsubsection{Learning in online search}
+
+
+\newpage
+\section{Adversarial Search}
+
+\subsection{Games}
+
+
+\subsection{Optimal Decisions in Games}
+
+
+\subsubsection{The minimax algorithm}
+
+
+\subsubsection{Optimal decisions in multiplayer games}
+
+
+\subsection{Alpha-Beta Pruning}
+
+
+\subsubsection{Move ordering}
+
+
+\subsection{Imperfect Real-Time Decisions}
+
+
+\subsubsection{Evaluation functions}
+
+
+\subsubsection{Cutting off search}
+
+
+\newpage
+\section{Constraint Satisfaction Problems}
+
+\subsection{Defining Constraint Satisfaction Problems}
+
+\subsubsection{Variations on the CSP formalism}
+
+\subsection{Constraint Propagation: Inference in CSPs}
+
+\subsubsection{Node consistency}
+
+\subsubsection{Arc consistency}
+
+\subsubsection{Path consistency}
+
+\subsubsection{K-consistency}
+
+\subsubsection{Global constraints}
+
+\subsection{Backtracking Search for CSPs}
+
+\subsubsection{Variable and value ordering}
+
+\subsubsection{Interleaving search and inference}
+
+\subsubsection{Intelligent backtracking: Looking backward}
+
+\subsection{Local Search for CSPs}
+
+\subsection{The Structure of Problems}
+
+\newpage
+\setcounter{section}{9}
+\section{Classical Planning}
+
+\subsection{Definition of Classical Planning}
+
+
+\subsection{Algorithms for Planning as State-Space Search}
+
+
+\subsubsection{Forward (progression) state-space search}
+
+
+\subsubsection{Backward (regression) relevant-states search}
+
+
+\subsubsection{Heuristics for planning}
+
+
+\subsection{Planning Graphs}
+
+
+\subsubsection{Planning graphs for heuristic estimation}
+
+
+\subsubsection{The GRAPHPLAN algorithm}
+
+
+\subsubsection{Termination of GRAPHPLAN}
+
+
+\subsection{}
 
 
 
 \newpage
-
-\section{Procura Adversária}
-
-
-
-\newpage
-
-\section{Problemas de Satisfação de Restrições}
+\setcounter{section}{20}
+\section{Reinforcement Learning}
 
 
-
-\newpage
-
-\section{Planeamento Automático}
+\subsection{Introduction}
 
 
-
-\newpage
-
-\section{Aprendizagem por Reforço}
+\subsection{Passive Reinforcement Learning}
 
 
+\subsubsection{Direct utility estimation}
+
+
+\subsubsection{Adaptive dynamic programming}
+
+
+\subsubsection{Temporal-difference learning}
+
+
+\subsection{Active Reinforcement Learning}
+
+
+\subsubsection{Exploration}
+
+
+\subsubsection{Learning an action-utility function}
 
 \end{document}

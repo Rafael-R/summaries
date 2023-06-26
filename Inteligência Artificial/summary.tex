@@ -4,6 +4,7 @@
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{tabularray}
+\usepackage{amsmath,amssymb}
 
 \hypersetup{
     colorlinks,
@@ -12,11 +13,10 @@
     linkcolor=black,
     urlcolor=black
 }
-
 \setlength{\parindent}{0pt}
-
 \titleformat*{\section}{\Large\bf\MakeUppercase}
 \titleformat*{\subsection}{\large\bf}
+
 
 \begin{document}
 
@@ -57,7 +57,7 @@ A perspetiva seguida na cadeira é a última apresentada, focando-se no estudo d
 
 \subsection{Acting humanly: The Turing Test approach}
 
-Esta abordagem é baseada nos pressupostos do \textbf{Testes de Turing}, o teste é passado se um humano não conseguir distinguir se está a responder a perguntas (ou a interagir) com um humano ou computador. \vspace{10pt}
+Esta abordagem é baseada nos pressupostos do \textbf{Testes de Turing}, o teste é passado se um humano não conseguir distinguir se está a responder a perguntas (ou a interagir) com um humano ou computador.\vspace{10pt}
 
 Um computador, para passar a este teste teria de ter as seguintes capacidades:
 \begin{itemize}[topsep=4pt, itemsep=0pt]
@@ -79,7 +79,7 @@ experimentais de psicologia para criar teorias precisas e testáveis da mente hu
 
 \subsection{Thinking Rationally: The “laws of thought” approach}
 
-Esta abordagem é baseada em \textbf{lógica} - que faz uso de regras e notação específicas para traduzir conhecimento. \vspace{10pt}
+Esta abordagem é baseada em \textbf{lógica} - que faz uso de regras e notação específicas para traduzir conhecimento.\vspace{10pt}
 
 Existem algumas barreiras a esta abordagem como:
 \begin{itemize}[topsep=4pt, itemsep=0pt]
@@ -187,120 +187,261 @@ Um agente pode ser caracterizado pelo acrónimo PEAS:
 \newpage
 \section{Solving Problems By Searching}
 
-
 \subsection{Problem-Solving Agents}
 
+Em particular, temos que problem-solving agents devem, ao contrário de outros tipos de agentes mais elementares, poder considerar ações futuras (e as respetivas consequências). Ora, tendo um objetivo estabelecido (objetivo esse gerado a partir do estado final onde queremos chegar, tendo em conta um conjunto de medidas de performance), encontrar a forma ótima de o atingir nem sempre é trivial, acabando frequentemente por requerer \textbf{estratégias de procura} adequadas à situação em que o agente se encontra. De forma sucinta, dizemos que essa "forma ótima de o atingir" corresponde à sequência de ações que o agente terá sucessivamente de tomar por forma a satisfazer o objetivo.
 
-\subsection{Procura não Informada}
+\subsubsection{Well-defined problems and solutions}
 
+Um problema pode ser formalmente definido em 5 componentes:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item o \textbf{estado inicial}.
+    \item as \textbf{ações que o agente pode tomar}, considerando o seu estado atual.
+    \item um \textbf{modelo de transição}, que retorna o estado resultante de executar uma dada ação partindo de um certo estado.
+    \item um \textbf{teste objetivo}, um teste simples que nos diz se um dado estado é ou não um estado objetivo. 
+    \item um \textbf{custo caminho}, uma função que atribui um custo numérico a cada caminho (consideramos aqui caminho como um todo). Este custo está dependente das medidas de performance pretendidas. Note-se que este ponto se refere ao passado,ou seja, o caminho já percorrido.
+\end{itemize}\vspace{4pt}
 
+Uma \textbf{solução} para o problema é uma sequência de estados, do estado inicial ao estado objetivo. A qualidade de uma solução é medida pelo seu custo. A \textbf{solução ótima} é a que tem menor custo.
+
+\setcounter{subsection}{2}
+\subsection{Searching For Solutions}
+
+Com o problema formulado, resolvê-lo passa por encontrar a sequência de ações ótima para chegar ao objetivo. Para tal, utilizamos \textbf{algoritmos de procura}, que pesquisam vários ramos da "árvore da sequência de ações", em busca de uma sequência que satisfaça os objetivos dentro das medidas de desempenho pretendidas. Temos, claro, que cada nó da árvore corresponde a um estado (com a raiz sendo o estado inicial), e que os filhos de um nó correspondem aos estados resultantes de tomar uma ação partindo do estado pai.\vspace{4pt}
+
+Chama-se de \textbf{fronteira} de expansão aos nós gerados que ainda não foram expandidos (ou lista de nós abertos).\vspace{4pt}
+
+Os diferentes \textbf{algoritmos de procura} variam apenas na forma como decidem que nó expandir a seguir. A isto chama-se \textbf{estratégia de procura}.\vspace{4pt}
+
+Para evitar os estados repetidos, guardamos o conjunto dos nós já explorados aquando do processamento do algoritmo. Isto significa que todos os nós gerados tem de ser mantidos em memória o que têm uma complexidade espacial exponencial.\vspace{4pt}
+
+\subsubsection{Infrastructure for Search Algorithms}
+
+Para cada nó $n$ de uma árvore, temos a estrutura que contém os seguintes componentes:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item $n$.State
+    \item $n$.Parent
+    \item $n$.Action - ação aplicada ao pai que gerou este nó
+    \item $n$.Path-cost - custo $g(n)$ do caminho do estado inicial até este estado
+\end{itemize}
+To place the visited nodes we typically use queues. These can be FIFO, LIFO (or Stacks) or Priority Queues.
+
+\subsubsection{Measuring problem-solving performance}
+
+As estratégias de procura são avaliadas em 4 aspetos:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item \textbf{Completa} - caso encontre sempre uma solução para o problema proposto, caso exista (e caso não exista, diz que não há solução).
+    \item \textbf{Ótima} - caso encontre a solução ótima (de menor custo).
+    \item \textbf{Complexidade temporal} - número de nós gerados (note-se que não precisam ser expandidos)
+    \item \textbf{Complexidade espacial} - número máximo de nós em memória
+\end{itemize}\vspace{4pt}
+
+As complexidades são medidas em termos de:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item $\boldsymbol{b}$ - máximo factor de ramificação da árvore
+    \item $\boldsymbol{d}$ - profundidade da solução de menor custo
+    \item $\boldsymbol{m}$ - máxima profundidade do espaço de estados
+\end{itemize}
+
+\subsection{Uninformed Search Strategies}
+
+A procura cega (ou não informada), tal como o nome indica, consiste em fazer uma procura sem informação do que vem a seguir - as estratégias sabem apenas o que a definição do problema lhes transmite, sem qualquer tipo de pista ou heurística que permita saber se uma ação é "mais promissora" que outra.
 
 \subsubsection{Breadth-First Search}
 
-
+%TODO
 
 \subsubsection{Uniform-Cost Search}
 
-
+%TODO
 
 \subsubsection{Depth-First Search}
 
-
+%TODO
 
 \subsubsection{Depth-Limited Search}
 
-
+%TODO
 
 \subsubsection{Iterative Deepening Search}
 
-
+%TODO
 
 \subsubsection{Bidirectional Search}
 
-
+%TODO
 
 \subsubsection*{Resumo dos Algoritmos}
 
+%TODO
 
+\subsection{Informed (Heuristic) Search Strategies}
 
-\newpage
-\subsection{Procura Informada}
-
-
+%TODO
 
 \subsubsection{Greedy Best-First Search}
 
+%TODO
 $f(n) = h(n)$
 
 \subsubsection{A* Search}
 
+%TODO
 
+\subsubsection{Memory-bounded heuristic search}
 
-\subsubsection{Iterative Deepening A* Search (IDA*)}
+%TODO
 
+\subsubsection*{Resumo dos Algoritmos}
 
+%TODO
 
-\subsubsection{Recursive Best-First Search (RBFS)}
+\subsection{Heuristic Functions}
 
+%TODO
 
-\newpage
-\subsection{Funções Heurísticas}
+\subsubsection{The effect of heuristic accuracy on performance}
 
-
-
-\textbf{Heurística Admissível} - para qualquer estado $n$ pertencente ao espaço de estados, o valor da função heurística, $h(n)$, não é superior ao custo mínimo desde esse estado até uma solução, $h^*(n)$, isto é, a heurística nunca sobrestima o custo. $h(n)\leq h^*(n)$
+%TODO
+\textbf{Heurística Admissível} - para qualquer estado $n$ pertencente ao espaço de estados, o valor da função heurística, $h(n)$, não é superior ao custo mínimo desde esse estado até uma solução, $h^*(n)$, isto é, a heurística nunca sobrestima o custo. $h(n) \leq h^*(n)$
 
 \newpage
 \section{Beyond Classical Search}
 
-
-
 \subsection{Local Search Algorithms And Optimization Problems}
+
+Quando temos um problema em que o \textbf{caminho} para o objetivo \textbf{não interessa}, podemos usar \textbf{procura local} que mantém um único estado atual, os caminhos não são memorizados.\vspace{4pt}
+
+As \textbf{vantagens da procura local} são:
+\begin{itemize}[topsep=2pt,itemsep=0pt]
+    \item Usam memória constante
+    \item Conseguem encontrar solução em espaços de estados infinitos
+    \item Resolvem bem \textbf{problemas de otimização} - encontrar o estado que maximize/minimize uma função de avaliação - e \textbf{problemas de reparação} - estado inicial completo mas não satisfaz as restrições do problema, encontra estado que satisfaça as restrições.
+\end{itemize}
+\vspace{4pt}
+
+As \textbf{desvantagens} são:
+\begin{itemize}[topsep=2pt,itemsep=0pt]
+    \item Não podem ser aplicadas quando precisamos de caminho
+    \item Não são normalmente completas/ótimas pois ficam presas nos máximos locais
+\end{itemize}
 
 \subsubsection{Hill-climbing search}
 
+O \textbf{algoritmo trepar-a-colina} é um algoritmo de procura. É um simples ciclo que se move continuamente na direção de um valor melhor. Termina quando nenhum sucessor têm valores melhores. Não guarda árvore de procura e não olha para além dos vizinhos imediatos.\vspace{4pt}
+
+Este algoritmo tem problemas como:
+\begin{itemize}[topsep=2pt,itemsep=0pt]
+    \item \textbf{Máximos locais} - pico mais elevado que os seus vizinhos mas mais baixo que o máximo global.
+    \item \textbf{Cumes} - sequência de máximos locais.
+    \item \textbf{Planaltos} - zona do espaço de estados onde a função de avaliação é plana.
+\end{itemize}
+\vspace{10pt}
+
+Podemos resolver este problema com variantes do Hill Climbing:
+\begin{itemize}[topsep=2pt,itemsep=0pt]
+    \item \textbf{Trepar-a-colina estocástico}
+    \begin{itemize}[topsep=0pt,itemsep=0pt]
+        \item Escolhe aleatoriamente de entre sucessores melhores que estado atual.
+        \item Probabilidade de seleção varia em função do valor da melhoria.
+    \end{itemize}
+    \item \textbf{Trepar-a-colina melhor primeiro}
+    \begin{itemize}[topsep=0pt,itemsep=0pt]
+        \item Gera os sucessores aleatoriamente até encontrar o primeiro com
+        valor melhor que o estado atual (conveniente quando há muitos sucessores).
+    \end{itemize} 
+    \item \textbf{Trepar-a-colina com começo aleatório}
+    \begin{itemize}[topsep=0pt,itemsep=0pt]
+        \item Conduz uma séria de procuras a partir de diferentes estados
+        iniciais, gerados aleatoriamente. Pára quando encontra o objetivo.
+        \item Se $p$ for a probabilidade de sucesso de cada procura o número esperado de tentativas é $1/p$.
+        \item Converge rapidamente para uma solução.
+        \item É recomendada quando o espaço de estados tem poucos máximos locais e planaltos.
+    \end{itemize}
+\end{itemize}
+\vspace{4pt}
+
+O \textbf{estocástico e melhor primeiro não resolvem} o problema dos máximos locais.
 
 \subsubsection{Simulated annealing}
 
+A procura por \textbf{simulated annealing} baseia-se em tentar fazer com que os estados saiam de máximos ou mínimos locais, "abanando-os". "Abanar" os estados consiste, aqui, em escolher (por vezes) estados com valor objetivo pior do que o que temos atualmente, por forma a procurar sair de máximos/mínimos locais em direção ao global. Esta escolha é feita da seguinte maneira:
+\begin{itemize}
+    \item Se gerarmos um vizinho com valor objetivo maior que o que temos atualmente, escolhemo-lo.
+    \item Caso geremos um vizinho com valor objetivo menor que o que temos atualmente, existe a \textbf{possibilidade} de o escolhermos na mesma: temos, contudo, de ter cuidado para não nos afastarmos demasiado dos extremos locais que já encontrámos, ficando ainda mais longe de encontrar extremos globais, pelo que a probabilidade (sempre menor que 1) de escolher estes vizinhos diminui à medida que o movimento se aproxima cada vez mais dos extremos globais - isto é, se nos estivermos a aproximar "do que queremos", não faz tanto sentido ir noutra direção como fazia inicialmente, quando estávamos longe e qualquer abanão podia surtir efeitos positivos.
+\end{itemize}
 
 \subsubsection{Local beam search}
 
+Na \textbf{procura local em banda} optamos por gerar $k$ estados iniciais, todos eles aleatórios. Se algum deles for estado-objetivo, paramos. Caso contrário, vamos ver todos os vizinhos dos $k$ estados, e escolhemos os $k^*$ melhores estados, entre todos os vizinhos que gerámos. Este processo é realizado iterativamente até que encontremos um estado-objetivo.\vspace{10pt}
+
+Podemos, eventualmente, chegar a situações em que os $k$ estados que temos em mãos são pouco diversos. Para nos ajudar a combater este problema, existe a variante \textbf{estocástica} da procura local em banda, onde em vez de escolhermos sempre os kk melhores vizinhos dos estados atuais, escolhemos $k$ vizinhos de forma aleatória. Esta abordagem permite uma maior diversidade no conjunto de estados que vamos explorando.
+
+$^*$Note-se que caso um dos estados, seja ele $K$, gere $\frac{K}{2}$ vizinhos fantásticos e todos os outros, para todos os outros estados, sejam medíocres, não vamos apenas escolher 1 vizinho por estado: vamos escolher os $\frac{K}{2}$ vizinhos de $K$, e depois outros $\frac{K}{2}$ vizinhos entre o resto dos medíocres.
 
 \subsubsection{Genetic algorithms}
 
+Correspondem a algoritmos baseados na procura em banda estocástica, referida acima, e na ideia da "seleção natural" associada à genética. Começamos com uma população inicial, com $k$ estados (ou indivíduos). Estes indivíduos vão eventualmente reproduzir-se, por forma a dar continuidade à espécie (leia-se, vamos gerar os estados vizinhos), e eventualmente vamos gerando indivíduos "melhores", tal como dita a teoria da evolução - as mutações positivas mantêm-se, da mesma maneira que vamos sempre procurar estados que estejam a "ir na direção certa". Esta noção de estados melhores e piores pode ser quantificada segundo uma função, a \textit{fitness function}, onde os melhores estados recebem os valores mais altos. Vamos cruzando estados pais, mantendo propriedades iguais entre os mesmos, procurando ainda verificar se certas alterações levam ou não a resultados melhores, em busca do estado que corresponde a uma solução.\vspace{10pt}
+
+Este tipo de algoritmos pode, ainda, variar considerando várias componentes:
+
+\begin{itemize}[topsep=2pt,itemsep=0pt]
+    \item O tamanho da população pode, claro, ser infinitamente variável;
+    \item A representação de um estado é também arbitrária: tanto podemos ter strings sobre alfabetos $\{0,1\}$, como qualquer alfabeto numérico, entre outros;
+    \item A quantidade de "pais" - acima foram referidos dois pais, mas podemos ter um (sendo essa abordagem a procura em banda estocástica clássica) ou mesmo mais que dois pais;
+    \item O próprio processo de seleção, que não tem necessariamente de ter uma relação direta com a fitness function (podendo ser mais aleatório), entre outras.
+\end{itemize}
 
 \subsection{Local Search in Continuous Spaces}
 
-
-
 \subsection{Searching with Nondeterministic Actions}
+
+Em cenários reais, as nossas ações podem ter mais do que um resultado possível. Vamos, portanto, ter de adaptar a nossa noção de modelo de transição, passando esta a retornar um \textbf{conjunto de estados} que podem resultar de aplicar uma ação $a$ a um estado $s$.
 
 \subsubsection{AND-OR search trees}
 
+São árvores com dois tipos de nós, onde:
+\begin{itemize}[topsep=2pt,itemsep=0pt]
+    \item os nós OR correspondem a ações.
+    \item os nós AND correspondem a estados.
+\end{itemize}\vspace{4pt}
+
+A lógica por detrás destas árvores é, então, simples de entender: partindo de nós AND, vemos que ações podemos executar a partir deles, e geramos os nós correspondentes (que vão ser seus filhos) - os nós OR. Posteriormente, verificamos os estados resultantes de aplicar a ação em OR ao pai AND, e daí resultam os filhos de OR: os tais estados resultantes, um conjunto de nós AND.\vspace{10pt}
+
+Neste tipo de árvores, \textbf{todas as folhas são objetivos}. Mais ainda, caso encontremos um estado repetido seguindo um dado caminho, podemos dizer que \textbf{entrámos em ciclo}, retornando \textit{failure}.
 
 \subsubsection{Try, try again}
 
+Existem cenários onde temos de utilizar ciclos para atingir a solução pretendida. Depreende-se, então, que ciclos causados "aleatoriamente" são aceitáveis, e que qualquer outro tipo deve ser rejeitado. 
 
 \subsection{Searching with Partial Observations}
 
+Em ambientes parcialmente observáveis a procura vai tratar, em vez de um conjunto de estados palpáveis/completamente observáveis, de um \textbf{conjunto de crenças} do agente. Tem um conjunto de componentes diferente do que foi visto até agora:
+\begin{itemize}
+    \item Um conjunto de estados, o \textbf{espaço de crenças}: contém todos os subconjuntos de estados físicos do problema original;
+    \item Um \textbf{estado inicial} - por norma, encontra-se inicialmente \textbf{cheio}, já que, na pior das hipóteses, não temos qualquer informação sobre o que nos rodeia (tendo, portanto, de considerar qualquer cenário como possível). Na prática, costumamos ter algumas pistas quanto ao estado inicial;
+    \item Um \textbf{conjunto de ações}, que corresponde ao conjunto de todas as ações que podemos fazer partindo de qualquer um dos estados do espaço de crenças;
+    \item % TODO
+    \item O \textbf{teste objetivo}, que aqui tem um senão: só é garantido que estamos no objetivo se todo o nosso espaço de crenças assim o afirmar - isto é, se todos os estados do nosso espaço de crenças satisfizerem o objetivo; caso contrário, \textbf{possivelmente} alcançámos o objetivo, sem qualquer garantia.
+\end{itemize}
+
 \subsubsection{Searching with no observation}
 
+% TODO
 
 \subsubsection{Searching with observations}
 
+% TODO
 
 \subsection{Online Search Agents and Unknown Environments}
 
-\subsubsection{Online search problems}
+Quando não conhecemos o ambiente que nos envolve, e existem penalizações (sejam elas artificiais ou naturais) por tempos de computação demasiado longos, pode fazer sentido intervalar a procura com ações, em vez de seguir sempre a mesma linha de procura até agora abordada: observamos o ambiente atual e o que sabemos sobre ele, calculamos a próxima ação a tomar por forma a atingir mais rapidamente o objetivo, e executamos essa mesma ação. Esta navegação consegue assemelhar-se, de vez em quando, a uma procura às cegas.\vspace{4pt}
 
+Note-se que esta abordagem tem particular utilidade no âmbito da exploração - é bastante provável que um agente, procurando às cegas, chegue ao fim tendo procurado a vasta maioria do ambiente que o envolve. Quanto à velocidade a que chega ao objetivo, contudo, é obviamente pior: uma procura pensada, em que conhecemos o ambiente e podemos prever o resultado das nossas ações tem todo um outro nível de "curadoria" que nos permite chegar mais eficientemente ao objetivo.\vspace{4pt}
 
-\subsubsection{Online search agents}
+Abordámos, sem saber, um tipo de procura (local) cega mais acima: \textbf{hill climbing}, se pensarmos bem, mantém apenas informação sobre os seus vizinhos diretos, e não tem noção do meio que o envolve sem ser o que imediatamente o rodeia. Podemos, contudo, \textbf{adicionar memória} a hill climbing, por forma a tornar esta procura mais inteligente: guardamos uma estimativa de quanto custa chegar ao objetivo, partindo de cada estado que já foi visitado.\vspace{4pt}
 
-
-\subsubsection{Online local search}
-
-
-\subsubsection{Learning in online search}
+O agente, aqui, utiliza o que sabe sobre a sua envolvência e, enquanto explora, vai guardando a nova informação sobre o ambiente que o rodeia. Assim que se apercebe que pode seguir um caminho melhor que o anterior, escolhe-o. A esta procura, hill climbing com memória, dá-se também o nome de \textbf{\textit{Learning Real-Time A*}}, $LRTA^*$. Dizemos que $LRTA^*$ opera segundo o princípio de \textbf{otimismo sob incerteza}: ao contrário da versão clássica de hill climbing, aqui o agente é encorajado a explorar o ambiente que o rodeia.
 
 
 \newpage
@@ -308,61 +449,182 @@ $f(n) = h(n)$
 
 \subsection{Games}
 
+Na teoria de jogos, um ambiente multi-agente é um jogo sendo os agentes competitivos ou cooperativos. Em IA, os jogos mais comuns são especializados - determinísticos, em turnos, 2 jogadores, jogos de soma 0 (valores da utilidade são sempre iguais e opostos).\vspace{4pt}
+
+Vamos considerar que existem 2 jogadores, um MAX e outro MIN. O MAX joga primeiro. No final do jogo, o vencedor ganha pontos e o adversário é penalizado (ou empate).\vspace{4pt}
+
+O jogo em si tem várias componentes-base:
+\begin{itemize}[topsep=4pt, itemsep=0pt]
+    \item Um estado inicial, $S_0$, que corresponde à configuração inicial do mesmo.
+    \item Uma função, $player(s:state)$, que especifica o jogador que vai jogar no estado em questão.
+    \item Uma função, $action(s:state)$, que retorna todas as jogadas possíveis para o estado em questão.
+    \item Uma função, $result(s:state,\ a:action)$, que, tal como abordado em secções anteriores, corresponde ao modelo de transição do jogo, que define o estado resultante de realizar uma jogada $a$ sob um estado $s$.
+    \item No lugar do $goal\_test$, abordado anteriormente, vamos ter uma função $terminal\_test$ (que funciona de forma praticamente igual): retorna true caso o jogo esteja num estado terminal, e false caso contrário.
+    \item Por fim, uma função $utility(s:state,\ p:player)$, que especifica a pontuação atribuída a um jogador $p$ caso o jogo termine num estado terminal $s$.
+\end{itemize}
+
+O estado inicial e as funções ações e resultado definem a árvore do jogo. Os nós são estados e os ramos são jogadas.
 
 \subsection{Optimal Decisions in Games}
 
+Um dos algoritmos clássicos de procura em jogos é o Minimax.\vspace{4pt}
 
 \subsubsection{The minimax algorithm}
 
+O funcionamento do algoritmo Minimax é relativamente simples: cada agente vai sempre escolher a jogada que maximiza o valor minimax, que corresponde ao melhor valor para a função de utilidade contra as melhores jogadas do adversário: assumimos, portanto, que o adversário escolhe sempre a melhor jogada possível. \vspace{4pt}
+
+Colocando por palavras, temos que MIN vai sempre tentar escolher a jogada que minimiza as hipóteses de MAX ganhar. Assim sendo, de entre todas as jogadas que MIN idealmente fará, MAX vai tentar maximizar as suas próprias hipóteses de ganhar, escolhendo a jogada com maior valor minimax.
 
 \subsubsection{Optimal decisions in multiplayer games}
 
+Podemos generalizar o funcionamento do algoritmo para $n$ agentes. Para tal, vamos guardar um \textbf{vetor de valores Minimax}, em vez de um valor só, e cada jogador vai, idealmente, escolher a jogada que mais o beneficia de entre todas as possíveis, mantendo, claro, guardados também os valores que cada jogada terá para os outros agentes: havendo uma quantidade arbitrária de jogadores, cada um deles acaba por não se preocupar tanto com "estragar o jogo ao outro" como com "fazer o melhor possível com o próprio jogo". As estratégias ótimas podem, naturalmente, traduzir-se em alianças informais entre vários jogadores.
 
 \subsection{Alpha-Beta Pruning}
 
+Uma forma de otimizar o algoritmo Minimax é cortando ramos da árvore, utilizando uma técnica chamada \textbf{Alpha-Beta Pruning}. Esta técnica remove ramos irrelevantes à decisão final.
+
+Temos que o $\alpha$ de um nó $n$ é o valor da melhor escolha para o jogador MAX encontrada em qualquer ponto da decisão ao longo do caminho para $n$. Temos que $\beta$ é o valor da melhor escolha para o jogador MIN encontrada em qualquer ponto de decisão ao longo do caminho para $n$.
 
 \subsubsection{Move ordering}
 
+Os cortes dependem dos valores de alfa e beta. Portanto vamos escolher primeiro os
+sucessos que atualizem alfa e beta da melhor maneira possível. O que significa no nó MAX visitar primeiro o sucessor com maior valor e nó MIN visitar primeiro o sucessor com menor valor.
+Infelizmente, não sabemos o valor minimax de um nó antes de o visitar. Como é que podemos escolher qual o melhor a visitar primeiro sem o visitar? Estimar com uma \textbf{heurística}.
 
 \subsection{Imperfect Real-Time Decisions}
 
+Mesmo com os cortes, a procura alfa-beta ainda \textbf{tem de percorrer até à profundidade máxima} pelo menos uma parte da árvore de jogo, o que não é eficiente. Foi proposto que os programas devam cortar a árvore e acabar a procura mais cedo,utilizando uma \textbf{função de avaliação heurística} que torna nós não-terminais em folhas terminais. Por outras palavras substitui-se a função $utility$ por uma avaliação heurística, \textbf{eval}.
 
 \subsubsection{Evaluation functions}
 
+A função de avaliação $eval$ devolve uma estimativa da utilidade do estado.
+\begin{enumerate}[topsep=4pt, itemsep=0pt]
+    \item A função de avaliação deve ordenar os estados terminais da mesma forma que a função de utilidade verdadeira.
+    \item A computação têm de ser rápida.
+    \item Para estados não terminais, a função de avaliação deve estar fortemente correlacionada com as chances de ganhar.
+\end{enumerate}
+\vspace{4pt}
+
+Tipicamente, as funções de avaliação são uma soma linear de características do jogo , $f$, associadas a diferentes pesos, $w$.
+\begin{equation*}
+    eval(s) = w_1f_1(s)+w_2f_2(s)+\ldots+w_nf_n(s)
+\end{equation*}
+A soma dos valores de diferentes características é razoável embora seja uma assunção demasiado forte pois \textbf{assume que as características são independentes} umas das outras. Atualmente maior parte dos programas usam combinações não-lineares.
 
 \subsubsection{Cutting off search}
 
+De modo a que a heurística $eval$ funcione apenas quando é apropriado cortar a procura, substitui-se a função \textit{terminal\_test} pela função \textit{cutoff\_test} que recebe um estado e a profundidade desse estado e decide se o estado é considerado final (mesmo não o sendo).\vspace{4pt}
+
+Temos ainda o problema da \textbf{aquiescência} (estados inactivos, parados, ..). Os estados \textbf{não aquiescentes} no limite devem ser expandidos até que sejam gerados \textbf{estados aquiescentes}. A esta procura adicional chama-se \textbf{procura aquiescente}.\vspace{4pt}
+
+O \textbf{efeito horizonte} é mais difícil de eliminar. Este surge quando o programa está a lidar com um movimento do oponente que causou danos e que não pode evitar sem ser atrasando certas estratégias. Uma estratégia para resolver isto é a \textbf{extensão singular} - quando é encontrada uma jogada considerada claramente melhor que as jogadas restantes para a mesma posição essa jogada é registada como singular e aumenta-se o limite de procura para os sucessores da jogada singular. Assim, a profundidade da árvore aumenta.
+
+\subsubsection{Forward prunning}
+
+Ao contrário dos cortes $\alpha$-$\beta$, onde temos a garantia de que o que estamos a cortar é irrelevante para o valor da função de avaliação de um nó, aqui vamos procurar "prever" que assim é, sem qualquer garantia de tal ser o caso. Temos duas maneiras principais de os fazer:
+\begin{itemize}
+    \item \textbf{Procura em Banda/Beam Search} - consideramos, para cada nível, as $n$ melhores jogadas (segundo a função de avaliação associada). Não há garantias de que não estamos a cortar ramos que nos levariam à jogada ótima.
+    \item \textbf{Corte Probabilístico/ProbCut} - cortamos não só os ramos que estão garantidamente fora da "janela $(\alpha,\beta)$", como também os que provavelmente estão: usamos a "experiência de procuras anteriores" para determinar a probabilidade de um dado valor a uma dada profundidade estar ou não fora da janela $(\alpha,\beta)$.
+\end{itemize}
+
+\subsection{Stochastic Games}
+
+Os jogos estocásticos são os que introduzem o elemento \textbf{sorte}: para além de haver a imprevisibilidade dos movimentos do adversário, existe também a possibilidade da ação que queremos fazer não corresponder à que de facto acontece. É como se no xadrez, para além de termos a dificuldade de fazer a jogada que nos aproxime mais da vitória, ainda tenhamos que lançar um dado para ver que conjunto de jogadas é que podemos fazer em cada ronda. Cada nó vai ter, assim, de estar associado a uma probabilidade, para além da própria "qualidade da jogada": vamos querer combinações que incluam jogadas prováveis e jogadas boas, por forma a tentar ter as melhores previsões possíveis (que nos levem a boas jogadas). A complexidade temporal destes problemas é $O(b^dn^d)$, onde nn corresponde ao número de lançamentos distintos de dados que realizamos. Conseguimos, portanto, atingir profundidades muito menores no mesmo intervalo de tempo.
 
 \newpage
 \section{Constraint Satisfaction Problems}
 
+Nesta secção, vamos aprofundar a ideia de estados não atómicos, com conteúdo no seu interior, um \textbf{conjunto de variáveis}: dizemos que chegámos a uma solução para o problema proposto quando todas as variáveis estiverem associadas a valores que satisfaçam as restrições impostas pelo mesmo. Dizemos que os problemas resolvidos desta forma são Problemas de Satisfação de Restrições (do inglês Constraint Satisfaction Problems, \textbf{CSP}). Idealmente, algoritmos de procura que assentem nesta ideia irão progressivamente eliminando ramos da nossa árvore de procura, tornando-a assim mais eficiente.
+
 \subsection{Defining Constraint Satisfaction Problems}
+
+Podemos definir um CSP como um conjunto de três componentes:
+\begin{itemize}[itemsep=0pt]
+    \item um \textbf{conjunto de variáveis}: seja ele $X=\{X_1,X_2,\cdots,X_n\}$;
+    \item um \textbf{conjunto de domínios}, onde um domínio corresponde ao conjunto de valores que podem ser associados a uma variável: seja ele $D=\{D_{x_1},D_{x_2},\cdots,D_{x_n}\}$;
+    \item um \textbf{conjunto de restrições}, que especifica todas as combinações possíveis de valores que podemos ser associados às variáveis ao mesmo tempo numa solução correta: seja ele $C$.
+\end{itemize}
+
+Temos ainda que as restrições podem ser \textbf{explícitas}, quando especificam diretamente todas as combinações possíveis de valores que podem ser associados às variáveis, ou \textbf{implícitas}, quando o fazem através de expressões matemáticas ou equivalente.\vspace{10pt}
+
+Um estado será, portanto, definido como um conjunto de correspondências entre variáveis e valores, correspondências essas que não deverão violar qualquer das restrições impostas pelo problema. Estas correspondências, ou \textbf{atribuições, podem ser parciais ou completas}.\vspace{4pt}
+
+Uma atribuição diz-se:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item \textbf{Completa} - caso todas as variáveis em $X$ tenham um valor associado.
+    \item \textbf{Consistente} - caso todas as atribuições respeitem o conjunto $C$.
+\end{itemize}\vspace{10pt}
+
+Dizemos que temos em mãos uma \textbf{solução} para o CSP quando temos uma atribuição \textbf{completa e consistente}: não existem variáveis sem atribuições, estando todas elas atribuídas de acordo com o que o problema nos impõe.
 
 \subsubsection{Variations on the CSP formalism}
 
+Os tipos mais simples de CSP envolvem variáveis que tem domínios \textbf{discretos e finitos}. Um domínio \textbf{discreto pode também ser infinito}, como por exemplo um conjunto de inteiros ou strings, neste caso usamos uma \textbf{linguagem de restrições}.\vspace{10pt}
+
+Tipos de restrições:
+\begin{itemize}
+    \item \textbf{Restrições unárias} - restringemo valor de uma variável.
+    \item \textbf{Restrições binárias} - relacionam um par de variáveis.
+    \item \textbf{Restrições de ordem superior} - envolvem 3 ou mais variáveis.
+    \item \textbf{Restrições globais} - envolvem um número arbitrário de variáveis (por exemplo todas).
+    \item \textbf{Restrições de preferência} - ajudam a modelar o problema em volta de um conjunto de coisas que gostávamos que acontecessem (e damos um peso a cada uma, conforme sejamos mais ou menos firmes quanto a que tal aconteça ou não). Todas essas preferências poderão ser introduzidas num conjunto à parte, o \textbf{conjunto de restrições de preferências do problema}, onde cada uma destas preferências seria devidamente pesada e resolvida como um \textbf{problema de otimização de restrições.}
+\end{itemize}
+
 \subsection{Constraint Propagation: Inference in CSPs}
+
+Os algoritmos abordados para as procuras cega e informada limitavam-se a andar pela árvore de procura, à procura da "melhor solução" possível para o problema em mãos. No caso de algoritmos baseados em CSPs, para além de podermos fazer uma procura clássica, temos ainda a noção de restrições; mais importante ainda, temos a noção de \textbf{propagação de restrições}, uma forma de fazer inferência quanto a uma dada situação, atualizando progressivamente os caminhos que podemos tomar. As restrições podem ser-nos úteis logo no pré-processamento inicial do problema, podendo, inclusive, fazer com que não tenha de haver procura: num Sudoku fácil, por exemplo, existe sempre um movimento "obrigatório" (leia-se "aquele número tem de estar ali") à medida que vamos avançando no jogo, pelo que o pré-processamento leva a uma propagação sucessiva de restrições que levam a uma solução direta, sem recorrer a procura/tentativas sem garantias.\vspace{4pt}
+
+A propagação tem por objetivo, assim, utilizar as restrições a seu favor por forma a \textbf{reduzir o tamanho dos domínios das variáveis} (idealmente a 1, nunca a 0), garantindo, assim, que "aquela variável tem de estar associada àquele valor para uma solução consistente". Vai, aqui, voltar a ser relevante aquela visualização do problema como um grafo mencionada mais acima.
 
 \subsubsection{Node consistency}
 
+Dizemos que uma variável é \textbf{nó-consistente} caso todos os valores no seu domínio satisfaçam as suas restrições unárias. Adicionalmente, dizemos que um \textbf{grafo} é nó-consistente caso todas as suas variáveis também o sejam.
+
 \subsubsection{Arc consistency}
+
+Dizemos que uma variável é \textbf{arco-consistente} caso todos os valores no seu domínio satisfaçam as suas restrições binárias. Dizemos que uma variável $X$ é \textbf{consistente em arco} para $Y$ caso, para todos os valores no domínio de $X$, exista um valor no domínio de $Y$ que satisfaça a restrição binária que as liga. Temos que um \textbf{grafo} é arco-consistente caso qualquer variável seja arco-consistente com todas as outras variáveis.\vspace{10pt}
+
+AC3
+% TODO
 
 \subsubsection{Path consistency}
 
+A consistência de caminhos permite analisar trios de variáveis em vez de pares.\vspace{4pt}
+
+Um conjunto de 2 variáveis $\{X_i, X_j\}$ é consistente em caminho para uma 3ª variável Xm sse para cada atribuição ${X_i = a, X_j = b}$ consistente com as restrições ${X_i, X_j}$ então têm que existir uma atribuição para $X_m$ que satisfaça as restrições de ${X_i, X_m}$ e ${X_m, X_j}$.
+
 \subsubsection{K-consistency}
+
+Um CSP é $k$-consistente se, para qualquer conjunto de $k-1$ variáveis e para qualquer atribuição consistente para essas variáveis, existir uma atribuição consistente para a variável $k$.\\
+Um CSP diz-se \textbf{fortemente k-consistente} se é $k$-consistente, e $(k-1)$-consistente, $\ldots$, $1$-consistente.
 
 \subsubsection{Global constraints}
 
+Restrições globais ocorrem normalmente em problemas reais e podem ser tratadas por algoritmos específicos que são mais eficientes que algoritmos de propagação de restrições genéricos. Por exemplo, o Alldif diz que todas as variáveis envolvidas tem de ter valores distintos entre elas. Uma forma simples de inconsistência é: se $m$ variáveis estão envolvidas na restrição, e se tem $n$ valores distintos, se $m > n$ então nunca poderá ser satisfeita.
+
 \subsection{Backtracking Search for CSPs}
+
+% TODO
 
 \subsubsection{Variable and value ordering}
 
+% TODO
+
 \subsubsection{Interleaving search and inference}
+
+% TODO
 
 \subsubsection{Intelligent backtracking: Looking backward}
 
+% TODO
+
 \subsection{Local Search for CSPs}
 
+% TODO
+
 \subsection{The Structure of Problems}
+
+% TODO
 
 \newpage
 \setcounter{section}{9}
@@ -370,60 +632,41 @@ $f(n) = h(n)$
 
 \subsection{Definition of Classical Planning}
 
-
 \subsection{Algorithms for Planning as State-Space Search}
-
 
 \subsubsection{Forward (progression) state-space search}
 
-
 \subsubsection{Backward (regression) relevant-states search}
-
 
 \subsubsection{Heuristics for planning}
 
-
 \subsection{Planning Graphs}
-
 
 \subsubsection{Planning graphs for heuristic estimation}
 
-
 \subsubsection{The GRAPHPLAN algorithm}
-
 
 \subsubsection{Termination of GRAPHPLAN}
 
-
 \subsection{}
-
-
 
 \newpage
 \setcounter{section}{20}
 \section{Reinforcement Learning}
 
-
 \subsection{Introduction}
-
 
 \subsection{Passive Reinforcement Learning}
 
-
 \subsubsection{Direct utility estimation}
-
 
 \subsubsection{Adaptive dynamic programming}
 
-
 \subsubsection{Temporal-difference learning}
-
 
 \subsection{Active Reinforcement Learning}
 
-
 \subsubsection{Exploration}
-
 
 \subsubsection{Learning an action-utility function}
 

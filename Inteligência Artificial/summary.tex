@@ -1,11 +1,14 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{todonotes}
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{tabularray}
 \usepackage{amsmath,amssymb}
 
+\graphicspath{ {./images/} }
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -231,9 +234,9 @@ To place the visited nodes we typically use queues. These can be FIFO, LIFO (or 
 As estratégias de procura são avaliadas em 4 aspetos:
 \begin{itemize}[topsep=4pt,itemsep=0pt]
     \item \textbf{Completa} - caso encontre sempre uma solução para o problema proposto, caso exista (e caso não exista, diz que não há solução).
-    \item \textbf{Ótima} - caso encontre a solução ótima (de menor custo).
     \item \textbf{Complexidade temporal} - número de nós gerados (note-se que não precisam ser expandidos)
     \item \textbf{Complexidade espacial} - número máximo de nós em memória
+    \item \textbf{Ótima} - caso encontre a solução ótima (de menor custo).
 \end{itemize}\vspace{4pt}
 
 As complexidades são medidas em termos de:
@@ -249,61 +252,125 @@ A procura cega (ou não informada), tal como o nome indica, consiste em fazer um
 
 \subsubsection{Breadth-First Search}
 
-%TODO
+Na \textbf{procura em largura primeiro }o nó raiz é expandido, e depois os seus sucessores, e daí em diante. Usa uma fila \textbf{FIFO} para a fronteira, por isso os nós de menor profundidade são sempre os primeiros a serem expandidos.
+
+O teste objetivo é feito quando o nó é gerado e não quando é expandido.
+
+O \textbf{maior problema} da procura em largura primeiro é o \textbf{espaço} por ter um crescimento exponencial. Ainda assim, o tempo é também um grande factor da considerar.
 
 \subsubsection{Uniform-Cost Search}
 
-%TODO
+A \textbf{procura de custo uniforme} expande sempre o nó $n$ da fronteira que tem o menor custo $\boldsymbol{g(n)}$. Assim, a sua fronteira é uma \textbf{fila ordenada pelo custo} do caminho.
+
+Aqui, o teste objetivo tem de ser feito aquando da expansão, não na geração, já que o primeiro nó que passe o teste objetivo pode não ser o nó com menor custo em relação ao caminho total \textbf{aquando da sua geração}.
 
 \subsubsection{Depth-First Search}
 
-%TODO
+A \textbf{procura em profundidade primeiro} expande sempre primeiro o nó com maior profundidade. A fronteira é uma fila \textbf{LIFO}, em que os sucessores são colocados no início.
+
+Procura percorrer um caminho até ao fim, voltando para trás (backtracking) assim que deixa de haver um caminho possível.
 
 \subsubsection{Depth-Limited Search}
 
-%TODO
+A \textbf{procura com profundidade limitada} tenta resolver o problema do espaço de estados infinito da procura em profundidade criando um limite de profundidade que o algoritmo deve calcular. 
+
+Isto introduz no entanto um novo problema: se o nó-objetivo menos profundo estiver para lá do limite por nós imposto, nunca o vamos encontrar. Neste caso o algoritmo retorna "cut-off", assim sabemos que o limite utilizado não corresponde à profundidade máxima da árvore.
 
 \subsubsection{Iterative Deepening Search}
 
-%TODO
+A \textbf{procura de profundidade iterativa} implementa o algoritmo da procura em profundidade limitada recursivamente, incrementando o limite de profundidade.
+
+Na primeira iteração do algoritmo o \textbf{nó raiz não é expandido}.
 
 \subsubsection{Bidirectional Search}
 
-%TODO
+A \textbf{procura bidirecional} consiste na realização de 2 \textbf{procuras em largura} em simultâneo, uma a começar no estado inicial e outra no estado objetivo. A procura termina quando as duas procuras se encontram, ou seja, têm um estado comum.
 
-\subsubsection*{Resumo dos Algoritmos}
+\subsubsection{Comparing uninformed search strategies}
 
-%TODO
+\includegraphics[width=\textwidth]{comparing_uninformed_search_strategies}
+
+$^a$ completa se $b$ é finito \\
+$^b$ completa se custo de cada ramo $>$ 0 \\
+$^c$ ótima se todos os ramos têm o mesmo custo \\
+$^d$ se ambas as direções executam procura em largura primeiro
 
 \subsection{Informed (Heuristic) Search Strategies}
 
-%TODO
+As \textbf{estratégias de procura informadas} são aquelas que usam conhecimento específico do problema para determinar a ordem de expansão dos nós. De um modo geral, estas estratégias baseiam-se na \textbf{procura melhor primeiro}, uma estratégia de procura que recorre a uma \textbf{função de avaliação}, $f(n)$, para escolher a ordem de expansão dos nós.\vspace{4pt}
+
+A função de avaliação é modelada como uma estimativa do custo entre um nó, $n$, e o objetivo. Por norma, poderá ser constituída por algumas componentes principais:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item $g(n)$, o custo do caminho percorrido desde o estado inicial até $n$;
+    \item $h(n)$, uma \textbf{estimativa} do custo do melhor caminho desde $n$ até ao objetivo;
+    \item $h^*(n)$, o \textbf{custo real} do melhor caminho desde $n$ até ao objetivo, isto é, a estimativa exata.
+\end{itemize}
+Dizemos que $h(n)$ é uma \textbf{função heurística}.
 
 \subsubsection{Greedy Best-First Search}
 
-%TODO
-$f(n) = h(n)$
+A \textbf{procura gananciosa} tenta expandir o nó que está \textbf{mais próximo do objetivo}, ou seja, o algoritmo escolhe sempre o nó com a menor função de avaliação.\vspace{10pt}
+
+Função de avaliação: $f(n) = h(n)$
 
 \subsubsection{A* Search}
 
-%TODO
+A \textbf{procura A*} tenta evitar expandir caminhos que já têm um custo muito elevado.\vspace{10pt}
+
+Função de avaliação: $f(n) = g(n) + h(n)$
+
+\subsubsection*{Conditions for optimality: Admissibility and consistency}
+
+Para ser ótima, $h(n)$ tem de ser uma heurística \textbf{admissível}.\\
+Uma heurística $h(n)$ é admissível se, para um nó $n$, se verifica que $h(n) \leq h^*(n)$, onde $h^*(n)$ é o custo real do melhor caminho de $n$ até ao objetivo.\\
+Isto significa que a heurística \textbf{nunca sobrestima} o custo de atingir o objetivo.\vspace{4pt}
+
+Para além disso a heurística tem também de ser \textbf{consistente}.\\
+Dizemos que uma heurística é consistente se, para todo o $n$, para todos os seus sucessores $n'$ gerados por ações $a$, o custo estimado de ir de $n$ ao objetivo for menor ou igual ao custo real de ir de $n$ a $n'$ somado ao custo estimado de ir de $n'$ ao objetivo.
+\begin{equation*}
+\begin{split}
+    f(n') & = g(n) + c(n,a,n') + h(n') \text{ , onde } c(n,a,n') 
+                                       \text{ é o custo de } n 
+                                       \text{ para } n' \\
+          & \geq g(n) + h(n) \\
+          & \geq f(n)
+\end{split}
+\end{equation*}
+Podemos, assim, depreender que, numa heurística consistente, $f$ nunca decresce ao longo do caminho.
 
 \subsubsection{Memory-bounded heuristic search}
 
-%TODO
+\subsubsection*{Iterative Deepening A*}
 
-\subsubsection*{Resumo dos Algoritmos}
+A \textbf{procura iterativa em profundidade de A*}, à semelhança da versão iterativa da DFS tem um limite, neste caso o limite, $l$, baseia-se em $f$ (em vez dos níveis da árvore de procura).\vspace{4pt}
 
-%TODO
+A cada iteração, vamos procurar, usando uma DFS* todos os nós da árvore que possuam $f\leq l$; caso um nó, aquando da sua geração, tenha $f(n)>l$, cortamo-lo da árvore momentaneamente. Levamos a iteração até ao fim, e, quando a acabamos, vamos atualizar o limite para o menor valor de $f$ entre os nós cortados na última iteração. Paramos quando vamos expandir um nó e este passa o teste objetivo.\vspace{10pt}
+
+Função de avaliação: $f(n) = g(n) + h(n)$
+
+\subsubsection*{Recursive Best First Search}
+
+A \textbf{procura melhor primeiro recursiva} procura implementar a procura melhor primeiro em espaço linear (através da recursão). Vamos procurando expandir sempre o nó, dentro dos filhos do nó atual, que tenha menor valor de $f$. Ao mesmo tempo, vamos sempre guardando recursivamente o melhor caminho alternativo ao nó atual - ou seja, o seu irmão ou antepassado com menor valor de $f$. Se nenhum dos seus filhos tiver $f$ menor que esse valor alternativo, passamos então a explorar o nó alternativo guardado (a recursão permite-nos recuperá-lo). A procura termina assim que tentarmos expandir um nó que passa no teste objetivo.\vspace{10pt}
+
+Função de avaliação: $f(n) = g(n) + h(n)$
+
+\subsubsection{Comparing informed search strategies}
+
+\begin{tabular}[t]{ | l | c | c | c | c | }\hline
+    Critério & Greedy   & A*          & IDA* & RBFS \\\hline
+    Completa & Não      & Sim         &      & Sim, se $b$ finito e custo dos passos $>e$ \\\hline
+    Tempo    & $O(b^m)$ & Exponencial &      & Depende da heurística \\\hline
+    Espaço   & $O(b^m)$ & Exponencial &      & $O(bd)$ \\\hline
+    Ótima    & Não      & Sim         &      & Sim, se $h(n)$ é admissível     \\\hline
+\end{tabular}
 
 \subsection{Heuristic Functions}
 
-%TODO
+\todo{Heuristic Functions}
 
 \subsubsection{The effect of heuristic accuracy on performance}
 
-%TODO
-\textbf{Heurística Admissível} - para qualquer estado $n$ pertencente ao espaço de estados, o valor da função heurística, $h(n)$, não é superior ao custo mínimo desde esse estado até uma solução, $h^*(n)$, isto é, a heurística nunca sobrestima o custo. $h(n) \leq h^*(n)$
+\todo{The effect of heuristic accuracy on performance}
 
 \newpage
 \section{Beyond Classical Search}
@@ -421,17 +488,20 @@ Em ambientes parcialmente observáveis a procura vai tratar, em vez de um conjun
     \item Um conjunto de estados, o \textbf{espaço de crenças}: contém todos os subconjuntos de estados físicos do problema original;
     \item Um \textbf{estado inicial} - por norma, encontra-se inicialmente \textbf{cheio}, já que, na pior das hipóteses, não temos qualquer informação sobre o que nos rodeia (tendo, portanto, de considerar qualquer cenário como possível). Na prática, costumamos ter algumas pistas quanto ao estado inicial;
     \item Um \textbf{conjunto de ações}, que corresponde ao conjunto de todas as ações que podemos fazer partindo de qualquer um dos estados do espaço de crenças;
-    \item % TODO
+    \item Um \textbf{modelo de transição}, que difere entre as versões determinista e não-determinista. Num problema $P$, para uma dada crença $b$, a versão determinista dita que a crença $b'$, resultante de aplicar uma qualquer ação $a$ será dada por:
+    \begin{equation*}
+        b'=result(b,a)=\{s':s'=s\in b\cap s'\in result_p(s,a)\}
+    \end{equation*}
+    Por outro lado, a versão não-determinista dita que:
+    \begin{equation*}
+    \begin{split}
+        b' = result(b,a) & = \{s':s'=s\in b\cap s'\in result_p(s,a)\cup b\} \\
+                         & = \bigcup_{s\in b} result_p(s,a)
+    \end{split}
+    \end{equation*}
+    O modelo de transição tem três etapas: inicialmente, a fase da \textbf{previsão}, onde vai calcular as crenças resultantes da ação que vai tomar. De seguida, caso esteja num ambiente parcialmente observável, utiliza os seus sensores e a informação obtida para atualizar o seu espaço de crenças.
     \item O \textbf{teste objetivo}, que aqui tem um senão: só é garantido que estamos no objetivo se todo o nosso espaço de crenças assim o afirmar - isto é, se todos os estados do nosso espaço de crenças satisfizerem o objetivo; caso contrário, \textbf{possivelmente} alcançámos o objetivo, sem qualquer garantia.
 \end{itemize}
-
-\subsubsection{Searching with no observation}
-
-% TODO
-
-\subsubsection{Searching with observations}
-
-% TODO
 
 \subsection{Online Search Agents and Unknown Environments}
 
@@ -582,10 +652,15 @@ Dizemos que uma variável é \textbf{nó-consistente} caso todos os valores no s
 
 \subsubsection{Arc consistency}
 
-Dizemos que uma variável é \textbf{arco-consistente} caso todos os valores no seu domínio satisfaçam as suas restrições binárias. Dizemos que uma variável $X$ é \textbf{consistente em arco} para $Y$ caso, para todos os valores no domínio de $X$, exista um valor no domínio de $Y$ que satisfaça a restrição binária que as liga. Temos que um \textbf{grafo} é arco-consistente caso qualquer variável seja arco-consistente com todas as outras variáveis.\vspace{10pt}
+Dizemos que uma variável é \textbf{arco-consistente} caso todos os valores no seu domínio satisfaçam as suas restrições binárias. Temos que um \textbf{grafo} é arco-consistente caso qualquer variável seja arco-consistente com todas as outras variáveis.\vspace{10pt}
 
-AC3
-% TODO
+O algoritmo mais conhecido para tratar a consistência de arcos é o AC-3. O seu funcionamento é relativamente simples: mantemos um set de arcos (que inicialmente tem todos os arcos do CSP), e vamos aleatoriamente removendo um arco do set (seja o arco $(X,Y)$); fazemos com que $X$ seja consistente em arco com $Y$, e daí vamos ter três cenários possíveis:
+\begin{itemize}
+    \item Caso $D_X$ não tenha sido alterado, $X$ já era consistente em arco com $Y$, pelo que o arco é só removido e não acontece nada;
+    \item Caso $D_X$ \textbf{tenha visto o seu tamanho reduzido} (com $\left\lvert D_X\right\rvert\neq 0$), adicionamos todos os outros arcos $(X,X_j)$ de volta ao set - temos restrições adicionais, pelo que podemos agora encontrar outras maneiras de reduzir o tamanho do domínio de $X$;
+    \item Caso $D_X$ tenha visto o seu domínio reduzido ao \textbf{conjunto vazio}, podemos afirmar que não existe solução consistente para o problema, pelo que o algoritmo retorna \textit{failure}.
+\end{itemize}
+O algoritmo termina quando verifica que o domínio de uma das variáveis passa a ser o conjunto vazio, retornando failure, ou quando o set de arcos fica vazio, retornando true.
 
 \subsubsection{Path consistency}
 
@@ -600,31 +675,76 @@ Um CSP diz-se \textbf{fortemente k-consistente} se é $k$-consistente, e $(k-1)$
 
 \subsubsection{Global constraints}
 
-Restrições globais ocorrem normalmente em problemas reais e podem ser tratadas por algoritmos específicos que são mais eficientes que algoritmos de propagação de restrições genéricos. Por exemplo, o Alldif diz que todas as variáveis envolvidas tem de ter valores distintos entre elas. Uma forma simples de inconsistência é: se $m$ variáveis estão envolvidas na restrição, e se tem $n$ valores distintos, se $m > n$ então nunca poderá ser satisfeita.
+Restrições globais ocorrem normalmente em problemas reais e podem ser tratadas por algoritmos específicos que são mais eficientes que algoritmos de propagação de restrições genéricos. Por exemplo, o $Alldif$ diz que todas as variáveis envolvidas tem de ter valores distintos entre elas. Uma forma simples de inconsistência é: se $m$ variáveis estão envolvidas na restrição, e se tem $n$ valores distintos, se $m > n$ então nunca poderá ser satisfeita.
 
 \subsection{Backtracking Search for CSPs}
 
-% TODO
+Muitos problemas não podem ser resolvidos apenas com inferência, há uma altura em que temos de procurar por uma solução. Iremos falar de procura por algoritmos de procura com retrocesso.\vspace{10pt}
+
+Como podemos definir um problema CSP em procura:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item \textbf{Estado inicial}: atribuição vazia
+    \item \textbf{Função sucessores}: atribui um valor a uma variável não atribuída que não entre em conflito com a atribuição atual
+    \item \textbf{Teste objetivo}: atribuição atual é completa
+\end{itemize}\vspace{10pt}
+
+A procura com retrocesso funciona como uma DFS que vai avançando pela árvore atribuindo valores à variável correspondente ao nível em que está, verificando sempre se a solução é consistente - se não for, parte para um dos seus irmãos (e caso não haja irmãos restantes, retrocede para o nível anterior). Dizemos que \textbf{não existe solução completa consistente para o problema} caso tenhamos de retroceder de volta à raiz.
 
 \subsubsection{Variable and value ordering}
 
-% TODO
+Para escolher qual a próxima variável a ser atribuída podemos usar a ordem pela qual foram definidas ou usar uma ordem aleatória, mas uma foram mais eficiente de o fazer é usando uma heurística, \textbf{Minimum-Remaining-Values (MRV)}, que escolhe a variável que apresenta atualmente o menor número de possibilidades, acabando assim por fazer pruning da árvore mais cedo. Se uma dada variável não têm valores legais, então a heurística seleciona essa dada variável e \textbf{deteta failure imediatamente}.\vspace{4pt}
+
+Para saber qual a primeira variável a escolher pode user-se a \textbf{heurística de Maior Grau}, que escolhe a variável que está envolvida no maior número de restrições com outras variáveis ainda não atribuídas.\vspace{4pt}
+
+A MRV é normalmente mais poderosa, mas a de Maior Grau pode ser usada para desempatar variáveis com mesmo valor MRV.\vspace{10pt}
+
+Para escolher a ordem pela qual são atribuídos os valores a uma variável usa-se outra heurística, \textbf{Least-Constraining-Values (LCV)}, que escolhe, entre os valores passíveis de atribuição a uma variável, aquele que tem menos restrições impostas (eliminando, portanto, menos valores dos domínios de outras variáveis).
 
 \subsubsection{Interleaving search and inference}
 
-% TODO
+A inferência pode ainda ser mais poderosa se feita durante uma procura: sempre que
+escolhermos um valor para uma variável, aplicamos inferência.\vspace{4pt}
+
+Uma das formas mais simples de inferência chama-se \textbf{forward checking}. À medida que vamos atribuindo valores a variáveis, fazemos com que todas as suas adjacências (não atribuídas) sejam consistentes em arco com ela própria. Se uma das variáveis ficar com domínio vazio, ou experimentamos um valor diferente para a variável em mãos, ou fazemos backtrack. Temos, claro, que se fizermos backtrack até à raiz, deduzimos que não existe solução completa e consistente para o problema. Adiciona-se ainda que, como estamos apenas a verificar sucessivamente a consistência de arco de várias variáveis, caso esse tipo de pré-processamento (via AC-3, por exemplo) já tenha sido feito, não haverá utilidade em fazê-lo enquanto procuramos.\vspace{4pt}
+
+Embora o forward checking detete muitas inconsistências, não deteta todas. O problema está em tornar a variável atual arco-consistente mas não olha à frente para tornar todas as outras também arco-consistente.\vspace{4pt}
+
+O algoritmo \textbf{MAC (Maintaining Arc Consistency)} garante a consistência de arco em todas as variáveis. Sempre que um variável Xi é atribuída, o procedimento INFERENCE chama o algoritmo AC-3 mas em vez de inicializarmos com todos os arcos usamos apenas $(X_j, X_i)$ tal que $X_j$ corresponde a uma variável ainda não atribuída que é vizinha de $X_i$. Fazemos consistência de arco de $X_j$ para $X_i$. Paramos quando todos os domínios estabilizarem.
 
 \subsubsection{Intelligent backtracking: Looking backward}
 
-% TODO
+Quando a procura com retrocesso falha, ela volta atrás e tenta outro valor. Isto é chamado de \textbf{retrocesso cronológico} (chronological backtracking). Uma abordagem mais inteligente é o \textbf{retrocesso em salto} (backjumping).\vspace{4pt}
+
+O método é bastante simples: mantemos, para cada variável $X$, uma pilha de conflito: o conjunto de variáveis (e respetivas atribuições) que retiraram valores ao domínio de $X$. Quando encontramos um cenário em que $X$ tem domínio vazio, retiramos a primeira variável da pilha e fazemos backtrack até lá. Realizar forward checking e backjumping em simultâneo é redundante.\vspace{4pt}
+
+No entanto, pode acontecer do conjunto de conflito não estar completo pois pode ser preciso ir para além de relações diretas, daqui surge o \textbf{retrocesso com salto dirigido ao conflito} (conflict-directed backjumping).
+
+Este método recupera o conceito de pilha de conflito utilizado pelo backjumping explicado mais acima, com o "retrocesso" a funcionar de maneira um pouco diferente: se anteriormente a pilha de conflito acima na árvore permanece inalterada, mesmo depois do retrocesso, aqui ao subir na árvore recalculamos o conjunto de conflito da variável para a qual estamos a "saltar" como se segue (seja $X$ a variável mais abaixo e $Y$ a variável mais acima):
+\begin{equation*}
+    conf(Y) = conf(Y)\cup conf(X)-\{Y\}
+\end{equation*}
+
+O retrocesso inteligente \textbf{não impede que os mesmos conflitos voltem} a aparecer noutro ramo da árvore. Para resolver este problema, podemos usar \textbf{aprendizagem de restrições}: quando chegamos a uma contradição encontramos o conjunto mínimo de variáveis do conjunto de conflitos que está a causar o problema e registado como no-good. Adicionamos como restrições adicionais ou uma lista de no-goods.
 
 \subsection{Local Search for CSPs}
 
-% TODO
+As procuras locais são eficazes em resolver muitos CSPs. Usam algoritmos que usam estados completos (todas as variáveis atribuídas). Para aplicar a procura local a CSPs temos de permitir estados em que não são satisfeitas todas as restrições e a transição entre estados consiste na re-atribuição de valores a variáveis.\vspace{4pt}
+
+A abordagem-padrão da procura local é relativamente simples: escolhemos de forma aleatória uma das variáveis atualmente em conflito, seja ela $X$, e vamos procurar um valor $v$ tal que, de entre todos os valores passíveis de atribuição para $X$, $v$ é o que viola o menor número de restrições possível. Esta seleção de valores é feita com a heurística de \textbf{menor número de conflitos (Min-Conflicts)}, que escolhe o valor que viola o menor número de restrições. Se existirem vários valores nestas condições escolhe um aleatoriamente.\vspace{4pt}
+
+As \textbf{vantagens} da procura local são:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item Encontra soluções para problemas de grandes dimensões.
+    \item Tempo de execução da heurística do menor número de conflitos está pouco dependente da dimensão do domínio
+\end{itemize}
+As \textbf{desvantagens} são:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item Não permite provar que não há solução porque não mantém um registo dos estados já visitados.
+\end{itemize}
 
 \subsection{The Structure of Problems}
 
-% TODO
+\todo{The Structure of Problems}
 
 \newpage
 \setcounter{section}{9}
@@ -656,7 +776,18 @@ Restrições globais ocorrem normalmente em problemas reais e podem ser tratadas
 
 \subsection{Introduction}
 
+Uma \textbf{recompensa ou reforço} é um tipo de feedback que o agente recebe. A tarefa da aprendizagem por reforço é usar recompensas observáveis para aprender uma \textbf{política ótima} (ou próximo) para o ambiente.\vspace{4pt}
+
+iremos considerar 3 tipos de agente:
+\begin{itemize}
+    \item Um \textbf{agente baseado em utilidade} que aprende a função de utilidade nos estados e usa-a para selecionar ações que maximizam a utilidade esperada. Também têm de ter um modelo do ambiente de forma a tomar decisões pois deve saber para que estados certas ações o vão levar.
+    \item Um \textbf{agente baseado em Q-learning} que aprende um função ação-utilidade (Q-function) que dá a utilidade esperada por tomar uma dada decisão num dado estado. Pode comprar as utilidades esperadas das suas ações disponíveis sem precisar de saber os seus outcomes, por isso não precisa do modelo do ambiente, mas não podem pensar à frente.
+    \item Um \textbf{agente de reflexos} que aprende uma política que mapeia diretamente dos estados para as ações.
+\end{itemize}
+
 \subsection{Passive Reinforcement Learning}
+
+Em \textbf{aprendizagem passiva}, a política ($\pi$) é fixa e a tarefa do agente consiste em avaliar a qualidade desta política. Para isto o agente precisa de 
 
 \subsubsection{Direct utility estimation}
 
@@ -669,5 +800,8 @@ Restrições globais ocorrem normalmente em problemas reais e podem ser tratadas
 \subsubsection{Exploration}
 
 \subsubsection{Learning an action-utility function}
+
+\newpage
+\listoftodos
 
 \end{document}

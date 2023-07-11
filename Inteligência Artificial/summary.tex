@@ -344,7 +344,7 @@ Podemos, assim, depreender que, numa heurística consistente, $f$ nunca decresce
 
 A \textbf{procura iterativa em profundidade de A*}, à semelhança da versão iterativa da DFS tem um limite, neste caso o limite, $l$, baseia-se em $f$ (em vez dos níveis da árvore de procura).\vspace{4pt}
 
-A cada iteração, vamos procurar, usando uma DFS* todos os nós da árvore que possuam $f\leq l$; caso um nó, aquando da sua geração, tenha $f(n)>l$, cortamo-lo da árvore momentaneamente. Levamos a iteração até ao fim, e, quando a acabamos, vamos atualizar o limite para o menor valor de $f$ entre os nós cortados na última iteração. Paramos quando vamos expandir um nó e este passa o teste objetivo.\vspace{10pt}
+A cada iteração, vamos procurar, usando uma DFS* todos os nós da árvore que possuam $f\leq l$; caso um nó, aquando da sua geração, tenha $f(n)>l$, cortamos-lo da árvore momentaneamente. Levamos a iteração até ao fim, e, quando a acabamos, vamos atualizar o limite para o menor valor de $f$ entre os nós cortados na última iteração. Paramos quando vamos expandir um nó e este passa o teste objetivo.\vspace{10pt}
 
 Função de avaliação: $f(n) = g(n) + h(n)$
 
@@ -585,7 +585,7 @@ A soma dos valores de diferentes características é razoável embora seja uma a
 
 De modo a que a heurística $eval$ funcione apenas quando é apropriado cortar a procura, substitui-se a função \textit{terminal\_test} pela função \textit{cutoff\_test} que recebe um estado e a profundidade desse estado e decide se o estado é considerado final (mesmo não o sendo).\vspace{4pt}
 
-Temos ainda o problema da \textbf{aquiescência} (estados inactivos, parados, ..). Os estados \textbf{não aquiescentes} no limite devem ser expandidos até que sejam gerados \textbf{estados aquiescentes}. A esta procura adicional chama-se \textbf{procura aquiescente}.\vspace{4pt}
+Temos ainda o problema da \textbf{aquiescência} (estados inativos, parados, ..). Os estados \textbf{não aquiescentes} no limite devem ser expandidos até que sejam gerados \textbf{estados aquiescentes}. A esta procura adicional chama-se \textbf{procura aquiescente}.\vspace{4pt}
 
 O \textbf{efeito horizonte} é mais difícil de eliminar. Este surge quando o programa está a lidar com um movimento do oponente que causou danos e que não pode evitar sem ser atrasando certas estratégias. Uma estratégia para resolver isto é a \textbf{extensão singular} - quando é encontrada uma jogada considerada claramente melhor que as jogadas restantes para a mesma posição essa jogada é registada como singular e aumenta-se o limite de procura para os sucessores da jogada singular. Assim, a profundidade da árvore aumenta.
 
@@ -633,7 +633,7 @@ Os tipos mais simples de CSP envolvem variáveis que tem domínios \textbf{discr
 
 Tipos de restrições:
 \begin{itemize}
-    \item \textbf{Restrições unárias} - restringemo valor de uma variável.
+    \item \textbf{Restrições unárias} - restringem o valor de uma variável.
     \item \textbf{Restrições binárias} - relacionam um par de variáveis.
     \item \textbf{Restrições de ordem superior} - envolvem 3 ou mais variáveis.
     \item \textbf{Restrições globais} - envolvem um número arbitrário de variáveis (por exemplo todas).
@@ -750,7 +750,11 @@ As \textbf{desvantagens} são:
 \setcounter{section}{9}
 \section{Classical Planning}
 
+\todo{Classical Planning}
+
 \subsection{Definition of Classical Planning}
+
+
 
 \subsection{Algorithms for Planning as State-Space Search}
 
@@ -760,7 +764,32 @@ As \textbf{desvantagens} são:
 
 \subsubsection{Heuristics for planning}
 
+\begin{itemize}
+    \item Heurística de \textbf{ignorar as pré-condições} (heurística garantidamente admissível).
+    \item Heurística de \textbf{ignorar lista de remoções} (heurística garantidamente admissível).
+    \item Heurísticas de \textbf{decomposição em sub-objetivos}:
+    $c(g_i) =$ custo do sub-objetivo $g_i$
+    \begin{itemize}
+        \item $H = \max (c(g_1), \ldots, c(g_n))$ (heurística garantidamente admissível).
+        \item $H = c(g_1)+\ldots +c(g_n)$ (heurística não garantidamente admissível).
+    \end{itemize}
+\end{itemize}
+
 \subsection{Planning Graphs}
+
+Ligações \textbf{mutex}:
+\begin{itemize}[topsep=4pt,itemsep=0pt]
+    \item entre \textbf{2 ações}:
+    \begin{itemize}[topsep=0pt]
+        \item \textbf{Inconsistência} - um dos \textbf{efeitos} de uma ação nega um dos literais no \textbf{efeito} doutra.
+        \item \textbf{Interferência} - um dos \textbf{efeitos} de uma ação é a negação de um literal da \textbf{pré-condição} doutra.
+        \item \textbf{Competição} - uma \textbf{pré-condição} de uma ação é mutualmente exclusiva com uma \textbf{pré-condição} doutra.
+    \end{itemize}
+    \item entre \textbf{2 literais}:
+    \begin{itemize}[topsep=0pt]
+        \item \textbf{Suporte inconsistente} - Se um literal é negação do outro ou se cada possível par de ações que consiga chegar aos dois literais é mutualmente exclusivo.
+    \end{itemize}
+\end{itemize}
 
 \subsubsection{Planning graphs for heuristic estimation}
 
@@ -768,11 +797,11 @@ As \textbf{desvantagens} são:
 
 \subsubsection{Termination of GRAPHPLAN}
 
-\subsection{}
-
 \newpage
 \setcounter{section}{20}
 \section{Reinforcement Learning}
+
+\todo{Reinforcement Learning}
 
 \subsection{Introduction}
 

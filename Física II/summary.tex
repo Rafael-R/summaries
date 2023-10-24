@@ -5,18 +5,17 @@
 \usepackage{amsfonts}
 \usepackage{tabularray}
 \usepackage{mathtools}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 \setlength{\parindent}{0pt}
-
-\newcommand{\twopartdef}[4]
-{ \displaystyle
-	\left\{
-		\begin{array}{ll}
-			#1, & \mbox{se } #2 \\
-			#3, & \mbox{se } #4
-		\end{array}
-	\right.
-}
 
 \begin{document}
 
@@ -44,8 +43,187 @@
 
 \section{Fundamentos}
 
+\subsubsection*{Campos}
+
+Um campo $(\phi)$ é uma zona do espaço onde em cada ponto está definida uma quantidade. 
+
 \section{Eletrostática}
 
 \section{Condutores e Dielétricos}
+
+\subsection{Condutor}
+
+Num condutor as cargas elétricas podem mover-se livremente no material. Um condutor pode ser metálico onde as cargas são eletrões, ou líquido onde as cargas são iões.
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+    \item $\overrightarrow{E} = 0$ dentro de um condutor\\[6pt]
+    Quando aplicamos um campo $\overrightarrow{E}$ sobre um condutor \textbf{isolado}, as cargas negativas (\textbf{cargas induzidas}) movem-se na direção oposta ao campo $\overrightarrow{E}$, separando-se das cargas positivas e criando um campo $\overrightarrow{E'}$.
+    \[ \overrightarrow{E} + \overrightarrow{E'} = 0 = \overrightarrow{E}_{total} \]
+    \item $\rho = 0$ dentro de um condutor\\[6pt]
+    Pela lei de Gauss $\displaystyle \overrightarrow{\nabla}.\overrightarrow{E}=\frac{\rho}{\epsilon_0}$, como $\overrightarrow{E} = 0 \Longrightarrow \rho = 0$.\\
+    Há cargas no interior do condutor, mas em igual quantidade de + e -, de modo a que se anulam.
+    \item $\overrightarrow{E} \perp$ à superfície do condutor\\[6pt]
+    Qualquer carga remanescente situa-se na superfície do condutor, o que significa que 
+    \item um condutor é um equipotencial
+\end{itemize}
+
+\subsubsection{Cargas Induzidas}
+
+As Cargas procuram sempre o equilíbrio ($\overrightarrow{E}=0$).\\[2pt]
+Se tivermos uma carga $+\mathbf{Q}$ e um condutor não carregado, as cargas negativas são atraídas para a carga $+\mathbf{Q}$, para que assim se anule o campo no interior do condutor.
+
+\subsubsection{Cavidades}
+
+No caso de no interior do condutor houver uma cavidade e a carga $+\mathbf{Q}$ estiver dentro dela, então o campo é não nulo nessa região.\\[2pt]
+Assim a carga induzida $\mathbf{Q}_{ind}$ é igual a $-\mathbf{Q}$ e a carga à superfície do condutor passa a ser positiva porque as cargas negativas aproximaram-se da carga $+\mathbf{Q}$ deixando de estar na superfície.\\[2pt]
+No caso de não haver carga na cavidade, $\overrightarrow{E}=0$ na cavidade (Gaiola de Faraday).
+
+\break
+
+\subsection{Condensador}
+
+Um condensador é um componente que armazena cargas elétricas num campo elétrico, composto por dois condutores, com cargas $+\mathbf{Q}$ e $-\mathbf{Q}$.
+
+\subsubsection{Condensador de placas paralelas}
+
+Composto por duas placas paralelas a uma distância $d$.
+
+\begin{itemize}
+    \item Densidade de carga de cada placa: $\sigma = \mathbf{Q} / \mathbf{A}$
+    \item Campo entre as placas: $\displaystyle \overrightarrow{E} = \frac{\mathbf{Q}}{\mathbf{A}\epsilon_0}$
+    \item Diferença de potencial entre as placas: $\displaystyle V = \frac{\mathbf{Q}d}{\mathbf{A}\epsilon_0}$
+    \item Capacitância: $\displaystyle C = \frac{\mathbf{A}\epsilon_0}{d}$
+\end{itemize}
+
+\subsubsection{Condensador de esferas concêntricas}
+
+Composto por duas superfícies esféricas concêntricas de raios $a$ e $b$.
+
+\begin{itemize}
+    \item campo entre as superfícies: $\displaystyle \overrightarrow{E} = \frac{1}{4\pi\epsilon_0}\frac{\mathbf{Q}}{r^2}\overrightarrow{e}_r$
+    \item Diferença de potencial entre as superfícies: $\displaystyle V = \frac{\mathbf{Q}}{4\pi\epsilon_0}\left(\frac{1}{a}-\frac{1}{b}\right)$
+    \item Capacitância: $\displaystyle C = 4\pi\epsilon_0\frac{ab}{b-a}$
+\end{itemize}
+
+\subsubsection{Condensadores em Paralelo}
+
+\[ C = \frac{Q_1+Q_2+Q_3}{V} 
+     = \frac{Q_1}{V}+\frac{Q_2}{V}+\frac{Q_3}{V} 
+     = C_1+C_2+C_3 \]
+
+\subsubsection{Condensadores em Série}
+
+\[ C = \frac{Q}{V_1+V_2+V_3} \Rightarrow \frac{1}{C}
+     = \frac{1}{C_1}+\frac{1}{C_2}+\frac{1}{C_3} \]
+
+\subsubsection{Trabalho}
+Para carregar um condensador é preciso eliminar eletrões do condutor positivo e movê-los para o condensador negativo. Isso requer trabalho pois é temos de puxar cargas negativas contra o campo elétrico.\\[2pt]
+O trabalho necessário para carregar o condensador com uma carga $mathbf{Q}$ é dado por:
+
+\[ W = \frac{Q^2}{2C} = \frac{CV^2}{2} \]
+
+\subsection{Dielétricos}
+
+Com os Dielétricos entramos no estudo do campo elétrico na matéria. Existem 2 grandes grupos:
+
+\begin{itemize}
+    \item Condutores
+    \begin{itemize}
+        \item As cargas elétricas movem-se livremente através do material
+    \end{itemize}
+    \item Dielétricos ou Isolantes: 
+    \begin{itemize}
+        \item As cargas elétricas estão presas aos átomos ou moléculas e apenas se podem mover um pouco dentro deles
+        \item Existem 2 mecanismos pelos quais um campo elétrico pode distorcer a distribuição de carga de um átomo ou molécula dielétrica
+        \begin{itemize}
+            \item Estiramento
+            \item Rotação
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section{Magnetostática}
+
+\subsection{Corrente Elétrica}
+
+\subsubsection{Densidade de Corrente}
+
+\subsubsection{Corrente Elétrica}
+
+\subsubsection{Lei de Kirchhoff}
+
+\subsection{Lei de Ohm}
+
+Para ter corrente é preciso empurrar as cargas, a velocidade que adquirem depende das características do material. A densidade de corrente elétrica $\overrightarrow{J}$ é proporcional à força aplicada
+\[ \overrightarrow{J} = \sigma \overrightarrow{f}\]
+em que $\sigma$ é uma constante experimental que depende do material e que se chama \textbf{Condutividade} do meio. É mais comum o uso da \textbf{Resistividade} do meio, que é o inverso: $\displaystyle \rho = \frac{1}{\sigma}$\\
+
+Nesta parte da matéria assumimos que a força aplicada às cargas é a do Campo Elétrico
+\[ \overrightarrow{J} = \sigma \overrightarrow{E}\]
+
+Num condutor \textbf{em equilíbrio eletrostático} temos $\overrightarrow{E}=0$ e $\overrightarrow{J}=0$.\\
+Para condutores perfeitos temos $\displaystyle \overrightarrow{E}=\frac{\overrightarrow{J}}{\sigma}=0$, mesmo que esteja corrente a fluir.\\
+
+Conclui-se que o campo elétrico necessário para movimentar as cargas é quase nulo. Assim consideramos estes fios como \textbf{equipotenciais}. Já as resistências são feitos de materiais que conduzem pouco.\\
+
+A Lei de Ohm é então dada por
+
+\[ \displaystyle R=\frac{V}{I} \Leftrightarrow V=I\times R \]
+\begin{center}
+    $V$: Tensão elétrica (V),
+    $R$: Resistência elétrica ($\Omega$), 
+    $I$: Corrente elétrica (A)
+\end{center}
+
+\[ \displaystyle R = \frac{\rho L}{A} \Leftrightarrow R=\frac{L}{A\sigma} \]
+\begin{center}
+    $R$: Resistência elétrica ($\Omega$),
+    $L$: Comprimento do condutor (m),
+    $A$: Secção do condutor (m$^2$)
+\end{center}
+
+\[ \displaystyle I = \sigma EA \]
+\begin{center}
+    $I$: Corrente elétrica (A),
+    $E$: Campo elétrico (Vm$^{-1}$),
+    $A$: Secção do condutor (m$^2$)
+\end{center}
+
+\subsection{Lei de Joule}
+
+\[ P=VI=RI^2 \]
+\begin{center}
+    $P$: Potência elétrica (W),
+    $V$: Tensão elétrica (V),
+    $I$: Corrente elétrica (A),
+    $R$: Resistência elétrica ($\Omega$)
+\end{center}
+
+\subsection{A Força de Lorentz}
+
+\subsection{A Lei de Biot-Savart}
+
+O campo magnético gerado por um fio percorrido por corrente estacionária é dada por
+\[ \displaystyle \overrightarrow{B}(\overrightarrow{r}) = \frac{\mu_0\mathbf{I}}{4\pi} \int_{\mathcal{C}}\frac{d\overrightarrow{\mathbf{I}}'\times \overrightarrow{e}_r}{r^2} \]
+
+A qunatidade $\mu_0$ chama-se \textbf{permeabilidade do espaço livre} com valor $\mu_0 = 4\pi \times 10^{-7} N A^{-2}$.
+
+\subsubsection{Experiência de Ampère revisitada}
+
+Para calcular o campo magnético de um fio longo sobre outro fio longo, paralelos entre si, a uma distância $d$, percorridos por correntes $\mathbf{I}_1$ e $\mathbf{I}_2$ usamos a fórmula
+\[ \displaystyle \overrightarrow{B}_1 = -\frac{\mu_0\mathbf{I}_1}{2\pi d} \]
+
+Para calcular o valor da força por unidade de cumprimento dentre os dois fios utilizamos a fórmula
+\[ \displaystyle \overrightarrow{F} = \frac{\mu_0\mathbf{I}_1\mathbf{I}_2}{2\pi d} \]
+
+Esta força é atrativa caso as correntes tenham a mesma direção, ou repulsiva caso contrário.
+
+\section{Campo magnético na matéria}
+
+\section{Eletrodinâmica}
+
+\section{As equações de Maxwell}
 
 \end{document}

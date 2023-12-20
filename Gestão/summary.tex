@@ -343,24 +343,21 @@ Indicam a capacidade de a empresa satisfazer os compromissos financeiros de curt
 
 \subsection{Como calcular valores atuais e futuros}
 
-\textbf{Juro -}
+\subsubsection{Juro}
+
+Remuneração cobrada pelo empréstimo de dinheiro (ou outro item).
 \begin{itemize}[topsep=0pt]
-    \item \textbf{Juro Simples -}
-          \begin{equation*}
-              rC_0+C_0=(1+r)C_0
-          \end{equation*}
-    \item \textbf{Juro Composto -}
+    \item \textbf{Juro Simples: }$C_i\times (1+r)$
+    \item \textbf{Juro Composto} (no ano inicial $i=0$)
           \begin{itemize}
-              \item \textbf{Capitalização -}
-                    \begin{equation*}
-                        C_n=C_i(1+r)^{n-i}
-                    \end{equation*}
-              \item \textbf{Atualização -}
-                    \begin{equation*}
-                        C_i=\frac{C_n}{(1+r)^{n-1}}
-                    \end{equation*}
+              \item \textbf{Capitalização: }$C_n=C_i\times(1+r)^{n-i}$
+                    \ \ (capital na $n$-ésima iteração)
+              \item \textbf{Atualização: }$\displaystyle C_i=\frac{C_n}{(1+r)^{n-i}}$
+                    \ \ (capital no ano $i$, baseado no valor atual)
           \end{itemize}
 \end{itemize}
+
+\subsubsection{Taxas de Juro}
 
 \textbf{Taxa de Juro Nominal ($r_n$) -} usa-se na avaliação de projetos a preços correntes, não está ajustada à inflação.
 
@@ -369,13 +366,28 @@ Indicam a capacidade de a empresa satisfazer os compromissos financeiros de curt
     r_r = \frac{1+r_n}{1+i} - 1 \approx r_n - i
 \end{equation*}
 
-\textbf{Taxas Anuais Nominais (TAN) -}
+\textbf{Taxa Anual Nominal (TAN) -} seja $r_a$ uma taxa de juro anual. A taxa mensal \textbf{proporcional} é:
+\begin{equation*}
+    r_{mp} = \frac{r_a}{12}
+\end{equation*}
 
-\textbf{Taxas Anuais Efetivas (TAE) -}
+\textbf{Taxa Anual Efetiva (TAE) -} seja $r_a$ uma taxa de juro anual. A taxa mensal \textbf{equivalente} é:
+\begin{equation*}
+    \displaystyle r_{me} = (1+r_a)^{\frac{1}{12}} - 1
+\end{equation*}
+Dada um taxa de juro mensal, podemos também calcular a TAE correspondente:
+\begin{equation*}
+    \displaystyle r_{ae} = (1+r_m)^{12} - 1
+\end{equation*}
 
-Taxa de Inflação
+\textbf{Equivalência de Taxas de Juro -} Duas taxas de juro dizem-se equivalentes se a sua aplicação corresponde ao mesmo valor, ao fim do mesmo período de tempo.
+\begin{equation*}
+    (1+r_k)^k = 1 + r_a
+\end{equation*}
 
-\textbf{Anuidade -} Pagamento que é feito repetidamente, durante $n$ períodos. Seja $r$ a taxa de atualização, ou seja, o valor pelo qual se atualiza o pagamento, a cada iteração. Seja $A$ o valor da anuidade.
+\subsubsection{Anuidade}
+
+Pagamento que é feito repetidamente, durante $n$ períodos. Seja $r$ a taxa de atualização, ou seja, o valor pelo qual se atualiza o pagamento, a cada iteração. Seja $A$ o valor da anuidade.
 \begin{itemize}[topsep=0pt]
     \item Valor do $i$-gésimo pagamento: $\displaystyle p_i=A\frac{1}{(1+r)^i}$
     \item Valor atual (soma das anuidades): $\displaystyle VA=A\frac{(1+r)^n-1}{(1+r)^n\times r}=Af(r,n)$\\[6pt]
@@ -384,7 +396,79 @@ Taxa de Inflação
 
 \subsection{Análise da Rentabilidade de Projetos de Investimento}
 
-Cash Flow (VR, VAL, TIR, PRI, IR), Custo Médio Ponderado do Capital
+\textbf{Cash Flow -} Fluxo financeiro, pode ser positivo ou negativo.
+
+\textbf{Investimento -} Podemos redefinir um investimento como uma sequência de cash flows distribuídos no tempo, onde os primeiros são tipicamente negativos (despesa de investimento).
+
+\subsubsection{Valor Residual do Investimento (VR)}
+
+Valor gerado pela venda de um ativo fixo no final do projeto de investimento.
+\begin{equation*}
+    VR = VM - (VM - VC) \times \text{Taxa de Imposto}
+\end{equation*}
+VM - Valor de Mercado (esperado de venda do ativo no ano $n$) \\
+VC = Valor de Compra $-$ Deprec./Amortiz. acumuladas (valor contabilístico)
+
+\subsubsection{Cash-Flows de Exploração}
+
+Os cash-flows durante a fase de exploração (passada a fase inicial de investimento) serão habitualmente positivos se o projeto for lucrativo.
+\begin{equation*}
+    \text{CF Exploração} =
+    RO \times (1 - \text{Taxa de Imposto}) + \text{Deprec./Amortiz.}
+\end{equation*}
+
+\subsubsection{Atualizações}
+
+Depois de obter o Cash-Flow de Exploração conseguimos calcular o Cash-Flow total:
+\begin{center}
+    Cash-Flow Total = Cash-Flow do Investimento + Cash-Flow de Exploração
+\end{center}
+
+Devemos depois calcular o seu valor atualizado à taxa $r$ para cada ano ($n$) :
+\begin{equation*}
+    \text{Cash-Flow Atualizado} = \frac{\text{Cash-Flow Total}}{(1+r)^n}
+\end{equation*}
+
+\subsubsection{Custo Médio Ponderado do Capital (CMPC)}
+
+\begin{equation*}
+    CMPC =
+    \frac{D}{C_{total}}\times r_D\times(1-t)+\frac{CP}{C_{total}}\times r_{CP}
+\end{equation*}
+$t$ - taxa de imposto \\
+$r_D$ - taxa de juro da dívida (custo médio da dívida) \\
+$r_{CP}$ - taxa de remuneração dos acionistas + prémio de risco
+
+\subsubsection{Valor Atual Líquido (VAL)}
+
+Soma de todos os $CF$ (cash-flow) do projeto devidamente atualizados à taxa $r$.
+\begin{equation*}
+    \text{VAL}(r) = \sum \frac{CF_K}{(1+r)^K}
+\end{equation*}
+Um projeto é rentável se VAL $>$ 0.
+Para dois projetos, se VAL$_A >$ VAL$_B$ então $P_A$ é melhor que $P_B$.
+
+\subsubsection{Taxa Interna de Rentabilidade (TIR)}
+
+Valor da taxa de atualização ($r$) para a qual o VAL = 0. O projeto é rentável se TIR $>$ R.
+
+\subsubsection{Período de Recuperação do Investimento (PRI)}
+
+Tempo necessário para que os cash-flows (atualizados a $r$) gerados pelo projeto igualem o capital investido inicialmente.
+\begin{equation*}
+    \sum_{K=0}^{PRI} \frac{CF_K}{(i+r)^K}=0
+\end{equation*}
+\begin{equation*}
+    PRI = K_{\text{último CF acumulado negativo}} - \frac{\text{último CF}_{\text{acumulado negativo}}}{\text{CF}_{\text{atualizado}}\text{ de K}_{\text{primeiro CF acumulado positivo}}}
+\end{equation*}
+
+\subsubsection{Índice de Rendibilidade (IR)}
+
+Métrica para medir a rentabilidade de um investimento. Considera-se aceitável quando IR $>$ 1.
+\begin{equation*}
+    \text{IR} = \frac{\text{VAL + Investimento Inicial}}{\text{Investimento Inicial}}
+    = \frac{\text{VA}}{\text{Investimento Inicial}}
+\end{equation*}
 
 \newpage
 

@@ -1,11 +1,12 @@
 \documentclass[11pt]{article}
 \usepackage[paper=letterpaper,margin=2cm]{geometry}
-\usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{tabularray}
-\usepackage{mathtools}
+\usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{array}
+
+\graphicspath{ {./images/} }
 
 \hypersetup{
     colorlinks,
@@ -14,6 +15,9 @@
     linkcolor=black,
     urlcolor=black
 }
+
+\def\arraystretch{1.5}
+\newcolumntype{C}[1]{>{\centering\arraybackslash} m{#1} }
 
 \setlength\parskip{1em plus 0.1em minus 0.2em}
 \setlength\parindent{0pt}
@@ -91,7 +95,7 @@ incluindo ainda sistemas de coordenação e controlo.
     \item Rede
 \end{itemize}
 
-\begin{tabular}[t]{ | c | p{100pt} | p{150pt} | }
+\begin{tabular}{ | C{90pt} | C{100pt} | C{150pt} | }
     \hline
     Tipo de Estrutura & Vantagens                              & Desvantagens                                             \\\hline
     Funcional         & especialização, economias de escala    & fraca comunicação entre departamentos                    \\\hline
@@ -474,6 +478,119 @@ Métrica para medir a rentabilidade de um investimento. Considera-se aceitável 
 
 \section{Gestão Estratégica}
 
+\subsection{Processo de Formulação e Execução da Estratégia}
+
+\includegraphics[width=\textwidth]{gestao_estrategica.png}
+
+\subsubsection{Visão}
+
+A visão centra-se no \textbf{futuro} e estabelece uma direção de longo prazo. É elaborada pela \textbf{gestão de topo} de uma organização, comunicada posteriormente aos investidores e às camadas inferiores da hierarquia.
+
+\subsection{Objetivos}
+
+Os objetivos convertem a visão (que é abstrata) em \textbf{alvos de desempenho} específicos e permitem monitorar o desempenho da organização.
+
+São transversais a toda a estrutura organizacional, sendo estabelecidos de uma forma descendente, mas de forma colaborativa, de modo a garantir que os objetivos estabelecidos para níveis inferiores apoiam os objetivos dos níveis superiores.
+
+Os objetivos devem:
+\begin{itemize}[topsep=-4pt,itemsep=0pt]
+    \item ser quantificáveis
+    \item ser mensuráveis
+    \item ter um prazo para serem atingidos
+\end{itemize}
+
+\subsection{Análise Estratégica}
+
+
+
+\subsection{Formulação da Estratégia}
+
+A Formulação da Estratégia pode ser dividida em 4 níveis:
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Estratégia ao nível corporativo}
+    \item \textbf{Estratégia ao nível do negócio}
+    \item \textbf{Estratégia ao nível funcional}
+    \item \textbf{Estratégia ao nível operacional}
+\end{itemize}
+
+
+
+\newpage
+
 \section{Marketing}
+
+\subsection{Conceitos Fundamentais}
+
+
+
+\subsection{Segmentação, Targeting e Posicionamento (STP)}
+
+\subsubsection{Segmentação}
+
+\subsubsection{Targeting}
+
+\subsubsection{Posicionamento}
+
+
+\subsection{Marketing Mix}
+
+\subsubsection{Produto}
+
+\subsubsection{Preço}
+
+
+
+\subsubsection{Distribuição}
+
+Processo de levar um produto/serviço às pessoas certas no tempo certo, considerando o lucro e a eficácia.
+
+Os circuitos de distribuição podem ter vários níveis, quanto maior o número de intermediários entre o produtor e consumidor, maior o nível.
+
+Tipos de distribuição (em função do nível):
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Distribuição exclusiva} \\
+          Apenas uma ou muito poucas lojas de uma pequena cadeia, restringindo o número por área geográfica - por exemplo venda de produtos Gucci através das lojas daquela marca.
+    \item \textbf{Distribuição seletiva} \\
+          Apenas alguns intermediários, para manter controlo, por exemplo, sobre o tipo de serviço - por exemplo certos modelos de televisores podem ser vendidos apenas através de certas cadeias de lojas.
+    \item \textbf{Distribuição intensiva} \\
+          Em muitos pontos de distribuição - frequentemente associada a bens de conveniência, tais como refrigerantes, massas, arroz, jornais.
+\end{itemize}
+
+\subsubsection{Comunicação/Promoção}
+
+Conjunto de atividades desenvolvidas pela empresa para comunicar com os seus clientes - atuais e potenciais.
+
+Principais componentes da comunicação/promoção:
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Publicidade -} Forma paga de apresentação e de comunicação não pessoal de organizações, ideias, bens ou serviços, efetuada por um patrocinador identificado, para uma audiência alvo, através de um meio de comunicação de massas.
+    \item \textbf{Promoção de Vendas -} Incentivos de curto prazo e temporários destinados a encorajar experimentação ou compra (ou recompra) de um bem ou serviço.
+    \item \textbf{Força de Vendas -} Interação pessoal com compradores (correntes e potenciais).
+    \item \textbf{Marketing Direto -} Comunicação ou solicitação direta da atuação de clientes atuais e potenciais específicos utilizando o correio, telefone, e-mail ou outros meios não pessoais.
+    \item \textbf{On-line, social media e mobile marketing -} Atividades on-line e programas desenhados para envolver clientes atuais ou potenciais: websites, comunidades on-line, blogs e redes sociais como Facebook e Twitter, mensagens de texto e apps para smartphones e tablets.
+    \item \textbf{Relações Públicas -} Programas destinados a promover e/ou proteger a imagem da organização ou dos seus produtos.
+    \item \textbf{Eventos e Experiências -} Eventos e experiências são atividades e programas patrocinados e concebidos para criar interações diárias ou especiais com marcas.
+\end{itemize}
+
+\subsection*{Estratégias Push e Pull}
+
+\begin{itemize}[topsep=0pt,itemsep=0pt]
+    \item Estratégia Push \\
+          \includegraphics[width=13cm]{estrategia_push.png}
+    \item Estratégia Pull \\[5pt]
+          \includegraphics[width=13cm]{estrategia_pull.png}
+\end{itemize}
+
+\subsection*{Resumo}
+
+Marketing típico em cada fase do ciclo de vida, embora esteja longe de universalmente aplicável.
+
+\begin{tabular}{ C{2.1cm} | C{3.3cm} | C{3.3cm} | C{3.3cm} | C{3.3cm} }
+                           & Introdução                                                                                                                 & Crescimento                                                                          & Maturidade                                                                                                            & Declínio                                                                \\\hline
+    Objetivos de Marketing & Criar consciência e experimentação                                                                                         & Maximizar de quota de mercado                                                        & Maximizar lucro defendendo quota de mercado                                                                           & Reduzir despesas e retirar o máximo de valor                            \\\hline
+    Produto                & Produto básico                                                                                                             & Oferecer extensões, serviços, garantias                                              & Diversificar marcas e modelos                                                                                         & Abandonar itens mais fracos                                             \\\hline
+    Preço                  & Baseado no custo                                                                                                           & Penetração                                                                           & Face à concorrência                                                                                                   & Baixar preço                                                            \\\hline
+    Distribuição           & Seletiva                                                                                                                   & Intensiva                                                                            & Mais intensiva                                                                                                        & Evoluir para seletiva                                                   \\\hline
+    Promoção               & Publicidade/vendas pessoais para criar consciência nos inovadores e distribuidores; Promoção de vendas para experimentação & Publicidade/vendas pessoais para consciência e interesse Promoção de vendas reduzida & Publicidade/vendas pessoais para dar ênfase a diferenças de marca e benefícios Promoção de vendas para troca de marca & Reduzir a níveis mínimos (indispensáveis para retenção de núcleo  duro) \\
+\end{tabular}
 
 \end{document}

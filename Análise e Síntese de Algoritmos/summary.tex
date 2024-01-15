@@ -344,7 +344,7 @@ atingíveis a partir de $s$.
 
 \subsubsection{Depth-First Search}
 
-\todo[inline]{DFS}
+TODO
 
 \subsubsection{Ordenação Topológica}
 
@@ -352,13 +352,20 @@ Uma \textbf{ordenação topológica} de um DAG $G = (V,E)$ é uma ordenação de
 todos os vértices tal que se $(u,v) \in E$ então $u$ aparece antes de $v$ na
 ordenação.
 
-Complexidade: $O(V+E)$
+\begin{enumerate}[topsep=0pt]
+    \item Aplicar algoritmo DFS ao grafo.
+    \item Ordenar vértices pela ordem descendente do tempo de fecho.
+\end{enumerate}
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Complexidade}: $O(V+E)$
+\end{itemize}
+
 
 \subsubsection{Componentes Fortemente Ligados}
 
 Dado um grafo dirigido $G = (V,E)$ um \textbf{componente fortemente ligado} (ou Strongly Connected Component (SCC)) é um conjunto máximo de vértices $U \subseteq V$, tal que para quaisquer $u,\ v \in U$, $u$ é atingível a partir de $v$, e $v$ é atingível a partir de $u$.
 
-Complexidade: $O(V+E)$
+\textbf{Complexidade}: $O(V+E)$
 
 \subsection{Árvores Abrangentes de Menor Custo} \todo{Slides Aula 13}
 
@@ -484,19 +491,58 @@ O algoritmo de Johnson combina os algoritmos de Dijkstra e de Bellman-Ford, para
 
 \textbf{Rede de Fluxo} - é um grafo $G=(V,E)$ dirigido, em que cada arco $(u,v)$ tem capacidade $c(u,v) \ge 0$. O grafo é ligado, logo todos os vértices de $G$ pertencem a um caminho da \textbf{fonte} $s$ para o \textbf{destino} $t$.
 
-\textbf{Rede Residual} - de um grafo $G$ com fluxo $f$ é um grafo $G_f=(V,E_f)$, em que cada arco $(u,v)$ tem uma \textbf{capacidade residual} $c_f(u,v)=c(u,v)-f(u,v)>0$, ou seja, o fluxo que sobra de $u$ para $v$.
+\textbf{Rede Residual} - de um grafo $G$ com fluxo $f$ é um grafo $G_f=(V,E_f)$, em que cada arco $(u,v)$ tem uma \textbf{capacidade residual}, ou seja, o fluxo que sobra de $u$ para $v$, dada por:
+\begin{equation*}
+    c_f(u,v)=\twopartdef{c(u,v)-f(u,v)}{(u,v) \in E}
+    {f(v,u)}{(v,u) \in E}
+\end{equation*}
+
+\textbf{Caminho de aumento} - é um caminho $p$ de $s$ para $t$ em $G_f$, a \textbf{capacidade residual} de $p$ é dada por:
+\begin{equation*}
+    c_f(p)=\min\{c_f(u,v): (u, v)\in p\}
+\end{equation*}
+
+\begin{minipage}{0.50\textwidth}
+    \textbf{Teorema do Fluxo Máximo - Corte Mínimo}:
+    \begin{itemize}[topsep=0pt]
+        \item $f$ é o fluxo máximo de $G$.
+        \item A rede residual $G_f$ não contém caminhos de aumento.
+        \item $|f| = c(S,T)$ para algum corte $(S,T)$ de $G$.
+    \end{itemize}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    \includegraphics[scale=0.6,right]{max_flow_min_cut.png}
+\end{minipage}
 
 \subsubsection{Método Ford-Fulkerson}
 
-
+\begin{enumerate}
+    \item Procura caminhos de aumento na rede residual.
+    \item Atualiza o valor do fluxo para cada arco no caminho encontrado.
+    \item Repete o passo 1 até não encontrar mais caminhos de aumento.
+\end{enumerate}
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Complexidade}: $O(|f^*|E)$
+\end{itemize}
 
 \subsubsection{Algoritmo Edmonds-Karp}
 
+Igual ao algoritmo de Ford-Fulkerson, mas usa BFS para encontrar o \textbf{caminho de aumento mais curto}.
 
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Complexidade}: $O(VE^2)$
+\end{itemize}
 
-\subsubsection{Emparelhamento Bipartido Máximo}
-
-
+\begin{minipage}{0.5\textwidth}
+    \subsubsection{Emparelhamento Bipartido Máximo}
+    Para resolver este problema adiciona-se uma fonte $s$ e um destino $t$ ao grafo bipartido, e atribui-se um valor unitário a cada arco. Ao grafo resultante aplica-se o algoritmo de Ford-Fulkerson.
+    \begin{itemize}
+        \item \textbf{Complexidade}: $O(VE)$
+    \end{itemize}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    \includegraphics[scale=0.45,right]{maximum_bipartite_matching.png}
+\end{minipage}
 
 \newpage
 

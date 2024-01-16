@@ -5,6 +5,7 @@
 \usepackage{enumitem}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{array}
+\usepackage[export]{adjustbox}
 
 \graphicspath{ {./images/} }
 
@@ -78,22 +79,28 @@ O processo de gestão divide-se em 4 funções:
 
 \subsection{Ética}
 
+Código de princípios morais e valores que governam o comportamento de uma pessoa ou organização, pronunciando-se sobre o que está certo ou errado.
+
+A ética pertence à cultura de uma organização, e tem implicações diretas sobre a responsabilidade social (interna e externa) da empresa.
+
 \subsection{Responsabilidade Social}
+
+Responsabilidade dos gestores de fazer escolhas e promover ações que contribuem para os interesses comuns da sociedade e organização. Nomeadamente:
+\begin{itemize}[topsep=0pt]
+    \item Cumprimento das Leis Laborais e proteção dos trabalhadores
+    \item Cumprimento das Leis Ambientais
+    \item Responsabilidade perante os detentores de interesses
+    \item Concorrência leal com as outras empresas
+    \item Respeito para com os consumidores
+    \item Relacionamento com Fornecedores
+    \item Atividades em benefício da sociedade ou comunidades
+\end{itemize}
 
 \subsection{Estrutura Organizacional}
 
-Conjunto de tarefas formais atribuídas a entidades da empresa (indivíduos, equipas e departamentos) conjugados com as linhas de autoridade, ónus de decisão e hierarquias
-incluindo ainda sistemas de coordenação e controlo.
+Conjunto de tarefas formais atribuídas a entidades da empresa (indivíduos, equipas e departamentos) conjugados com as linhas de autoridade, ónus de decisão e hierarquias, incluindo ainda sistemas de coordenação e controlo.
 
 \subsubsection{Tipos de Estrutura}
-
-\begin{itemize}
-    \item Funcional
-    \item Divisional
-    \item Matricial
-    \item Em Equipa
-    \item Rede
-\end{itemize}
 
 \begin{tabular}{ | C{90pt} | C{100pt} | C{150pt} | }
     \hline
@@ -135,9 +142,9 @@ incluindo ainda sistemas de coordenação e controlo.
 
 O balanço permite registar as contas de um agente económico. É composto por 3 grandes rubricas, que depois podem ser distinguidas em subpartes:
 
-\begin{itemize}
+\begin{itemize}[topsep=0pt]
     \item \textbf{Ativo -} Bens e direitos que a empresa possui ou tem direito a receber.
-          \begin{itemize}
+          \begin{itemize}[topsep=0pt]
               \item \textbf{Ativo não Corrente -} Ativo que por natureza, não é volátil.
                     \begin{itemize}
                         \item \textbf{Ativos Fixos Tangíveis} (Edifícios, equipamentos, ...)
@@ -151,7 +158,7 @@ O balanço permite registar as contas de um agente económico. É composto por 3
                     \end{itemize}
           \end{itemize}
     \item \textbf{Passivo -} Soma das dívidas (responsabilidades) de um agente económico.
-          \begin{itemize}
+          \begin{itemize}[topsep=0pt]
               \item \textbf{Passivo não Corrente -} Financiamentos e outras dívidas (a pagar em mais de 1 ano)
               \item \textbf{Passivo Corrente -} Dívida a fornecedores, estado, financiamentos ou outras (a pagar em menos de 1 ano)
           \end{itemize}
@@ -169,11 +176,9 @@ O balanço permite registar as contas de um agente económico. É composto por 3
 Se Ativo $>$ Passivo $\implies $ Capital Próprio $>$ 0 \\
 Se Ativo $<$ Passivo $\implies $ Capital Próprio $<$ 0 (falência técnica)
 
-
 \subsubsection{Demonstração dos Fluxos de Caixa}
 
 \textbf{Ótica da Caixa -} Permite ver o dinheiro que uma empresa tem num determinado momento, a Liquidez.
-
 \begin{center}
     Saldo inicial + Dinheiro recebido + Pagamentos = Saldo Final
 \end{center}
@@ -203,9 +208,12 @@ Se Ativo $<$ Passivo $\implies $ Capital Próprio $<$ 0 (falência técnica)
     \end{tabular}
 \end{center}
 
+\newpage
+
 \subsection{Análise de Rácios Financeiros}
 
 \textbf{Rácios -} Indicadores de gestão que exprimem uma relação entre elementos dos documentos contabilísticos (Balanço, Demonstração de Resultados) e a partir dos quais é possível tirar ilações sobre a situação da empresa (Solidez Financeira e níveis de desempenho económico e financeiro).
+
 
 Dizemos que uma empresa tem \textbf{Solidez Financeira}:
 \begin{itemize}
@@ -282,6 +290,8 @@ Indicam a capacidade de a empresa satisfazer os compromissos financeiros de curt
     \frac{\textrm{Ativo Corrente - Inventário}}{\textrm{Passivo Corrente}} =
     \frac{\textrm{Caixa + Clientes}}{\textrm{Passivo Corrente}}
 \end{equation*}
+
+\newpage
 
 \subsection{Análise Custo-Volume-Resultado}
 
@@ -486,7 +496,7 @@ Métrica para medir a rentabilidade de um investimento. Considera-se aceitável 
 
 A visão centra-se no \textbf{futuro} e estabelece uma direção de longo prazo. É elaborada pela \textbf{gestão de topo} de uma organização, comunicada posteriormente aos investidores e às camadas inferiores da hierarquia.
 
-\subsection{Objetivos}
+\subsubsection{Objetivos}
 
 Os objetivos convertem a visão (que é abstrata) em \textbf{alvos de desempenho} específicos e permitem monitorar o desempenho da organização.
 
@@ -501,44 +511,152 @@ Os objetivos devem:
 
 \subsection{Análise Estratégica}
 
-
+O objetivo da análise estratégica é obter informação que permita ajudar a organização a desenhar/formular uma estratégia adequada.
 
 \subsection{Formulação da Estratégia}
 
 A Formulação da Estratégia pode ser dividida em 4 níveis:
 \begin{itemize}[topsep=0pt]
-    \item \textbf{Estratégia ao nível corporativo}
-    \item \textbf{Estratégia ao nível do negócio}
-    \item \textbf{Estratégia ao nível funcional}
-    \item \textbf{Estratégia ao nível operacional}
+    \item \textbf{Estratégia Corporativa} - em que sectores a empresa deve estar.
+    \item \textbf{Estratégia Negocial} - como queremos construir uma vantagem competitiva.
+    \item \textbf{Estratégia Funcional} - como deve ser, detalhadamente, implementada a  estratégia de negócio.
+    \item \textbf{Estratégia Operacional}
 \end{itemize}
 
+\subsubsection{Estratégias ao Nível Corporativo}
 
+\subsubsection*{Concentração vs. Diversificação}
+
+Uma organização pode concentrar-se num negócio ou diversificar-se em mais que um. Esta diversificação pode estar relacionada com os negócios existentes ou não.
+É preciso saber se é possível capturar sinergias entre as diferentes áreas de negócio.
+Para além disso é preciso analisar as prioridades de investimento e de alocação da organização.
+
+\begin{minipage}{0.5\textwidth}
+    \textbf{Matriz BCG}:
+    \begin{itemize}
+        \item \textbf{Cash-Cow}: Setor que já não está em crescimento, mas o produto fabricado é o mais vendido (líder de mercado).
+        \item \textbf{Star}: O setor está em crescimento e o seu produto é o mais vendido.
+        \item \textbf{Question-Marks}: O setor está num mercado em crescimento, mas o seu produto não é o mais vendido.
+        \item \textbf{Dog}: O setor não está em crescimento e também não tem uma posição dominante no mercado.
+    \end{itemize}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    \includegraphics[scale=0.65,right]{matriz_BCG.png}
+\end{minipage}
+
+
+\subsubsection*{Integração vertical}
+
+Visa a criação de valor através:
+\begin{itemize}[topsep=0pt]
+    \item da produção própria dos “inputs” necessários (backward vertical integration)
+    \item da distribuição própria dos produtos produzidos pela empresa (forward
+          vertical integration)
+    \item \textbf{Vantagens}: reduz custos e diminui a dependência.
+    \item \textbf{Desvantagens}: aumenta a necessidade de recursos e coordenação, e diminui a flexibilidade (se o produto tiver de mudar as matérias primas, perde-se uma estrutura que já está criada)
+\end{itemize}
+
+\subsubsection{Estratégias ao Nível do Negócio}
+
+\begin{itemize}
+    \item \textbf{Liderança de Baixo-Custo}: através da prática de custos muito baixos (utilizando técnicas difíceis de copiar) conseguir uma grande cota de mercado.
+    \item \textbf{Diferenciação}: através de produtos únicos, conseguir a preferência do mercado.
+    \item \textbf{Diferenciação em Nicho}: servir um segmento específico, sendo dominante nesse nicho através da diferenciação
+    \item \textbf{Baixo-Custo em Nicho}: servir um segmento específico, sendo dominante nesse nicho através da prática de preços baixos.
+    \item \textbf{Relação Custo-Qualidade}: tentar criar o melhor produto a um preço baixo, conseguindo manter a qualidade mas cativando clientes que valorizam preços em conta.
+\end{itemize}
+
+\includegraphics[scale=0.8,center]{estrategia-nivel-negocio.png}
 
 \newpage
 
 \section{Marketing}
 
+Atividade que reúne os processos para criar, comunicar, entregar e trocar ofertas que fornecem valor a clientes, parceiros e à sociedade em geral.
+
 \subsection{Conceitos Fundamentais}
 
-
+Filosofias das Organizações na abordagem ao Mercado:
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Produção} - Os consumidores privilegiam produtos largamente disponíveis e baratos.\\[4pt]
+          $\Rightarrow$ Eficiência, custos baixos, produção em massa.
+    \item \textbf{Produto} - Os consumidores preferem produtos com a melhor qualidade, desempenho e inovação.\\[4pt]
+          $\Rightarrow$ Excelência, qualidade.
+    \item \textbf{Venda} - Os consumidores não mostram iniciativa em comprar.\\[4pt]
+          $\Rightarrow$ Pro-atividade, força de vendas, promoção.
+    \item \textbf{Marketing} - O foco não deve ser no produto mas na ação de satisfazer uma necessidade/processo.\\[4pt]
+          $\Rightarrow$ Encontrar o produto adaptado a essas necessidades.
+    \item \textbf{Marketing Social} (societal marketing) - Marketing em que existe a preocupação com o bem-estar dos consumidores e da sociedade.
+\end{itemize}
 
 \subsection{Segmentação, Targeting e Posicionamento (STP)}
 
+\textbf{Marketing Indiferenciado} - Nesta variante (mais antiga) procura-se vender o mesmo produto a todos os consumidores.
+
+\textbf{Marketing Diferenciado} - Procura-se personalizar um produto para diferentes segmentos-alvos do mercado.
+
 \subsubsection{Segmentação}
+
+Consiste em identificar as variáveis que tornem possível a separação do mercado em segmentos.
+
+Uma boa segmentação separa os consumidores em segmentos onde há diferenças substanciais que os distingam.
+
+A segmentação pode ser feita por:
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Características} - que podem ser geográficas, demográficas ou psicográficas.
+    \item \textbf{Comportamentos} - como tirar vantagem de ocasiões, de benefícios pretendidos ou de frequência de utilização do produto.
+\end{itemize}
 
 \subsubsection{Targeting}
 
+Avaliar a atratividade de cada segmento, de modo a escolher os segmentos-alvo.
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Marketing concentrado}: escolher um único segmento-alvo
+    \item \textbf{Especialização seletiva}: Cobertura de vários segmentos-alvo
+    \item \textbf{Cobertura total}: dos segmentos do mercado
+\end{itemize}
+
 \subsubsection{Posicionamento}
 
+Para cada segmento alvo, saber identificar como o produto é importante para
+o consumidor e como se diferencia da competição.
 
 \subsection{Marketing Mix}
 
 \subsubsection{Produto}
 
+\textbf{Produto} - Tudo que pode ser oferecido a um mercado para aquisição, atenção, uso ou consumo, e que possa satisfazer uma necessidade ou desejo.
+
+Ciclo de vida de um produto:
+\begin{itemize}[topsep=0pt]
+    \item Desenvolvimento: não está disponível ao público, incorre-se em prejuízo
+    \item Introdução: é colocado no mercado
+    \item Crescimento: começa a dar lucros
+    \item Maturidade: estabiliza a receita oferecida
+    \item Declínio: diminui a receita
+\end{itemize}
+
+
+\textbf{Serviço} - Ato que é oferecido numa transação. Contém as seguintes características:
+\begin{itemize}[topsep=0pt]
+    \item Intangibilidade: não é um bem físico.
+    \item Inseparabilidade: necessidade de estar presente na altura e local da prestação do serviço
+    \item Variabilidade: atendimento diferente por duas pessoas ou pela mesma em
+          diferentes alturas
+    \item Perecibilidade: não é possível armazenar o que não foi comprado
+\end{itemize}
+
 \subsubsection{Preço}
 
+O preço é o motor do rendimento que um produto traz. A definição do preço de um produto, entre os limites mínimo (custo de produção) e máximo (valor percetual para o cliente) depende dos preços da concorrência, do segmento de mercado e do posicionamento pretendido.
 
+Estratégias para estabelecer o \textbf{preço de um novo produto}:
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Skimming} (desnatação) - Colocar o produto a um preço alto e ir diminuindo mediante a resposta de mercado.
+    \item \textbf{Penetração} - Colocar o produto a um preço baixo e ir aumentando mediante a resposta de mercado.
+\end{itemize}
+
+Para estabelecer o preço de um produto já existente devemos considerar a sua \textbf{perecibilidade}, \textbf{grau de diferenciação} e \textbf{estágio do ciclo de vida} em que se encontra.
 
 \subsubsection{Distribuição}
 
@@ -588,7 +706,7 @@ Marketing típico em cada fase do ciclo de vida, embora esteja longe de universa
                            & Introdução                                                                                                                 & Crescimento                                                                          & Maturidade                                                                                                            & Declínio                                                                \\\hline
     Objetivos de Marketing & Criar consciência e experimentação                                                                                         & Maximizar de quota de mercado                                                        & Maximizar lucro defendendo quota de mercado                                                                           & Reduzir despesas e retirar o máximo de valor                            \\\hline
     Produto                & Produto básico                                                                                                             & Oferecer extensões, serviços, garantias                                              & Diversificar marcas e modelos                                                                                         & Abandonar itens mais fracos                                             \\\hline
-    Preço                  & Baseado no custo                                                                                                           & Penetração                                                                           & Face à concorrência                                                                                                   & Baixar preço                                                            \\\hline
+    Preço                  & Baseado no custo *                                                                                                         & Penetração *                                                                         & Face à concorrência                                                                                                   & Baixar preço **                                                         \\\hline
     Distribuição           & Seletiva                                                                                                                   & Intensiva                                                                            & Mais intensiva                                                                                                        & Evoluir para seletiva                                                   \\\hline
     Promoção               & Publicidade/vendas pessoais para criar consciência nos inovadores e distribuidores; Promoção de vendas para experimentação & Publicidade/vendas pessoais para consciência e interesse Promoção de vendas reduzida & Publicidade/vendas pessoais para dar ênfase a diferenças de marca e benefícios Promoção de vendas para troca de marca & Reduzir a níveis mínimos (indispensáveis para retenção de núcleo  duro) \\
 \end{tabular}

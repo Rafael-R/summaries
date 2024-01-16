@@ -140,7 +140,7 @@ Conjunto de tarefas formais atribuídas a entidades da empresa (indivíduos, equ
 
 \subsubsection{Balanço}
 
-O balanço permite registar as contas de um agente económico. É composto por 3 grandes rubricas, que depois podem ser distinguidas em subpartes:
+O balanço permite registar as contas de um agente económico. É composto por 3 grandes rubricas, que depois podem ser distinguidas em sub-partes:
 
 \begin{itemize}[topsep=0pt]
     \item \textbf{Ativo -} Bens e direitos que a empresa possui ou tem direito a receber.
@@ -291,8 +291,6 @@ Indicam a capacidade de a empresa satisfazer os compromissos financeiros de curt
     \frac{\textrm{Caixa + Clientes}}{\textrm{Passivo Corrente}}
 \end{equation*}
 
-\newpage
-
 \subsection{Análise Custo-Volume-Resultado}
 
 \textbf{Custos Fixos -} Gastos em que a empresa incorre independentemente da quantidade produzida (ex: Gastos de instalação).
@@ -300,54 +298,51 @@ Indicam a capacidade de a empresa satisfazer os compromissos financeiros de curt
 \textbf{Custos Variáveis -} Variam proporcionalmente com a quantidade produzida (ex: custos de matéria-prima).
 
 \textbf{Ponto Crítico -} Nível de atividade que corresponde a Lucro zero, ou seja, a quantidade produzida a partir do qual a empresa passa a ter lucro (ou seja, passa a ser rentável).
-\begin{align*}
-    Lucro = 0 & \implies p * Q - CV - CF = 0       \\
-              & \implies p * Q - cv_u * Q - CF = 0 \\
-              & \implies (p - cv_u) * Q - CF = 0   \\
-              & \implies mc_u * Q = CF
-\end{align*}
-\begin{center}
-    \begin{tabular}{l}
-        $Q$ - Quantidade produzida e vendida         \\
-        $p$ - Preço de venda unitário                \\
-        $CV$ - Total dos Custos Variáveis            \\
-        $CF$ - Total dos Custos Fixos                \\
-        $cv_u$ - Custo variável unitário (constante) \\
-    \end{tabular}
-\end{center}
 
-\begin{tabular}{ c c }
-    \begin{minipage}{0.45\textwidth}
-        \begin{equation*}
-            mc_u = p - cv_u
-        \end{equation*}
-    \end{minipage} &
-    \begin{minipage}{0.45\textwidth}
-        $mc_u$ - Margem de contribuição unitária
-    \end{minipage}
-\end{tabular}
+\begin{minipage}[b]{0.5\textwidth}
+    \begin{align*}
+        Lucro = 0 & \implies p * Q - CV - CF = 0       \\
+                  & \implies p * Q - cv_u * Q - CF = 0 \\
+                  & \implies (p - cv_u) * Q - CF = 0   \\
+                  & \implies mc_u * Q = CF
+    \end{align*}
+\end{minipage}
+\begin{minipage}[b]{0.49\textwidth}
+    $Q$ - Quantidade produzida e vendida         \\
+    $p$ - Preço de venda unitário                \\
+    $CV$ - Total dos Custos Variáveis            \\
+    $CF$ - Total dos Custos Fixos                \\
+    $cv_u$ - Custo variável unitário (constante)
+\end{minipage}
 
-\begin{tabular}{ c c }
-    \begin{minipage}{0.45\textwidth}
-        \begin{equation*}
-            Q_c = \frac{CF}{mc_u}
-        \end{equation*}
-    \end{minipage} &
-    \begin{minipage}{0.45\textwidth}
-        $Q_c$ - Quantidade crítica a partir da qual há lucro
-    \end{minipage}
-\end{tabular}
+\vspace{10pt}
 
-\begin{tabular}{ c c }
-    \begin{minipage}{0.45\textwidth}
-        \begin{equation*}
-            R_c = p \times Q_c
-        \end{equation*}
-    \end{minipage} &
-    \begin{minipage}{0.45\textwidth}
-        $R_c$ - Receita crítica a partir da qual há lucro
-    \end{minipage}
-\end{tabular}
+\begin{minipage}{0.5\textwidth}
+    \begin{equation*}
+        mc_u = p - cv_u
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    $mc_u$ - Margem de contribuição unitária
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+    \begin{equation*}
+        Q_c = \frac{CF}{mc_u}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    $Q_c$ - Quantidade crítica a partir da qual há lucro
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+    \begin{equation*}
+        R_c = p \times Q_c
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    $R_c$ - Receita crítica a partir da qual há lucro
+\end{minipage}
 
 \newpage
 

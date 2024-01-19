@@ -262,11 +262,11 @@ Um ficheiro pode ser conhecido por vários nomes, ou seja, é possível querermo
               \item Se apagarmos um ficheiro com vários hard links, o ficheiro continua a existir. Só será removido quando o ultimo hard link for apagado.
           \end{itemize}
     \item Symbolic link
-    \begin{itemize}
-        \item É um ficheiro (de tipo diferente) que contem o caminho de acesso para o ficheiro original.
-        \item Quando se apaga um symbolic link para um ficheiro, o ficheiro nunca é apagado.
-        \item Se o ficheiro original for apagado o link fica quebrado.
-    \end{itemize}
+          \begin{itemize}
+              \item É um ficheiro (de tipo diferente) que contem o caminho de acesso para o ficheiro original.
+              \item Quando se apaga um symbolic link para um ficheiro, o ficheiro nunca é apagado.
+              \item Se o ficheiro original for apagado o link fica quebrado.
+          \end{itemize}
 \end{itemize}
 
 \subsubsection{Programar com Ficheiros}
@@ -340,7 +340,7 @@ Isto permite organizar o sistema de ficheiros como uma árvore ou hash table de 
 
 Em cada partição, cada ficheiro é identificado univocamente pelo i-number (número do inode). Assim, as diretorias têm que ser apenas um mapeamento entre nomes e i-numbers.
 
-Num descritor do volume, podemos encontrar a localização de tabela de inodes e a tabela de alocação. Dada a importância do descritor de volume (ou super-bloco), este tipicamente está replicado.
+Num descritor do volume, podemos encontrar a localização de tabela de i-nodes e a tabela de alocação. Dada a importância do descritor de volume (ou super-bloco), este tipicamente está replicado.
 
 A tabela de alocação é um bitmap que indica se um bloco está livre ou não.
 
@@ -443,12 +443,17 @@ Enquanto procura filhos zombies o processo pai bloqueia.
 
 \subsubsection{Substituição do Processo}
 
-TODO
+O \lstinline|exec()| carrega um novo programa num processo já existente, em que:
+\begin{enumerate}[topsep=0pt]
+    \item Verifica que o processo existe e é executável
+    \item Copia os argumentos do exec para a pilha do núcleo (a pilha do utilizador vai ser destruída)
+    \item Liberta os dados referentes ao programa antigo
+    \item Reserva dados para o novo programa
+    \item Carrega o executável.
+    \item Copia os argumentos para a pilha do utilizador
+\end{enumerate}
 
-\begin{itemize}
-    \item O código a seguir a chamada à exec() só é executado caso a chamada sistema falhar
-    \item A área de dados e a pilha do programa atual são libertados caso a exec() tiver sucesso.
-\end{itemize}
+O código a seguir a chamada à \lstinline|exec()| só é executado caso a chamada sistema falhar. A área de dados e a pilha do programa atual são libertados caso a \lstinline|exec()| tenha sucesso.
 
 \subsubsection{Exemplo}
 
@@ -624,11 +629,13 @@ As funções de inicialização (\lstinline|pthread_rwlock_init|) e de destruiç
 
 \subsubsection{Semáforos}
 
-TODO
+Um semáforo é uma primitiva de sincronização mais genérica, que pode ser visto como um contador atómico. É inicializado com o número de threads que podem entrar numa secção crítica (ao entrarem fazem \lstinline|sem_wait| e decrementam o contador) e ao sair fazem \lstinline|sem_post| (incrementando o contador).
 
 \begin{itemize}
     \item Para bloquear uma tarefa T1 até o acontecimento de um evento detetado pela tarefa T2, pode-se usar um semáforo inicializado com 0, onde T1 espera e T2 assinala.
 \end{itemize}
+
+TODO
 
 \subsubsection{Variáveis de Condição}
 
@@ -697,7 +704,7 @@ main() {
     read(fcli, buf, BUFSIZE);
     /* process message */
 
-    close(fserv);
+    close(fsrv);
     close(fcli);
 }
     \end{lstlisting}
@@ -883,7 +890,7 @@ int main() {
         exit(0);
     }
 
-    int n = read(client_fd, buffer, BUFSIZE - 1);
+    int n = read(client_fd, buffer, BUFSIZE);
     /* do something with buffer */
 
     /* write response to buffer*/
@@ -899,6 +906,22 @@ int main() {
 \subsection{Sinais}
 
 TODO
+
+Diferentes semânticas dos signals:
+\begin{itemize}
+    \item System V
+          \begin{itemize}
+              \item A associação de uma rotina a um signal é apenas efetiva para uma ativação
+              \item Depois de receber o signal, o tratamento passa a ser novamente o por omissão
+              \item Necessário restabelecer a associação na primeira linha da rotina de tratamento \\
+                    (problema se houver receção sucessiva de signals)
+          \end{itemize}
+    \item BSD
+          \begin{itemize}
+              \item Associação signal-rotina \textbf{não} é desfeita após ativação
+              \item A receção de um novo signal é inibida durante a execução da rotina de tratamento
+          \end{itemize}
+\end{itemize}
 
 \begin{itemize}
     \item É uma rotina normal que fica referenciada na tabela de tratamento de signals do processo. Quando o processo vai passar de modo núcleo a modo utilizador, é testado se existe um signal pendente e por manipulação dos stacks núcleo e utilizador a rotina é posta a correr em modo utilizador
@@ -1020,11 +1043,74 @@ Há três abordagens para a transferência de segmentos:
 
 \subsubsection{Substituição}
 
-TODO
+A heurística para o algoritmo de substituição ótimo é que devemos retirar a página cujo próximo pedido seja mais distante no tempo. Para estimar isto, vamos medir o uso recente das páginas. Para isto podemos usar vários sistemas:
 
-\subsection{Comparação entre Paginação e Segmentação}
+\begin{itemize}
+    \item FIFO (eficiente, mas não atende ao grau de utilização das páginas)
+          \begin{itemize}
+              \item associar a cada entrada da tabela de páginas um timestamp de quando foi colocada em RAM.
+              \item tirar a entrada que está em RAM há mais tempo
+          \end{itemize}
+    \item NRU (Not Recently Used)
+          \begin{itemize}
+              \item a UGM coloca \lstinline|R = 1| quando há leitura na página e \lstinline|M = 1| quando há escrita.
+              \item o paginador percorre regularmente as tabelas de páginas e coloca o bit \lstinline|R = 0|.
+              \item obtemos assim 4 grupos de páginas
+                    \begin{itemize}
+                        \item \lstinline|0 (R = 0, M = 0)|: Não referenciada, não modificada.
+                        \item \lstinline|1 (R = 0, M = 1)|: Não referenciada, modificada.
+                        \item \lstinline|2 (R = 1, M = 0)|: Referenciada, não modificada.
+                        \item \lstinline|3 (R = 1, M = 1)|: Referenciada, modificada.
+                    \end{itemize}
+              \item libertam-se primeiro as páginas dos grupos de número mais baixo.
+          \end{itemize}
+    \item LRU (Least Recently Used)
+          \begin{itemize}
+              \item em cada entrada na tabela de páginas é mantido um bit R e um valor de Idade.
+              \item o paginador faz uma ronda regular pelas páginas, aumentando a idade daquelas com o bit \lstinline|R = 0|.
+              \item sempre que uma página é acedida (leitura ou escrita), a UGM coloca \lstinline|R = 1| e a sua idade é anulada.
+              \item quando uma página atinge uma idade determinada, esta passa para a lista de páginas que podem ser transferidas.
+          \end{itemize}
+\end{itemize}
 
-TODO
+\subsection{Comparação entre Segmentação e Paginação}
+
+\begin{tblr}{colspec={ Q[c,m] | X[c,m] | X[c,m] }}
+                                   & Segmentação & Paginação \\\hline
+    Vantagens                      &
+    \begin{minipage}{.4\textwidth}
+        \begin{itemize}[leftmargin=8pt]
+            \item adapta-se à estrutura lógica dos programas.
+            \item permite a realização de sistemas simples sobre hardware simples.
+            \item permite realizar eficientemente as operações que agem sobre segmentos inteiros.
+        \end{itemize}
+    \end{minipage} &
+    \begin{minipage}{.4\textwidth}
+        \begin{itemize}[leftmargin=8pt]
+            \item o programador não tem que se preocupar com a gestão de memória.
+            \item os algoritmos de reserva, substituição e transferência são mais simples e eficientes.
+            \item o tempo de leitura de uma página de disco é razoavelmente pequeno.
+            \item a dimensão dos programas é virtualmente ilimitada.
+        \end{itemize}
+    \end{minipage}                            \\\hline
+    Desvantagens                   &
+    \begin{minipage}{.4\textwidth}
+        \begin{itemize}[leftmargin=8pt]
+            \item o programador tem de ter sempre algum conhecimento dos segmentos subjacentes.
+            \item os algoritmos tornam-se bastante complicados em sistemas mais sofisticados.
+            \item o tempo de transferência de segmentos em memória principal e disco torna-se incomportável para segmentos muito grandes.
+            \item a dimensão máxima dos segmentos é limitada.
+        \end{itemize}
+    \end{minipage} &
+    \begin{minipage}{.4\textwidth}
+        \begin{itemize}[leftmargin=8pt]
+            \item o hardware é mais complexo (por exemplo, instruções precisam de ser recomeçáveis).
+            \item operações sobre segmentos lógicos são mais complexos e menos elegantes, pois têm de ser realizadas sobre um conjunto de páginas.
+            \item o tratamento das faltas de páginas representa uma sobrecarga adicional de processamento.
+            \item tamanho potencial das tabelas de páginas.
+        \end{itemize}
+    \end{minipage}
+\end{tblr}
 
 \subsection{Gestão de Memória em Unix/Linux}
 

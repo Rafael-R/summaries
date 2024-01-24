@@ -1,84 +1,109 @@
-\documentclass[twocolumn, 10pt]{article}
+\documentclass[twocolumn, 11pt]{article}
 \usepackage[a4paper, margin=10pt]{geometry}
 \usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{tabularray}
-\usepackage{mathtools}
+\usepackage{amsmath,amsfonts,amssymb}
 
+\setlength\parskip{2pt plus 0.1em minus 0.2em}
 \setlength{\parindent}{0pt}
+
+\setitemize{topsep=-2pt,itemsep=1pt}
+
+\newcommand{\twopartdef}[4]
+{ \displaystyle
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{se } #2 \\
+			#3 & \mbox{se } #4
+		\end{array}
+	\right.
+}
 
 \begin{document}
 
-\MakeUppercase{\textbf{\Large Regras de Derivação}}
+\MakeUppercase{\textbf{Módulos}}
 
-\vspace{8pt}
-\MakeUppercase{Derivadas Simples}
-
-\begin{itemize}[topsep=2pt]
-    \item Soma/Diferença: $\left(f \pm g\right)' = f' \pm g'$
-    \item Produto: $\left(fg\right)' = f'g + fg'$ \\[2pt]
-        Constante: $\left(\alpha f\right)' = \alpha f'$
-    \item Quociente: 
-        $\displaystyle \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$
-    \item Potência: $\displaystyle \left(f^\alpha\right)' = \alpha f^{\alpha - 1}f'$
-    \item Exponencial: 
-        $\displaystyle \left(\alpha^f\right)' = f' a^f (\ln \alpha)$ \\[2pt]
-        Base $e$: $\displaystyle \left(e^f\right)' = f' e^f$
-    \item Logaritmo: 
-        $\displaystyle \left(\log_{\alpha} f\right)' = \frac{f'}{f (\ln \alpha)}$ \\[2pt]
-        Base $e$: $\displaystyle \left(\ln f\right)' = \frac{f'}{f}$
-    \item Funções Trigonométricas:
-        \begin{itemize}[topsep=0pt]
-            \item $(\sin f)' = f' (\cos f)$
-            \item $(\cos f)' = -f' (\sin f)$
-            \item $\displaystyle (\tan f)' = \frac{f'}{\cos^2 f}$
-            \item $\displaystyle (\arcsin f)' = \frac{f'}{\sqrt{1-f^2}}$
-            \item $\displaystyle (\arccos f)' = -\frac{f'}{\sqrt{1-f^2}}$
-            \item $\displaystyle (\arctan f)' = \frac{f'}{1 + f^2}$
-        \end{itemize}
-    \item Função Hiperbólicas:
-        \begin{itemize}[topsep=0pt]
-            \item $(\sinh f)' = f' (\cosh f)$
-            \item $(\cosh f)' = f' (\sinh f)$
-        \end{itemize}
+\begin{itemize}
+    \item $|x| = \twopartdef{x}{x \ge 0}{-x}{x < 0}$
+    \item $|x| \le a \Leftrightarrow -a \le x \le a$
+    \item $|x| \ge a \Leftrightarrow x \le -a \lor x \ge a$
 \end{itemize}
 
-\vspace{8pt}
-\MakeUppercase{Derivada da Função Composta}
+\MakeUppercase{\textbf{Logaritmos}}
 
-\begin{itemize}[topsep=2pt]
+\begin{itemize}
+    \item $\log_a 1 = 0$
+    \item $\log_a a = 1$
+    \item $\log_a b \cdot c = \log_a b + \log_a c$
+    \item $\displaystyle \log_a \frac{b}{c} = \log_a b - \log_a c$
+    \item $\log_a b^n = n \log_a b$
+    \item Mudança de base: $\displaystyle \log_a b = \frac{\log_c b}{\log_c a}$
+\end{itemize}
+
+\vspace{4pt}
+\MakeUppercase{\textbf{Regras de Derivação}}
+
+Derivadas Simples:
+
+\begin{itemize}
+    \item Soma/Diferença: $\left(f \pm g\right)' = f' \pm g'$
+    \item Produto: $\left(fg\right)' = f'g + fg'$ \\[2pt]
+          Constante: $\left(\alpha f\right)' = \alpha f'$
+    \item Quociente:
+          $\displaystyle \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$
+    \item Potência: $\displaystyle \left(f^\alpha\right)' = \alpha f^{\alpha - 1}f'$
+    \item Exponencial:
+          $\displaystyle \left(\alpha^f\right)' = f' \alpha^f (\ln \alpha)$ \\[2pt]
+          Base $e$: $\displaystyle \left(e^f\right)' = f' e^f$
+    \item Logaritmo:
+          $\displaystyle \left(\log_{\alpha} f\right)' = \frac{f'}{f (\ln \alpha)}$ \\[2pt]
+          Base $e$: $\displaystyle \left(\ln f\right)' = \frac{f'}{f}$
+    \item Funções Trigonométricas:
+          \begin{itemize}[label=$\ast$]
+              \item $(\sin f)' = f' (\cos f)$
+              \item $(\cos f)' = -f' (\sin f)$
+              \item $\displaystyle (\tan f)' = \frac{f'}{\cos^2 f}$
+              \item $\displaystyle (\arcsin f)' = \frac{f'}{\sqrt{1-f^2}}$
+              \item $\displaystyle (\arccos f)' = -\frac{f'}{\sqrt{1-f^2}}$
+              \item $\displaystyle (\arctan f)' = \frac{f'}{1 + f^2}$
+          \end{itemize}
+    \item Função Hiperbólicas:
+          \begin{itemize}[label=$\ast$]
+              \item $(\sinh f)' = f' (\cosh f)$
+              \item $(\cosh f)' = f' (\sinh f)$
+          \end{itemize}
+\end{itemize}
+
+\vspace{4pt}
+Derivada da Função Composta
+
+\begin{itemize}
     \item $f\left[g(x)\right]' = f'\left[g(x)\right] \times g'(x) $
 \end{itemize}
 
-\vspace{8pt}
-\MakeUppercase{Derivada da Função Inversa}
+\vspace{4pt}
+Derivada da Função Inversa
 
-\begin{itemize}[topsep=2pt]
+\begin{itemize}
     \item $\displaystyle \left(f^{-1}\right)'(y) = \frac{1}{f'\left(f^{-1}(y)\right)}$
 \end{itemize}
 
 \newpage
 
-\MakeUppercase{\textbf{\Large Regras de Primitivação}}
+\MakeUppercase{\textbf{Regras de Primitivação}}
 
-\vspace{8pt}
-\MakeUppercase{Primitivas Imadiatas e Quase-Imediatas}
+Primitivas Imediatas e Quase-Imediatas
 
-\begin{itemize}[topsep=2pt]
-    \item 
+\begin{itemize}
+    \item
 \end{itemize}
 
-\vspace{8pt}
-\MakeUppercase{Primitivação por partes}
+Primitivação por partes
 
-\begin{itemize}[topsep=2pt]
+\begin{itemize}
     \item $\displaystyle \int u(x)\cdot v'(x)\,dx = u(x) \cdot v(x) - \int u'(x) \cdot v(x)\,dx$
 \end{itemize}
 
-\vspace{8pt}
-\MakeUppercase{Primitivação por substituição}
+Primitivação por substituição
 
 \begin{itemize}
     \item $\displaystyle \int f(x)\,dx = \left(\int f(u(t))\,u'(t)\,dt\right)_{t=u^{-1}(x)}$

@@ -1,12 +1,13 @@
-\documentclass[twocolumn, 11pt]{article}
-\usepackage[a4paper, margin=10pt]{geometry}
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=2cm]{geometry}
 \usepackage{enumitem}
 \usepackage{amsmath,amsfonts,amssymb}
+\usepackage{tabularray}
 
-\setlength\parskip{2pt plus 0.1em minus 0.2em}
+\setlength\parskip{1em plus 0.1em minus 0.2em}
 \setlength{\parindent}{0pt}
 
-\setitemize{topsep=-2pt,itemsep=1pt}
+\setitemize{topsep=-8pt,itemsep=0pt}
 
 \newcommand{\twopartdef}[4]
 { \displaystyle
@@ -20,93 +21,158 @@
 
 \begin{document}
 
-\MakeUppercase{\textbf{Módulos}}
+\textbf{\MakeUppercase{Bases}}
+
+\begin{itemize}
+    \item $(a+b)^2=a^2+2ab+b^2$
+    \item $(a-b)^2=a^2-2ab+b^2$
+    \item $a^2-b^2=(a+b)(a-b)$
+    \item $\displaystyle \sinh x = \frac{e^x-e^{-x}}{2}$
+    \item $\displaystyle \cosh x = \frac{e^x+e^{-x}}{2}$
+    \item \begin{tblr}[T]{colspec={ | Q[l,m] | Q[c,m] | Q[c,m] | Q[c,m] | Q[c,m] | Q[c,m] | }}
+              \hline
+              arco & \ 0 (0°)\ \  & $\pi/6$ (30°) & $\pi/4$ (45°) & $\pi/3$ (60°) & $\pi/2$ (90°) \\\hline
+              sin  & 0            & 1/2           & $\sqrt{2}/2$  & $\sqrt{3}/2$  & 1             \\\hline
+              cos  & 1            & $\sqrt{3}/2$  & $\sqrt{2}/2$  & 1/2           & 0             \\\hline
+              tan  & 0            & $\sqrt{3}/3$  & 1             & $\sqrt{3}$    & -             \\\hline
+          \end{tblr}
+\end{itemize}
+
+\textbf{\MakeUppercase{Módulos}}
 
 \begin{itemize}
     \item $|x| = \twopartdef{x}{x \ge 0}{-x}{x < 0}$
-    \item $|x| \le a \Leftrightarrow -a \le x \le a$
-    \item $|x| \ge a \Leftrightarrow x \le -a \lor x \ge a$
+    \item $|x| \le a \Leftrightarrow x \le a \land x \ge -a \text{ ou } -a \le x \le a$
+    \item $|x| \ge a \Leftrightarrow x \ge a \lor x \le -a$
 \end{itemize}
 
-\MakeUppercase{\textbf{Logaritmos}}
+\textbf{\MakeUppercase{Logaritmos}}
 
 \begin{itemize}
+    \item $\log_a x = y \Leftrightarrow x = a^y$
+    \item $\displaystyle a^x = e^{x \ln a}$
     \item $\log_a 1 = 0$
     \item $\log_a a = 1$
-    \item $\log_a b \cdot c = \log_a b + \log_a c$
-    \item $\displaystyle \log_a \frac{b}{c} = \log_a b - \log_a c$
-    \item $\log_a b^n = n \log_a b$
-    \item Mudança de base: $\displaystyle \log_a b = \frac{\log_c b}{\log_c a}$
+    \item $\log_a x \cdot y = \log_a x + \log_a y$
+    \item $\displaystyle \log_a \frac{x}{y} = \log_a x - \log_a y$
+    \item $\log_a x^p = p \log_a x$
+    \item Mudança de base: $\displaystyle \log_b x = \frac{\log_a x}{\log_a b}$
 \end{itemize}
 
-\vspace{4pt}
-\MakeUppercase{\textbf{Regras de Derivação}}
+\textbf{\MakeUppercase{Limites}}
 
-Derivadas Simples:
+Regras:
 
 \begin{itemize}
-    \item Soma/Diferença: $\left(f \pm g\right)' = f' \pm g'$
-    \item Produto: $\left(fg\right)' = f'g + fg'$ \\[2pt]
-          Constante: $\left(\alpha f\right)' = \alpha f'$
-    \item Quociente:
-          $\displaystyle \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$
-    \item Potência: $\displaystyle \left(f^\alpha\right)' = \alpha f^{\alpha - 1}f'$
-    \item Exponencial:
-          $\displaystyle \left(\alpha^f\right)' = f' \alpha^f (\ln \alpha)$ \\[2pt]
-          Base $e$: $\displaystyle \left(e^f\right)' = f' e^f$
-    \item Logaritmo:
-          $\displaystyle \left(\log_{\alpha} f\right)' = \frac{f'}{f (\ln \alpha)}$ \\[2pt]
-          Base $e$: $\displaystyle \left(\ln f\right)' = \frac{f'}{f}$
-    \item Funções Trigonométricas:
-          \begin{itemize}[label=$\ast$]
-              \item $(\sin f)' = f' (\cos f)$
-              \item $(\cos f)' = -f' (\sin f)$
-              \item $\displaystyle (\tan f)' = \frac{f'}{\cos^2 f}$
-              \item $\displaystyle (\arcsin f)' = \frac{f'}{\sqrt{1-f^2}}$
-              \item $\displaystyle (\arccos f)' = -\frac{f'}{\sqrt{1-f^2}}$
-              \item $\displaystyle (\arctan f)' = \frac{f'}{1 + f^2}$
-          \end{itemize}
-    \item Função Hiperbólicas:
-          \begin{itemize}[label=$\ast$]
-              \item $(\sinh f)' = f' (\cosh f)$
-              \item $(\cosh f)' = f' (\sinh f)$
-          \end{itemize}
+    \item $\displaystyle \lim_{x \to a} [f(x) \pm g(x)] = \lim_{x \to a} f(x) \pm \lim_{x \to a} g(x)$
+    \item $\displaystyle \lim_{x \to a} [f(x) \times g(x)] = \lim_{x \to a} f(x) \times \lim_{x \to a} g(x)$
+    \item $\displaystyle \lim_{x \to a} [k f(x)] = k \lim_{x \to a} f(x) $
 \end{itemize}
 
-\vspace{4pt}
+Indeterminações:
+
+\begin{itemize}
+    \item $\infty - \infty$
+    \item $\infty \times 0$
+    \item $\displaystyle \frac{\infty}{\infty}$
+    \item $\displaystyle \frac{0}{0}$
+    \item $\infty^0$
+    \item $1^\infty$
+    \item $0^0$
+\end{itemize}
+
+Limites notáveis:
+
+\begin{itemize}
+    \item $\displaystyle \lim_{x \to 0} \frac{\sin x}{x} = 1$
+    \item $\displaystyle \lim_{x \to 0} \frac{e^x - 1}{x} = 1$
+\end{itemize}
+
+\newpage
+
+\textbf{\MakeUppercase{Derivadas e Primitivas Simples}}
+
+\begin{tblr}{colspec={ Q[l,m] | Q[l,m] | Q[l,m] | }}
+                        & Regras de Derivação                                               & Regras de Primitivação                                                                     \\\hline
+    Soma                & $(u + v)' = u' + v'$                                              & $\displaystyle \int u + v  = \int u + \int v$                                              \\\hline
+    Escalar             & $(\alpha u)' = \alpha u'$                                         & $\displaystyle \int \alpha u = \alpha \int u$                                              \\\hline
+    Produto             & $(uv)' = u'v + uv'$                                               &                                                                                            \\\hline
+    Quociente           & $\displaystyle \left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}$ &                                                                                            \\\hline
+    Potência            & $\displaystyle (u^\alpha)' = \alpha u^{\alpha - 1}u'$             & $\displaystyle \int u' u^\alpha = \frac{u^{\alpha+1}}{\alpha+1}$                           \\\hline
+    Exponencial         & $\displaystyle (\alpha^u)' = u' \alpha^u (\ln \alpha)$            & $\displaystyle \int u' \alpha^u = \frac{\alpha^u}{(\ln\alpha)}$                            \\
+                        & $(e^u)' = u' e^u$                                                 & $\displaystyle \int u' e^u = e^u$                                                          \\\hline
+    Logaritmo           & $\displaystyle (\log_{\alpha} u)' = \frac{u'}{u (\ln \alpha)}$    &                                                                                            \\
+                        & $\displaystyle (\ln u)' = \frac{u'}{u}$                           & $\displaystyle \int \frac{u'}{u} = \ln |u|$                                                \\\hline
+    Seno                & $(\sin u)' = u' \cos u$                                           & $\displaystyle \int u' \cos u = \sin u$                                                    \\\hline
+    Cosseno             & $(\cos u)' = -u' \sin u$                                          & $\displaystyle \int u' \sin u = -\cos u$                                                   \\\hline
+    Tangente            & $\displaystyle (\tan u)' = \frac{u'}{\cos^2 u}$                   & $\displaystyle \int \frac{u'}{\cos^2 u} = \tan u$                                          \\\hline
+    Seno$^{-1}$         & $\displaystyle (\arcsin u)' = \frac{u'}{\sqrt{1 - u^2}}$          & $\displaystyle \int \frac{u'}{\sqrt{\alpha^2 - u^2}} = \arcsin \frac{u}{\alpha}$           \\\hline
+    Cosseno$^{-1}$      & $\displaystyle (\arccos u)' = -\frac{u'}{\sqrt{1 - u^2}}$         & $\displaystyle \int \frac{u'}{\sqrt{\alpha^2 - u^2}} = -\arccos \frac{u}{\alpha}$          \\\hline
+    Tangente$^{-1}$     & $\displaystyle (\arctan u)' = \frac{u'}{1 + u^2}$                 & $\displaystyle \int \frac{u'}{\alpha^2 + u^2} = \frac{1}{\alpha} \arctan \frac{u}{\alpha}$ \\\hline
+    Seno Hiperbólico    & $(\sinh u)' = u' \cosh u$                                         & $\displaystyle \int u' \sinh u = \cosh u$                                                  \\\hline
+    Cosseno Hiperbólico & $(\cosh u)' = u' \sinh u$                                         & $\displaystyle \int u' \cosh u = \sinh u$                                                  \\\hline
+\end{tblr}
+
+\vspace{8pt}
+
+\textbf{\MakeUppercase{Regras de Derivação}}
+
 Derivada da Função Composta
 
 \begin{itemize}
     \item $f\left[g(x)\right]' = f'\left[g(x)\right] \times g'(x) $
 \end{itemize}
 
-\vspace{4pt}
 Derivada da Função Inversa
 
 \begin{itemize}
     \item $\displaystyle \left(f^{-1}\right)'(y) = \frac{1}{f'\left(f^{-1}(y)\right)}$
 \end{itemize}
 
-\newpage
+\textbf{\MakeUppercase{Regras de Primitivação}}
 
-\MakeUppercase{\textbf{Regras de Primitivação}}
-
-Primitivas Imediatas e Quase-Imediatas
+Primitivação por Partes
 
 \begin{itemize}
-    \item
+    \item $\displaystyle \int uv' \,dx = uv - \int u'v \,dx$
 \end{itemize}
 
-Primitivação por partes
+\begin{enumerate}[topsep=0pt]
+    \item Escolher $u$ para derivar $(u \leadsto u')$.
+    \item Escolher $v$ para primitivar $(v' \leadsto v)$.
+\end{enumerate}
+
+Primitivas de Funções Racionais
 
 \begin{itemize}
-    \item $\displaystyle \int u(x)\cdot v'(x)\,dx = u(x) \cdot v(x) - \int u'(x) \cdot v(x)\,dx$
+    \item $\displaystyle f(x)=\frac{p(x)}{q(x)}$
 \end{itemize}
 
-Primitivação por substituição
+\begin{enumerate}[topsep=0pt]
+    \item Garantir que grau $p(x) <$ grau $q(x)$.
+    \item Fatorizar $q(x)$.
+\end{enumerate}
+
+\hspace{6pt}
+\begin{tblr}{colspec={ | Q[c,m] | Q[c,m] | Q[c,m] | Q[c,m] | }}
+    \hline
+    Raíz               & Fator         & Função                                                             & Primitiva (Primitiva) \\\hline
+    Simples            & $(x-a)$       & $\displaystyle \frac{A}{x-a}$                                      & ln                    \\\hline
+    Múltipla           & $(x-a)^m$     & $\displaystyle \frac{A_1}{(x-a)^1} + \ldots + \frac{A_m}{(x-a)^m}$ & potências             \\\hline
+    2º grau sem raízes & $(x-a)^2+b^2$ & $\displaystyle \frac{Ax+B}{(x-a)^2+b^2}$                           & ln + arctan           \\\hline
+\end{tblr}
+
+Primitivação por Substituição
 
 \begin{itemize}
     \item $\displaystyle \int f(x)\,dx = \left(\int f(u(t))\,u'(t)\,dt\right)_{t=u^{-1}(x)}$
 \end{itemize}
+
+\begin{enumerate}[topsep=0pt]
+    \item Substituir $x$ por $u(t)$.
+    \item Multiplicar por $u'(t) = \frac{dx}{dt}$.
+    \item Primitivar.
+    \item Substituir $t$ por $x$.
+\end{enumerate}
 
 \end{document}

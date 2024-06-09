@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\usepackage[paper=letterpaper,margin=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{tabularray}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\lstset{
+    language=C,
+    basicstyle=\small\ttfamily,
+    %numbers=left,
+    %numberstyle=\footnotesize,
+    frame=single,
+    tabsize=2,
+    breaklines=true,
+    xleftmargin=.35em,
+    xrightmargin=.35em,
+    %framexleftmargin=1.6em,
+    extendedchars=true,
+    literate={à}{{\`a}}1 {á}{{\'a}}1 {ã}{{\~a}}1 {ç}{{\c{c}}}1 {é}{{\'e}}1 {“}{{\“}}1 {”}{{\”}}1 {ê}{{\^e}}1 {õ}{{\~o}}1 {í}{{\'i}}1 {ú}{{\'u}}1 {é }{{\'e }}2
+}
+
+\setitemize{topsep=-4pt,itemsep=0pt}
+\SetTblrInner{rowsep=2pt}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{4cm}
+    \textbf{\LARGE Sistemas Operativos} \\[0.5cm]
+    \Large Resumo \\[2cm]
+    \textbf{Rafael Rodrigues} \vfill
+    LEIC \\ Instituto Superior Técnico \\ 2023/2024
+\end{titlepage}
+
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+
+\setlength\parskip{1em plus 0.1em minus 0.2em}
+\setlength{\parindent}{0pt}
+
+\newpage
+
+\section{Preliminares}
+
+\subsection{Conjuntos, funções e cardinalidade}
+
+\subsection{Alfabetos e linguagens}
+
+\textbf{Alfabeto -} conjunto finito e não-vazio (de símbolos), representado por $\Sigma$.
+
+\textbf{Palavra -} sequência finita de elementos de um alfabeto $\Sigma$. Denotamos por $\Sigma^*$ o conjunto de todas as palavras desse alfabeto. 
+
+\textbf{Linguagem -} de um alfabeto $\Sigma$ é um subconjunto de $\Sigma^*$. Denotamos por $\mathcal{L}^\Sigma$ o conjunto de todas as linguagens sobre $\Sigma$.
+
+\section{Autómatos e Linguagens}
+
+\subsection{Linguagens Regulares}
+
+\subsubsection{Autómatos finitos deterministas (AFD)}
+
+\subsubsection{Equivalência e minimização}
+
+\subsubsection{Autómatos finitos não-deterministas (AFND)}
+
+\subsubsection{Propriedades das linguagens regulares}
+
+\paragraph{Expressões Regulares}
+
+\paragraph{Lema da Bombagem}
+
+\subsection{Linguagens Independentes do Contexto}
+
+\subsubsection{Autómatos de pilha (AP)}
+
+\subsubsection{Propriedades das linguagens independentes do contexto}
+
+\section{Máquinas de Turing}
+
+\section{Teoria da Computabilidade}
+
+\section{Complexidade Computacional}
+
+\end{document}

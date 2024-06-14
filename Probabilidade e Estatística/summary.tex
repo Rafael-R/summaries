@@ -2,7 +2,10 @@
 \usepackage[margin=2cm]{geometry}
 \usepackage{hyperref}
 \usepackage{enumitem}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{cancel}
+
+\newcommand\independent{\perp\!\!\!\!\!\!\perp} 
 
 \hypersetup{
     colorlinks,
@@ -36,99 +39,321 @@
 
 \tableofcontents
 
+\setcounter{section}{1}
+
 \newpage
 \section{Conceitos básicos de probabilidade}
 
 
-\subsection{Experiência aleatória. Espaço de resultados e acontecimentos}
+\subsection{Experiência aleatória, espaço de resultados e acontecimentos}
 
+TODO
 
 \subsection{Noção de probabilidade. Probabilidade condicionada e lei da probabilidade total}
+
+\subsubsection*{Axiomática de probabilidade}
+
+TODO
+
+\subsubsection*{Teoremas decorrentes}
+
+TODO
 
 \subsubsection*{Probabilidade condicional}
 
 \begin{equation*}
     P(A|B) = \frac{P(A \cap B)}{P(B)} \text{ , se } P(B) > 0
 \end{equation*}
+\begin{equation*}
+    P(\overline{A}|B) = 1 - P(A|B)
+\end{equation*}
 
+\subsubsection*{Teorema da probabilidade composta}
+
+TODO
+
+\subsubsection*{Teorema da probabilidade total}
+
+TODO
 
 \subsection{Teorema de Bayes}
 
+\begin{equation*}
+    P(A_i|B) = \frac{P(A_i \cap B)}{P(B)}
+    = \frac{P(A_i) \, P(B|A_i)}{\sum_{j=1}^{n}P(A_j) \, P(B|A_j)}
+\end{equation*}
 
 \subsection{Acontecimentos independentes}
+
+TODO
 
 \newpage
 \section{Variáveis aleatórias discretas e contínuas}
 
-
 \subsection{Definição de variável aleatória. Função de distribuição. Função de massa de probabilidade e função de densidade de probabilidade}
+
+TODO variável aleatória
+
+\subsubsection*{Função de distribuição}
+
+TODO
+
+\subsubsection*{Variáveis aleatórias discretas}
+
+TODO
+
+\subsubsection*{Variáveis aleatórias contínuas}
+
+TODO
 
 
 \subsection{Valor esperado, moda, variância e quantis}
 
+\subsubsection*{Valor esperado de uma variável aleatória}
 
-\subsection{Distribuições de probabilidade mais utilizadas na modelação de dados: binomial, geométrica e de Poisson (discretas); uniforme, exponencial e normal (contínuas).}
+TODO
+
+\subsubsection*{Valor esperado de uma função de uma variável aleatória}
+
+TODO
+
+\subsubsection*{Momentos simples e centrais}
+
+TODO
+
+\subsubsection*{Outros parâmetros: Moda e quantis}
+
+TODO
+
+\subsection{Distribuições de probabilidade mais utilizadas na modelação de dados}
+
+\subsubsection*{Distribuição Uniforme Discreta}
+
+TODO
+
+\subsubsection*{Distribuição Bernoulli}
+
+TODO
+
+\subsubsection*{Distribuição Binomial}
+
+TODO
+
+\subsubsection*{Distribuição Geométrica}
+
+\begin{equation*}
+    P(X \geq x) = (1-p)^{x-1}
+\end{equation*}
+
+\subsubsection*{Distribuição Poisson}
+
+TODO
+
+\subsubsection*{Distribuição Uniforme Contínua}
+
+\begin{equation*}
+    P(X > n) = \int_{n}^{+\infty} f_X(x) \, dx
+\end{equation*}
+\begin{equation*}
+    E(X) = \int_{-\infty}^{+\infty} x \cdot f_X(x) \, dx
+\end{equation*}
+\begin{equation*}
+    E(X^2) = \int_{-\infty}^{+\infty} x^2 \cdot f_X(x) \, dx
+\end{equation*}
+\begin{equation*}
+    V(X) = E(X^2) - E^2(X)
+\end{equation*}
+
+\subsubsection*{Distribuição Exponencial}
+
+\begin{equation*}
+    P(X > x) = e^{-\lambda x}\ , \ x > 0
+\end{equation*}
+\begin{equation*}
+    P(X \leq x) = 1 - e^{-\lambda x}\ , \ x > 0
+\end{equation*}
+
+\subsubsection*{Distribuição Normal (ou de Gauss)}
+
+\begin{equation*}
+    X \backsim N(\mu, \sigma^2)
+\end{equation*}
+\begin{equation*}
+    E(X) = \mu \ \ (\text{média} = \mu)
+\end{equation*}
+\begin{equation*}
+    V(X) = \sigma^2 \ \ (\text{desvio padrão} = \sigma)
+\end{equation*}
+\begin{equation*}
+    P(X \leq x) = P\left(Z \leq \frac{x-\mu}{\sigma}\right) =
+    \Phi\left(\frac{x-\mu}{\sigma}\right) \ , \
+    Z \backsim N(0,1) \ (\text{Distribuição Normal Reduzida})
+\end{equation*}
+
+A combinação linear de duas \textbf{v.a. independentes} com distribuição normal é uma normal:
+
+\begin{equation*}
+    E(a\,X+b\,Y) = a\,E(X) + b\,E(Y)
+\end{equation*}
+\begin{equation*}
+    V(a\,X+b\,Y) =  a^2\,E(X) + b^2\,E(Y)
+\end{equation*}
 
 \newpage
 \section{Pares aleatórios}
 
-
 \subsection{Distribuição conjunta, marginais e condicionais}
 
+\subsubsection*{Função de distribuição conjunta}
+
+TODO
+
+\subsubsection*{Funções de distribuição marginais}
+
+TODO
+
+\subsubsection*{Distribuição conjunta de um par aleatória}
+
+TODO
+
+\subsubsection*{Distribuições marginais}
+
+TODO
+
+\subsubsection*{Distribuições condicionais}
+
+TODO
 
 \subsection{Independência}
 
+X e Y são v.a. independentes (X $\independent$ Y) \textbf{sse}:
 
-\subsection{Covariância e correlação}
+\begin{equation*}
+    P(X = x, Y = y) = P(X = x) \times P(Y = y) \ , \
+    \forall(x, y) \in \mathbb{R}^2
+\end{equation*}
+
+Caso exista um zero as variáveis \textbf{não são independentes}.
+
+\begin{equation*}
+    E(X \pm Y) = E(X) - E(Y)
+\end{equation*}
+\begin{equation*}
+    V(X \pm Y) = V(X) + V(Y) \pm 2 \ cov(X,Y)
+\end{equation*}
+\begin{equation*}
+    cov(X,Y) = E(XY) - E(X) \times E(Y)
+\end{equation*}
+
+\subsubsection*{Vetores aleatórios discretos e contínuos}
+
+TODO
+
+\subsection*{Valor esperado de uma função de um par aleatório discreto e contínuo}
+
+TODO
+
+\subsection{Covariância}
+
+TODO
+
+\subsection{Correlação}
+
+TODO
 
 \newpage
-\section{Combinações lineares de variáveis aleatórias e teorema do limite central}
-
+\section{Complementos das distribuições de probabilidade}
 
 \subsection{Combinações lineares de variáveis aleatórias}
 
+TODO
+
+\subsection{Teorema Limite Central}
+
+Para uma sucessão de \textbf{v.a. independentes e identicamente distribuídas} (não normais) tem-se:
+
+\begin{equation*}
+    S_n = \sum_{i=1}^{n} X_i
+\end{equation*}
+\begin{equation*}
+    \bar{X} = \frac{S_n}{n} \ \text{(média)}
+\end{equation*}
+\begin{equation*}
+    E(S_n) = n \, E(X_1) = n \, \mu
+\end{equation*}
+\begin{equation*}
+    V(S_n) = n \, V(X_1) = n \, \sigma^2
+\end{equation*}
 
 \subsection{Distribuição assintótica da soma e da média de variáveis aleatórias independentes e identicamente distribuídas}
 
-\newpage
+\vspace{20pt}
 \section{Estimação pontual}
 
 
 \subsection{Estatísticas e estimadores}
 
 
+\subsubsection*{Propriedades dos estimadores}
+
+Seja $T = T(X_1, ..., X_n)$ um estimador do parâmetro $\theta$:
+
+\begin{equation*}
+    EQM_\theta (T) = E\left([T - \theta]^2\right)
+    = V(T) + \left[E(T) - \theta\right]^2
+\end{equation*}
+
+Quando um estimador é \textbf{centrado}, ou seja, $E(T) = \theta$ temos:
+\begin{equation*}
+    EQM_\theta (T) = V(T)
+\end{equation*}
+
+
 \subsection{Método da máxima verosimilhança}
+
+TODO
+
+\subsubsection*{Distribuição qui-quadrado}
+
+TODO
+
+\subsubsection*{Distribuição t-Student}
+
+TODO
 
 \newpage
 \section{Estimação intervalar}
 
+\subsubsection*{Método pivotal}
 
-\subsection{Intervalos de confiança para o valor esperado, variância conhecida (população normal ou com distribuição arbitrária)}
+\subsection{Intervalos de confiança para parâmetros de populações normais}
 
-
-\subsection{Intervalos de confiança para o valor esperado, variância desconhecida (população normal ou com distribuição arbitrária)}
-
-
-\subsection{Intervalo de confiança para a variância, valor esperado desconhecido (população normal)}
+\subsubsection*{Intervalos de confiança para o valor esperado, variância conhecida}
 
 
-\subsection{Intervalo de confiança para uma probabilidade de sucesso (população de Bernoulli)}
+\subsubsection*{Intervalos de confiança para o valor esperado, variância desconhecida}
 
-\newpage
+
+\subsubsection*{Intervalos de confiança para a variância, valor esperado desconhecido}
+
+
+\subsection{Intervalos de confiança para parâmetros de populações de Bernoulli}
+
+
+\vspace{20pt}
 \section{Testes de hipóteses}
 
-\subsection{Testes de hipóteses para o valor esperado, variância conhecida (população normal ou com distribuição arbitrária)}
+\subsection{Testes de hipóteses para parâmetros de populações normais}
 
-\subsection{Testes de hipóteses para o valor esperado, variância desconhecida (população normal ou com distribuição arbitrária)}
+\subsection{Testes de hipóteses para a média de uma população normal, com variância desconhecida}
 
-\subsection{Testes de hipóteses para a variância valor esperado desconhecido (população normal)}
+\subsection{Testes de hipóteses para a variância de uma população normal}
 
-\subsection{Testes de hipóteses para uma probabilidade de sucesso (população de Bernoulli)}
+\subsection{Testes de hipóteses para parâmetros de populações Bernoulli}
 
-\subsection{Teste de ajustamento do qui-quadrado de Pearson para hipótese nula simples}
+\subsection{Teste de ajustamento do qui-quadrado de Pearson}
 
-
-\newpage
+\vspace{20pt}
 \section{Introdução à regressão linear simples}
 
 \subsection{Modelo de regressão linear simples}

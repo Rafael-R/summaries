@@ -47,17 +47,25 @@
 
 \subsection{Experiência aleatória, espaço de resultados e acontecimentos}
 
-TODO
+TODO Experiência aleatória, espaço de resultados e acontecimentos
 
 \subsection{Noção de probabilidade. Probabilidade condicionada e lei da probabilidade total}
 
 \subsubsection*{Axiomática de probabilidade}
 
-TODO
+TODO Axiomática de probabilidade
 
 \subsubsection*{Teoremas decorrentes}
 
-TODO
+\begin{equation*}
+    A \subset  B \Rightarrow P(A) \leq P(B) \ e \ P(B - A) = P(B) - P(A);
+\end{equation*}
+\begin{equation*}
+    P(B - A) = P(B) - P(A \cap B);
+\end{equation*}
+\begin{equation*}
+    P(A \cup B) = P(A) + P(B) - P(A \cap B).
+\end{equation*}
 
 \subsubsection*{Probabilidade condicional}
 
@@ -70,11 +78,17 @@ TODO
 
 \subsubsection*{Teorema da probabilidade composta}
 
-TODO
+\begin{equation*}
+    P(A \cap B) = P(A)P(B|A) \vee P(B)P(A|B)
+\end{equation*}
 
 \subsubsection*{Teorema da probabilidade total}
 
-TODO
+Caso os eventos $A_1, ..., A_n$ formem partições do espaço de resultados e B um acontecimento nesse espaço de resultados:
+
+\begin{equation*}
+    P(B) = \sum_{i=1}^{n} P(A_i)P(B|A_i)
+\end{equation*}
 
 \subsection{Teorema de Bayes}
 
@@ -85,59 +99,49 @@ TODO
 
 \subsection{Acontecimentos independentes}
 
-TODO
+
+\begin{equation*}
+    P(A \cap B) = P(A) \times P(B)
+\end{equation*}
 
 \newpage
 \section{Variáveis aleatórias discretas e contínuas}
 
 \subsection{Definição de variável aleatória. Função de distribuição. Função de massa de probabilidade e função de densidade de probabilidade}
 
-TODO variável aleatória
-
-\subsubsection*{Função de distribuição}
-
 TODO
-
-\subsubsection*{Variáveis aleatórias discretas}
-
-TODO
-
-\subsubsection*{Variáveis aleatórias contínuas}
-
-TODO
-
 
 \subsection{Valor esperado, moda, variância e quantis}
 
 \subsubsection*{Valor esperado de uma variável aleatória}
 
-TODO
+TODO Valor esperado de uma variável aleatória
 
 \subsubsection*{Valor esperado de uma função de uma variável aleatória}
 
-TODO
+TODO Valor esperado de uma função de uma variável aleatória
 
 \subsubsection*{Momentos simples e centrais}
 
-TODO
+TODO Momentos simples e centrais
 
 \subsubsection*{Outros parâmetros: Moda e quantis}
 
-TODO
+TODO Moda e quantis
 
 \subsection{Distribuições de probabilidade mais utilizadas na modelação de dados}
 
 \subsubsection*{Distribuição Uniforme Discreta}
 
-TODO
+TODO Distribuição Uniforme Discreta
 
 \subsubsection*{Distribuição Bernoulli}
 
-TODO
+TODO Distribuição Bernoulli
 
 \subsubsection*{Distribuição Binomial}
 
-TODO
+TODO Distribuição Binomial
 
 \subsubsection*{Distribuição Geométrica}
 
@@ -145,9 +149,12 @@ TODO
     P(X \geq x) = (1-p)^{x-1}
 \end{equation*}
 
+Propriedade de falta de memória:
+$P(X > i + j | X > j) = P(X > i) \, , \ \forall \ i, j \in \mathbb{N}$
+
 \subsubsection*{Distribuição Poisson}
 
-TODO
+TODO Distribuição Poisson
 
 \subsubsection*{Distribuição Uniforme Contínua}
 
@@ -173,6 +180,9 @@ TODO
     P(X \leq x) = 1 - e^{-\lambda x}\ , \ x > 0
 \end{equation*}
 
+Propriedade de falta de memória:
+$P(X > s + t | X > t) = P(X > s) \, , \ \forall \  s, t \in \mathbb{N}$
+
 \subsubsection*{Distribuição Normal (ou de Gauss)}
 
 \begin{equation*}
@@ -190,15 +200,6 @@ TODO
     Z \backsim N(0,1) \ (\text{Distribuição Normal Reduzida})
 \end{equation*}
 
-A combinação linear de duas \textbf{v.a. independentes} com distribuição normal é uma normal:
-
-\begin{equation*}
-    E(a\,X+b\,Y) = a\,E(X) + b\,E(Y)
-\end{equation*}
-\begin{equation*}
-    V(a\,X+b\,Y) =  a^2\,E(X) + b^2\,E(Y)
-\end{equation*}
-
 \newpage
 \section{Pares aleatórios}
 
@@ -206,23 +207,23 @@ A combinação linear de duas \textbf{v.a. independentes} com distribuição nor
 
 \subsubsection*{Função de distribuição conjunta}
 
-TODO
+TODO Função de distribuição conjunta
 
 \subsubsection*{Funções de distribuição marginais}
 
-TODO
+TODO Funções de distribuição marginais
 
-\subsubsection*{Distribuição conjunta de um par aleatória}
+\subsubsection*{Distribuição conjunta}
 
-TODO
+TODO Distribuição conjunta
 
 \subsubsection*{Distribuições marginais}
 
-TODO
+TODO Distribuições marginais
 
 \subsubsection*{Distribuições condicionais}
 
-TODO
+TODO Distribuições condicionais
 
 \subsection{Independência}
 
@@ -235,38 +236,62 @@ X e Y são v.a. independentes (X $\independent$ Y) \textbf{sse}:
 
 Caso exista um zero as variáveis \textbf{não são independentes}.
 
-\begin{equation*}
-    E(X \pm Y) = E(X) - E(Y)
-\end{equation*}
-\begin{equation*}
-    V(X \pm Y) = V(X) + V(Y) \pm 2 \ cov(X,Y)
-\end{equation*}
-\begin{equation*}
-    cov(X,Y) = E(XY) - E(X) \times E(Y)
-\end{equation*}
-
 \subsubsection*{Vetores aleatórios discretos e contínuos}
 
 TODO
 
 \subsection*{Valor esperado de uma função de um par aleatório discreto e contínuo}
 
-TODO
+Para duas v.a. \textbf{dependentes}:
+
+\begin{equation*}
+    E(XY) = \sum_{x_i} \sum_{y_j} x_i \, y_j \, f_{X,Y}(x_i, y_j)
+\end{equation*}
+
+Para duas v.a. \textbf{independentes}:
+
+\begin{equation*}
+    E(XY) = E(X) \, E(Y)
+\end{equation*}
 
 \subsection{Covariância}
 
-TODO
+\begin{equation*}
+    cov(X,Y) = E(XY) - E(X) \times E(Y)
+\end{equation*}
+
+Se duas v.a. \textbf{são independentes} então a sua \textbf{covariância é nula}.
 
 \subsection{Correlação}
 
-TODO
+\begin{equation*}
+    corr(X,Y) = \frac{cov(X,Y)}{\sqrt{V(X) V(Y)}}
+\end{equation*}
 
 \newpage
 \section{Complementos das distribuições de probabilidade}
 
 \subsection{Combinações lineares de variáveis aleatórias}
 
-TODO
+Dada uma v.a. Y resultante da combinação linear de $n$ v.a. $X_1, ..., X_n$ e $n$ constantes $c_1, ..., c_n$, temos:
+
+\begin{equation*}
+    Y = \sum_{i=1}^{n} c_i X_i
+\end{equation*}
+
+\begin{equation*}
+    E(Y) = \sum_{i=1}^{n} c_i E(X_i)
+\end{equation*}
+
+Caso $X_1, ..., X_n$ sejam variáveis \textbf{independentes}:
+\begin{equation*}
+    V(Y) =  \sum_{i=1}^{n} c_i^2 \, V(X_i)
+\end{equation*}
+
+Caso contrário:
+\begin{equation*}
+    V(X_1 \pm X_2) = V(X_1) + V(X_2) \pm 2 \ cov(X_1, X_2)
+\end{equation*}
 
 \subsection{Teorema Limite Central}
 
@@ -284,8 +309,6 @@ Para uma sucessão de \textbf{v.a. independentes e identicamente distribuídas} 
 \begin{equation*}
     V(S_n) = n \, V(X_1) = n \, \sigma^2
 \end{equation*}
-
-\subsection{Distribuição assintótica da soma e da média de variáveis aleatórias independentes e identicamente distribuídas}
 
 \vspace{20pt}
 \section{Estimação pontual}
@@ -311,36 +334,82 @@ Quando um estimador é \textbf{centrado}, ou seja, $E(T) = \theta$ temos:
 
 \subsection{Método da máxima verosimilhança}
 
-TODO
+TODO Método da máxima verosimilhança
 
 \subsubsection*{Distribuição qui-quadrado}
 
-TODO
+TODO Distribuição qui-quadrado
 
 \subsubsection*{Distribuição t-Student}
 
-TODO
+TODO Distribuição t-Student
 
 \newpage
 \section{Estimação intervalar}
 
 \subsubsection*{Método pivotal}
 
+Dada uma v.a $X$ e uma amostra de tamanho $n$, pretende-se determinar um
+intervalo de confiança aproximado a $C\%$
+(grau de confiança $\alpha = 1 - \frac{C}{100}$):
+
+\begin{enumerate}
+    \item Selecionar  a \textbf{v.a. fulcral} ($Z$) para o parâmetro desconhecido de $X$
+    \item Obter os quantis de probabilidade
+          \begin{enumerate}
+              \item $P(a \leq Z \leq b) = 1 - \alpha$
+              \item $\displaystyle P(Z < a) = P(Z > b) = \alpha / 2$
+              \item $
+                        \begin{array}{l}
+                            \displaystyle a = F^{-1}_Z \left(\alpha / 2\right) \\
+                            \displaystyle b = F^{-1}_Z \left(1 - \alpha / 2\right)
+                        \end{array}$
+                    , nas distribuições \textbf{normais e t-Student} temos $a = -b$.
+          \end{enumerate}
+    \item Inverter a desigualdade $a \leq Z \leq b$, isolando o parâmetro
+          desconhecido (ordem crescente)
+    \item Concretizar a estimação, substituindo as variáveis pelos valores correspondentes
+\end{enumerate}
+
 \subsection{Intervalos de confiança para parâmetros de populações normais}
+
+Se o parâmetro desconhecido é $E(X) = \mu$ então a estimativa pontual é:
+\begin{equation*}
+    \bar{X} = \frac{1}{n} \sum_{i = 1}^{n} X_i
+\end{equation*}
+
+Se o parâmetro desconhecida é $V(X) = \sigma^2$ então a estimativa pontual é:
+\begin{equation*}
+    S^2 = \frac{1}{n - 1} \sum_{i = 1}^{n} (X_i - \bar{X})^2 \Leftrightarrow
+    S^2 = \frac{1}{n - 1} \left[\sum_{i = 1}^{n} X_i^2 - n\bar{X}^2\right]
+\end{equation*}
 
 \subsubsection*{Intervalos de confiança para o valor esperado, variância conhecida}
 
+\begin{equation*}
+    Z = \frac{\bar{X} - \mu}{\sqrt{\sigma^2 / n}} \thicksim N(0, 1)
+\end{equation*}
 
 \subsubsection*{Intervalos de confiança para o valor esperado, variância desconhecida}
+
+\begin{equation*}
+    Z = \frac{\bar{X} - \mu}{\sqrt{S^2 / n}} \thicksim t_{(n - 1)}
+\end{equation*}
 
 
 \subsubsection*{Intervalos de confiança para a variância, valor esperado desconhecido}
 
+\begin{equation*}
+    Z = \frac{(n - 1) S^2}{\sigma^2} \thicksim \mathcal{X}^2_{(n - 1)}
+\end{equation*}
 
 \subsection{Intervalos de confiança para parâmetros de populações de Bernoulli}
 
+\begin{equation*}
+    Z = \frac{\bar{X} - p}{\sqrt{\frac{\bar{X} (1 - \bar{X})}{n}}} \thicksim N(0, 1)
+\end{equation*}
 
-\vspace{20pt}
+\newpage
 \section{Testes de hipóteses}
 
 \subsection{Testes de hipóteses para parâmetros de populações normais}

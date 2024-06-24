@@ -1,0 +1,173 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amsfonts,amssymb, amstext}
+\usepackage{array}
+\usepackage{cancel}
+
+\newcolumntype{C}{>{$}c<{$}}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        \textbf{\LARGE Elementos de Matemática Discreta}
+        \vspace{0.5cm}
+
+        \Large Resumo
+        \vspace{1.5cm}
+
+        \textbf{Rafael Rodrigues}
+        \vfill
+        LEIC \\
+        Instituto Superior Técnico \\
+        2023/2024
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\section{Teste 1}
+
+
+\section{Teste 2}
+
+\subsection*{Congruências}
+
+\begin{enumerate}
+    \item $a + c \equiv_n b + d$
+    \item $a^k \equiv_n b^k \rightarrow a \equiv_n b$
+    \item $-$
+    \item $-$
+    \item $\displaystyle ac \equiv_n bc \rightarrow
+              a \equiv_{\frac{n}{n \frown c}} b$
+    \item $x \equiv_{pq} a$ , sse  $x \equiv_p a$ e $x \equiv_q a$
+          com $p \frown q = 1$
+\end{enumerate}
+
+\subsection{Teorema Chinês do Resto}
+
+\begin{enumerate}
+    \item Escrever o sistema na forma normal
+          \begin{equation*}
+              \begin{cases}
+                  \ x \equiv_{c_1} a_1 \\
+                  \ x \equiv_{c_2} a_2 \\
+                  \ x \equiv_{c_3} a_3
+              \end{cases}
+          \end{equation*}
+    \item Verificar se os módulos são primos entre si
+          \begin{enumerate}
+              \item caso sejam:
+                    \begin{enumerate}
+                        \item $M = \prod c_i$
+                    \end{enumerate}
+              \item caso não sejam:
+                    \begin{enumerate}
+                        \item Verificar se $a_i - a_j = xt$ para $x = gcd(c_i, c_j)$
+                        \item $M = lcm(c_1, ..., c_k)$
+                        \item Fatorizar $M$ e utilizar cada um dos fatores como novo $c_i$
+                    \end{enumerate}
+          \end{enumerate}
+    \item Aplicar o algoritmo
+          \begin{enumerate}
+              \item Construir a tabela:
+                    \begin{center}
+                        \begin{tabular}{ | C | C | C | C | C | C | }
+                            \hline
+                            a_i         & c_i                 & n_i            & mod(n_i, c_i) &
+                            \tilde{n}_i & a_i n_i \tilde{n}_i                                        \\\hline
+                                        &                     & c_2 \times c_3 &               &   & \\\hline
+                                        &                     & c_1 \times c_3 &               &   & \\\hline
+                                        &                     & c_1 \times c_2 &               &   & \\\hline
+                        \end{tabular}
+                    \end{center}
+              \item Calcular a solução particular: $x_0 = \sum a_i n_i \tilde{n}_i$
+              \item Calcular a solução geral: $x = x_0 + Mk$, com $k \in \mathbb{Z}$.
+              \item Escolher a solução que se enquadra no problema.
+          \end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsection{Algoritmo RSA}
+
+\begin{enumerate}
+    \item Criar as chaves, usando dois números primos diferentes $p$ e $q$:
+          \begin{itemize}
+              \item Chave pública $(N, e)$
+              \item Chave privada $(N, d)$
+          \end{itemize}
+          \begin{enumerate}
+              \item $N = p \times q$
+              \item Para encontrar $e$ ou $d$ resolver equação diofantina:
+                    $1 = (e \times d) + \left[(p - 1)(q - 1) \times k\right]$
+
+          \end{enumerate}
+    \item Encriptar mensagem $M$ usando a chave pública: $M^e \equiv_N R$
+    \item Desencriptar mensagem $R$ usando a chave privada: $R^d \equiv_N M$
+\end{enumerate}
+
+\subsection*{Algoritmo de Saunderson}
+
+\begin{minipage}{0.49\textwidth}
+    \begin{center}
+        \begin{tabular}{ C | C | C | C }
+            a_i & q_i & x_i & y_i \\\hline
+            100 &     & 1   & 0   \\\hline
+            49  & 2   & 0   & 1   \\\hline
+            2   & 24  & 1   & -2  \\\hline
+            1   & 2   & -24 & 49  \\\hline
+            0   &     &     &
+        \end{tabular}
+    \end{center}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+    \begin{flalign*}
+        x_{i+1} = x_{i-1} - q_i x_i
+    \end{flalign*}
+    \begin{flalign*}
+        y_{i+1} = y_{i-1} - q_i y_i
+    \end{flalign*}
+\end{minipage}
+
+\subsection{Equações Diofantinas}
+
+\begin{enumerate}
+    \item Escrever equação diofantina: $(\ )x \pm (\ )y = $
+\end{enumerate}
+
+
+\subsection{Pequeno Teorema de Fermat}
+
+
+\section{Teste 3}
+
+\subsection{Funções Geradoras}
+
+\subsection{Algoritmo FFT}
+
+\subsection{Grafos}
+
+\subsubsection{Algoritmo de Kruskal}
+
+\subsubsection{Algoritmo de Dijkstra}
+
+\subsubsection{Teorema de Kuratowski}
+
+
+\end{document}

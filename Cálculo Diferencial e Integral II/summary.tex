@@ -1,0 +1,321 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amsfonts,amssymb, amstext}
+\usepackage{array}
+\usepackage{cancel}
+
+\newcolumntype{C}{>{$}c<{$}}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{5cm}
+
+        \textbf{\LARGE Cálculo Diferencial e Integral II}
+        \vspace{1cm}
+
+        \Large Resumo
+        \vspace{2cm}
+
+        \textbf{Rafael Rodrigues}
+        \vfill
+        LEIC \\
+        Instituto Superior Técnico \\
+        2023/2024
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+\section{Limites e Continuidade}
+
+TODO
+
+\section{Diferenciabilidade}
+
+TODO
+
+\subsection{Gradiente}
+
+\begin{equation*}
+    \nabla f(x, y) = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)
+\end{equation*}
+
+\section{Derivada da Função Composta}
+
+\subsection{Matriz Jacobiana}
+
+Para uma função $f: \mathbb{R}^n \to \mathbb{R}^m$:
+
+\begin{equation*}
+    D_f(x_1, \ldots, x_n) =
+    \left[
+        \begin{array}{c c c}
+            \frac{\partial f_1}{\partial x_1} & \cdots &
+            \frac{\partial f_1}{\partial x_n} \vspace{2pt}                   \\
+            \vdots                            & \ddots & \vdots \vspace{2pt} \\
+            \frac{\partial f_m}{\partial x_1} & \cdots &
+            \frac{\partial f_m}{\partial x_n}
+        \end{array}
+        \right]
+\end{equation*}
+
+\subsection{Cálculo da derivada}
+
+\begin{equation*}
+    D(g \circ f)(a) = Dg\left(f(a)\right) \cdot Df(a)
+\end{equation*}
+
+\subsection{Regra da Cadeia}
+
+
+
+\section{Derivadas de Ordem Superior e Extremos}
+
+\subsection{Pontos de estacionaridade (ou críticos)}
+
+\begin{equation*}
+    \nabla f(x, y) = (0, 0) \Leftrightarrow
+    \begin{cases}
+        \frac{\partial f}{\partial x} = 0 \vspace{2pt} \\
+        \frac{\partial f}{\partial y} = 0
+    \end{cases}
+\end{equation*}
+
+\subsection{Matriz Hessiana}
+
+\begin{equation*}
+    H_f(x, y) =
+    \left\lvert
+    \begin{array}{l l}
+        a = \frac{\partial^2 f}{\partial x^2}          &
+        b = \frac{\partial^2 f}{\partial y \partial x} \vspace{2pt} \\
+        c = \frac{\partial^2 f}{\partial x \partial y} &
+        d = \frac{\partial^2 f}{\partial y^2}
+    \end{array}
+    \right\rvert =
+    ad - cb
+\end{equation*}
+
+Classificação dos pontos críticos:
+\begin{itemize}
+    \item $H_f(x,y) < 0 \ \rightarrow$ ponto em sela (indefinida)
+    \item $H_f(x,y) > 0 \ \rightarrow$ extremo
+          \begin{itemize}
+              \item $a, d > 0 \ \rightarrow (x,y)$ é um ponto mínimo (definida positiva)
+              \item $a, d < 0 \ \rightarrow (x,y)$ é um ponto máximo (definida negativa)
+          \end{itemize}
+    \item $H_f(x,y) > 0 \ \rightarrow$ inconclusivo
+          \begin{itemize}
+              \item $a, d \geq 0 \ \rightarrow (x,y)$ é um ponto mínimo ou ponto de sela (semi-definida positiva)
+              \item $a, d \leq 0 \ \rightarrow (x,y)$ é um ponto máximo ou ponto de sela (semi-definida negativa)
+          \end{itemize}
+\end{itemize}
+
+\subsection{Teorema de Weierstrass}
+
+TODO Semana 6
+
+Uma função $f$ num conjunto compacto $S$ tem máximo e mínimo.
+
+\section{Função Inversa e Função Implícita}
+
+\subsection{Jacobiano}
+
+\begin{equation*}
+    J_f(x, y) =
+    \left\lvert
+    \begin{array}{l l}
+        a = \frac{\partial f_1}{\partial x} &
+        b = \frac{\partial f_1}{\partial y} \vspace{2pt} \\
+        c = \frac{\partial f_2}{\partial x} &
+        d = \frac{\partial f_2}{\partial y}
+    \end{array}
+    \right\rvert =
+    ad - cb
+\end{equation*}
+
+TODO 
+
+\section{Extremos Condicionados}
+
+\subsection{Multiplicadores de Lagrange}
+
+TODO
+
+\begin{equation*}
+    \begin{cases}
+        \nabla f = \sum_{i}^{n} \lambda_i \nabla F_i \\
+        F_1 = 0                                      \\
+        \ \ \ \ \ \vdots                             \\
+        F_n = 0
+    \end{cases}
+\end{equation*}
+
+\section{Teorema de Fubini}
+
+\subsection{Aplicações do Integral}
+
+\subsubsection{Volume e Centróide}
+
+O volume de um sólido é dado por:
+
+\begin{equation*}
+    V_S = \int_{S} 1
+\end{equation*}
+
+O seu \textbf{centróide} na coordenada $x_i$ é dado por:
+
+\begin{equation*}
+    \overline{x_i} = \frac{1}{V_S} \cdot \int_{S} x_i
+\end{equation*}
+
+\subsubsection{Massa de Sólido e Centro de massa}
+
+Para um sólido $S$ e uma \textbf{função de densidade de massa} $f$:
+
+\begin{equation*}
+    M_S = \int_{S} f
+\end{equation*}
+
+O \textbf{centro de massa} na coordenada $x_i$ é dado por:
+
+\begin{equation*}
+    \overline{x_i} = \frac{1}{M_S} \cdot \int_{S} x_i \, f
+\end{equation*}
+
+\subsubsection{Momento de Inércia}
+
+O momento de inércia em relação a um eixo $L$ é dado por:
+
+\begin{equation*}
+    I_L = \int_{S} f \cdot \left(\text{distância à lateral}\right)^2
+\end{equation*}
+
+Por exemplo para o eixo $xx$ teríamos:
+
+\begin{equation*}
+    I_x = \int_{S} f \cdot \left(y^2 + z^2\right)
+\end{equation*}
+
+
+\section{Mudança de Variáveis de Integração}
+
+\subsection{Coordenadas Polares}
+
+\begin{equation*}
+    \iint f\left(r\cos\theta, r\sin\theta\right) \cdot r\,dr\,d\theta
+\end{equation*}
+
+\subsection{Coordenadas Cilíndricas}
+
+\begin{equation*}
+    \iiint f\left(r\cos\theta, r\sin\theta, z\right) \cdot r\,dz\,dr\,d\theta
+\end{equation*}
+
+\subsection{Coordenadas Esféricas}
+
+\begin{equation*}
+    \iiint f\left(r\sin\varphi\cos\theta, r\sin\varphi\sin\theta, r\cos\varphi\right) \cdot r^2\sin\varphi\,dr\,d\varphi\,d\theta
+\end{equation*}
+
+\section{Regra de Leibniz}
+
+TODO Semana 11
+
+\section{Integrais de Linha}
+
+\begin{enumerate}
+    \item Parametrizar em função de $t$, ou seja, obter $g(t)$
+    \item Obter a derivada de $g$, ou seja, $g'(t) = \left\langle x'(t), y'(y)\right\rangle$
+    \item No caso do campo escalar, calcular $\left\lVert g'(t) \right\rVert =
+              \sqrt{\left(x'(t)\right)^2 + \left(y'(t)\right)^2}$
+\end{enumerate}
+
+\subsection{Campos Escalares}
+
+\begin{equation*}
+    \int_{C} f \, ds =
+    \int_{a}^{b} f\left(g(t)\right) \cdot \left\lVert g'(t) \right\rVert  \, dt
+\end{equation*}
+
+\subsection{Campos Vetoriais}
+
+\begin{equation*}
+    W = \int_{C} F \, dg =
+    \int_{a}^{b} F\left(g(t)\right) \cdot g'(t) \, dt
+\end{equation*}
+
+Trocar a orientação da curva troca o sinal do integral.
+
+\section{Campos Fechados. Campos Gradientes. Teorema Fundamental do Cálculo}
+
+\subsection{Teorema Fundamental do Cálculo para Integrais de Linha}
+
+\begin{equation*}
+    \int_{C} F \, dg =
+    \int_{C} \nabla\varphi \, dg =
+    \varphi\left(g(b)\right) - \varphi\left(g(a)\right)
+\end{equation*}
+
+\subsection{Campos Gradientes e Potenciais Escalares}
+
+Um campo vetorial diz-se gradiente se $F = \nabla\varphi$, neste caso a $\varphi$
+chama-se o \textbf{potencial escalar} de $F$.
+
+\begin{equation*}
+    \int_{C} \nabla\varphi \, dr = 0 \text{ , se a curva é fechada}
+\end{equation*}
+
+Para encontrar um potencial escalar:
+
+\begin{equation*}
+    \nabla\varphi = F \Leftrightarrow
+    \begin{cases}
+        \frac{\partial \varphi}{\partial x_1} = F_1 \\
+        \ \ \ \ \ \ \vdots                          \\
+        \frac{\partial \varphi}{\partial x_n} = F_n
+    \end{cases} \Leftrightarrow
+    \begin{cases}
+        \varphi = \int F_1 \, dx_1 \\
+        \ \ \ \, \vdots            \\
+        \varphi = \int F_n \, dx_n
+    \end{cases}
+\end{equation*}
+
+\subsection{Campos Fechados e Campos Gradientes}
+
+Um campo vetorial diz-se fechado se $DF$ é simétrica:
+\begin{equation*}
+    \frac{\partial F_i}{\partial x_j} = \frac{\partial F_j}{\partial x_i}
+    \ , \forall \  i \neq j
+\end{equation*}
+
+Se um campo vetorial \textbf{é gradiente}, então \textbf{também é fechado}.
+
+\subsection{Condição Necessária e Suficiente para ser Gradiente}
+
+\section{Homotopia e Teorema de Green}
+
+TODO Semana 13
+
+\begin{equation*}
+    \int_{C} P \, dx + Q \, dy =
+    \iint_{D} \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \, dA
+\end{equation*}
+
+\end{document}

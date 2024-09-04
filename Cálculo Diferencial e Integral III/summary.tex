@@ -1,0 +1,274 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amsfonts,amssymb, amstext}
+\usepackage{array}
+\usepackage{cancel}
+
+\newcolumntype{C}{>{$}c<{$}}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{5cm}
+
+        \textbf{\LARGE Cálculo Diferencial e Integral III}
+        \vspace{1cm}
+
+        \Large Resumo
+        \vspace{2cm}
+
+        \textbf{Rafael Rodrigues}
+        \vfill
+        LEIC \\
+        Instituto Superior Técnico \\
+        2023/2024
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+
+\section{Equações Diferenciais Ordinárias}
+
+\subsection{Equações Escalares de 1ª Ordem}
+
+\subsubsection{Equações Lineares [1]}
+
+\begin{equation*}
+    \frac{dy}{dt} + a(t)y = b(t)
+\end{equation*}
+
+\begin{enumerate}
+    \item Verificar que está escrita na forma linear
+    \item Determinar o fator integrante: $\displaystyle \mu(t) = \exp\left(\int a(t) \, dt \right)$
+    \item Determinar $y$:
+          $\displaystyle y(t) = \frac{1}{\mu(t)}\left[\int \mu(t)b(t) \, dt + C\right]$
+\end{enumerate}
+
+\subsubsection{Equações Separáveis [2]}
+
+\begin{equation*}
+    f(y)\frac{dy}{dt} = g(t) \Leftrightarrow
+    f(y) \, dy = g(t) \, dt
+\end{equation*}
+
+\begin{enumerate}
+    \item Verificar que está escrita na forma separável
+    \item Integrar ambos os membros da igualdade:
+          $\displaystyle \int f(y) \, dy = \int g(t) \, dt + C$
+\end{enumerate}
+
+\subsubsection{Equações Exactas [2]}
+
+\begin{equation*}
+    M(t,y) + N(t, y)\frac{dy}{dt} = 0 \Leftrightarrow
+    M(t,y) \, dt + N(t, y) \, dy = 0
+\end{equation*}
+
+\begin{enumerate}
+    \item Verificar se a equação é exata:
+          $\displaystyle \frac{\partial M}{\partial y} =
+              \frac{\partial N}{\partial t} \Rightarrow
+              \exists\ \Phi: \mathbb{R}^2 \rightarrow \mathbb{R}$ tal que
+          $\nabla \Phi(t, y) = (M, N)$
+    \item Encontrar um potencial para $\Phi(t, y)$:
+          \begin{enumerate}
+              \item TODO
+          \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Equações Redutíveis a Exactas [2]}
+
+TODO
+
+\subsection{Equações Diferenciais Ordinárias de Ordem $n$}
+
+\subsubsection{Equações Lineares de Ordem $n$ — Caso Homogéneo [3]}
+
+TODO
+
+\begin{enumerate}
+    \item Colocar na
+\end{enumerate}
+
+\subsection{Equações Vetoriais de 1ª Ordem}
+
+\subsubsection{Equações Vetoriais Lineares — Caso Homogéneo [3]}
+
+TODO
+
+\subsubsection{Equações Vetoriais Lineares — Caso não Homogéneo [4]}
+
+TODO
+
+Exercício 1 e 2 da Aula Prática 5
+
+\subsubsection{Exponencial de uma Matriz [4]}
+
+TODO
+
+Exercício 1 da Aula Prática 4
+
+Verificação:
+\begin{itemize}
+    \item $\displaystyle e^{At}|_{t=0} = I$
+    \item $\displaystyle \frac{d}{dt}e^{At}|_{t=0} = A $
+\end{itemize}
+
+\subsection{Equações Lineares de Ordem $n$ — Caso não Homogéneo [4]}
+
+TODO
+
+Exercícios 1 e 2 da Aula Prática 5
+
+\subsection{Existência, Unicidade, Prolongamento de Soluções [5]}
+
+TODO
+
+Exercícios 3, 4 e 5 da Aula Prática 5 \\
+Exercícios 1 e 2 da Aula Prática 6 (Ficha 5b)
+
+\newpage
+
+
+\section{Teoremas da Divergência e de Stokes}
+
+\subsection{Superfícies em $\mathbb{R}^3$ [6]}
+
+TODO
+
+Exercício 3 da Aula Prática 6 (Ficha 5b)
+
+\subsubsection{Definição de Superfície}
+
+\subsubsection{Reta Normal}
+
+\begin{itemize}
+    \item No caso de uma parametrização $g(u,v)$:
+          \begin{equation*}
+              \vec{N} = \frac{\partial g}{\partial u} \times \frac{\partial g}{\partial v}
+              = \left\vert
+              \begin{array}{c c c}
+                  e_1                             & e_2 & e_3 \\[2pt]
+                  \frac{\partial g_1}{\partial u} &
+                  \frac{\partial g_2}{\partial u} &
+                  \frac{\partial g_3}{\partial u}             \\[4pt]
+                  \frac{\partial g_1}{\partial v} &
+                  \frac{\partial g_2}{\partial v} &
+                  \frac{\partial g_3}{\partial v}
+              \end{array}
+              \right\vert
+          \end{equation*}
+    \item No caso de um conjunto de nível $G(x, y, z) = 0$:
+          \begin{equation*}
+              \vec{N} = \vec{\nabla} G
+          \end{equation*}
+\end{itemize}
+
+O \textbf{vetor normal unitário} é dado por:
+\begin{equation*}
+    \vec{n} = \frac{\vec{N}}{||\vec{N}||}
+\end{equation*}
+
+\subsubsection{Plano Tangente}
+
+A equação de um plano tangente a uma superfície num ponto $P = (x_0, y_0, z_0)$ é dada por:
+\begin{equation*}
+    \vec{N} \cdot \left(x - x_0,\ y - y_0,\ z - z_0\right) = 0
+\end{equation*}
+
+\subsection{Integrais de Superfície [7]}
+
+TODO
+
+\subsection{Operadores Diferenciais [7]}
+
+\subsubsection{Divergência}
+
+\begin{align*}
+    \text{div} F = \vec{\nabla} \cdot F & = \left(\frac{\partial}{\partial x}
+    ,\ \frac{\partial}{\partial y}
+    ,\ \frac{\partial}{\partial z}\right)
+    \cdot (F_1,\ F_2,\ F_3)
+    = \frac{\partial F_1}{\partial x}
+    + \frac{\partial F_2}{\partial y}
+    + \frac{\partial F_3}{\partial z}
+\end{align*}
+
+\subsection{Rotacional}
+
+\begin{align*}
+    \text{rot} F = \vec{\nabla} \times F & =
+    \left\vert
+    \begin{array}{c c c}
+        e_1                         & e_2 & e_3 \\[2pt]
+        \frac{\partial}{\partial x} &
+        \frac{\partial}{\partial y} &
+        \frac{\partial}{\partial z}             \\[2pt]
+        F_1                         & F_2 & F_3
+    \end{array}
+    \right\vert
+    = \left(\frac{\partial F_3}{\partial y} - \frac{\partial F_2}{\partial z}
+    ,\ \frac{\partial F_1}{\partial z} - \frac{\partial F_3}{\partial x}
+    ,\ \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y}
+    \right)
+\end{align*}
+
+\subsection{Fluxo de um Campo Vetorial}
+
+TODO
+\begin{equation*}
+    \iint_{S} F \cdot \vec{n} \ dS =
+    \iint_{T} F(g(u, v)) \cdot
+    \left(
+    \frac{\partial g}{\partial u} \times \frac{\partial g}{\partial v}
+    \right) \ dudv
+\end{equation*}
+
+\subsubsection{Teorema de Divergência [8]}
+
+TODO
+\begin{equation*}
+    \iint_{S} F \cdot \vec{n} \ dS =
+    \iiint_{V} \text{div} F \ dV
+\end{equation*}
+
+\subsection{Teorema de Stokes [9]}
+
+TODO
+
+\subsubsection{Potencial Vetorial}
+
+TODO
+
+\newpage
+
+
+\section{Introdução às Equações Diferenciais Parciais}
+
+\subsection{Método de Separação de Variáveis [10]}
+
+TODO
+
+\subsection{Séries de Fourier [10]}
+
+TODO
+
+\subsection{[11]}
+
+\end{document}

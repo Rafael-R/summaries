@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{amsmath,amsfonts,amssymb, amstext}
+\usepackage{tabularray}
 \usepackage{array}
 \usepackage{cancel}
 
@@ -47,7 +48,7 @@
 
 \subsection{Equações Escalares de 1ª Ordem}
 
-\subsubsection{Equações Lineares [1]}
+\subsubsection{Equações Lineares}
 
 \begin{equation*}
     \frac{dy}{dt} + a(t)y = b(t)
@@ -57,10 +58,10 @@
     \item Verificar que está escrita na forma linear
     \item Determinar o fator integrante: $\displaystyle \mu(t) = \exp\left(\int a(t) \, dt \right)$
     \item Determinar $y$:
-          $\displaystyle y(t) = \frac{1}{\mu(t)}\left[\int \mu(t)b(t) \, dt + C\right]$
+          $\displaystyle y(t) = \frac{1}{\mu(t)}\int \mu(t)b(t) \, dt + C$
 \end{enumerate}
 
-\subsubsection{Equações Separáveis [2]}
+\subsubsection{Equações Separáveis}
 
 \begin{equation*}
     f(y)\frac{dy}{dt} = g(t) \Leftrightarrow
@@ -73,7 +74,7 @@
           $\displaystyle \int f(y) \, dy = \int g(t) \, dt + C$
 \end{enumerate}
 
-\subsubsection{Equações Exactas [2]}
+\subsubsection{Equações Exatas}
 
 \begin{equation*}
     M(t,y) + N(t, y)\frac{dy}{dt} = 0 \Leftrightarrow
@@ -87,18 +88,43 @@
               \exists\ \Phi: \mathbb{R}^2 \rightarrow \mathbb{R}$ tal que
           $\nabla \Phi(t, y) = (M, N)$
     \item Encontrar um potencial para $\Phi(t, y)$:
-          \begin{enumerate}
-              \item TODO
-          \end{enumerate}
+          \begin{equation*}
+              \begin{cases}
+                  \Phi = \int M \,dx \\
+                  \Phi = \int N \,dy
+              \end{cases} \Rightarrow
+              \Phi = C
+          \end{equation*}
+    \item Isolar o $y$
 \end{enumerate}
 
-\subsubsection{Equações Redutíveis a Exactas [2]}
+\subsubsection{Equações Redutíveis a Exatas}
 
-TODO
+\begin{equation*}
+    M(t,y) + N(t, y)\frac{dy}{dt} = 0
+\end{equation*}
+
+\begin{enumerate}
+    \item Quando a equação não é exata:
+          $\displaystyle \frac{\partial M}{\partial y} \neq
+              \frac{\partial N}{\partial t}$
+    \item Calcular as razões:
+          \begin{equation*}
+              \frac{M_y - N_t}{N} \text{\ \ \ \ e \ \ \ } \frac{N_t - M_y}{M}
+          \end{equation*}
+    \item Escolher a razão que depender apenas de uma variável e calcular o
+          \textbf{fator integrante}:
+          \begin{equation*}
+              \mu = \exp\left(\int \text{razão escolhida}\right)
+          \end{equation*}
+    \item Resolver a \textbf{equação exata}:
+          $\displaystyle \mu M(t,y) + \mu N(t, y)\frac{dy}{dt} = 0$
+
+\end{enumerate}
 
 \subsection{Equações Diferenciais Ordinárias de Ordem $n$}
 
-\subsubsection{Equações Lineares de Ordem $n$ — Caso Homogéneo [3]}
+\subsubsection{Equações Lineares de Ordem $n$ — Caso Homogéneo}
 
 TODO
 
@@ -108,17 +134,17 @@ TODO
 
 \subsection{Equações Vetoriais de 1ª Ordem}
 
-\subsubsection{Equações Vetoriais Lineares — Caso Homogéneo [3]}
+\subsubsection{Equações Vetoriais Lineares — Caso Homogéneo}
 
 TODO
 
-\subsubsection{Equações Vetoriais Lineares — Caso não Homogéneo [4]}
+\subsubsection{Equações Vetoriais Lineares — Caso não Homogéneo}
 
 TODO
 
 Exercício 1 e 2 da Aula Prática 5
 
-\subsubsection{Exponencial de uma Matriz [4]}
+\subsubsection{Exponencial de uma Matriz}
 
 TODO
 
@@ -130,13 +156,13 @@ Verificação:
     \item $\displaystyle \frac{d}{dt}e^{At}|_{t=0} = A $
 \end{itemize}
 
-\subsection{Equações Lineares de Ordem $n$ — Caso não Homogéneo [4]}
+\subsection{Equações Lineares de Ordem $n$ — Caso não Homogéneo}
 
 TODO
 
 Exercícios 1 e 2 da Aula Prática 5
 
-\subsection{Existência, Unicidade, Prolongamento de Soluções [5]}
+\subsection{Existência, Unicidade, Prolongamento de Soluções}
 
 TODO
 
@@ -145,16 +171,13 @@ Exercícios 1 e 2 da Aula Prática 6 (Ficha 5b)
 
 \newpage
 
-
 \section{Teoremas da Divergência e de Stokes}
 
-\subsection{Superfícies em $\mathbb{R}^3$ [6]}
-
-TODO
-
-Exercício 3 da Aula Prática 6 (Ficha 5b)
+\subsection{Superfícies em $\mathbb{R}^3$}
 
 \subsubsection{Definição de Superfície}
+
+TODO
 
 \subsubsection{Reta Normal}
 
@@ -192,11 +215,33 @@ A equação de um plano tangente a uma superfície num ponto $P = (x_0, y_0, z_0
     \vec{N} \cdot \left(x - x_0,\ y - y_0,\ z - z_0\right) = 0
 \end{equation*}
 
-\subsection{Integrais de Superfície [7]}
+\subsection{Integrais de Superfície}
 
-TODO
+\begin{equation*}
+    \iint_S f(x, y, z) \ dS = \iint_D f(g(u, v))
+    \left\lVert
+    \frac{\partial g}{\partial u} \times
+    \frac{\partial g}{\partial v}
+    \right\rVert \, du\,dv
+\end{equation*}
 
-\subsection{Operadores Diferenciais [7]}
+\begin{itemize}
+    \item Área
+          \begin{equation*}
+              A = \iint_S \, dS
+          \end{equation*}
+    \item Massa
+          \begin{equation*}
+              M = \iint_S \sigma \, dS
+          \end{equation*}
+    \item Centro de Massa:
+          \begin{equation*}
+              \bar{x} = \frac{1}{M} \iint_S x(g(u, v)) \, \sigma \, dS
+              \text{ \ \ \ \ \  (coordenada $x$)}
+          \end{equation*}
+\end{itemize}
+
+\subsection{Operadores Diferenciais}
 
 \subsubsection{Divergência}
 
@@ -210,7 +255,7 @@ TODO
     + \frac{\partial F_3}{\partial z}
 \end{align*}
 
-\subsection{Rotacional}
+\subsubsection{Rotacional}
 
 \begin{align*}
     \text{rot} F = \vec{\nabla} \times F & =
@@ -231,44 +276,254 @@ TODO
 
 \subsection{Fluxo de um Campo Vetorial}
 
-TODO
 \begin{equation*}
-    \iint_{S} F \cdot \vec{n} \ dS =
-    \iint_{T} F(g(u, v)) \cdot
+    \iint_S F \cdot \vec{n} \, dS =
+    \iint_D F(g(u, v)) \cdot
     \left(
     \frac{\partial g}{\partial u} \times \frac{\partial g}{\partial v}
-    \right) \ dudv
+    \right) \, du\,dv
 \end{equation*}
 
-\subsubsection{Teorema de Divergência [8]}
+\begin{enumerate}
+    \item Parametrizar a superfície
+\end{enumerate}
 
-TODO
+\subsubsection{Teorema de Divergência}
+
+Seja $S$ a \textbf{superfície fechada}, orientada \textbf{positivamente} (p/
+fora), fronteira de uma região sólida $E$.
+
 \begin{equation*}
-    \iint_{S} F \cdot \vec{n} \ dS =
-    \iiint_{V} \text{div} F \ dV
+    \iint_S \vec{F} \cdot \vec{n} \, dS =
+    \iiint_E \text{div} \vec{F} \, dV
 \end{equation*}
 
-\subsection{Teorema de Stokes [9]}
+\subsection{Teorema de Stokes}
 
-TODO
+Seja $S$ uma \textbf{superfície orientada}, cuja fronteira é formada por uma
+curva $C$ fechada e com orientação positiva.
+
+\begin{equation*}
+    \oint_C \vec{F} \ dg =
+    \iint_S \text{rot} \vec{F} \ dS =
+    \iint_D \text{rot} \vec{F} \cdot \vec{N} \, du\,dv
+\end{equation*}
+
+\subsubsection{Trabalho}
+\begin{equation*}
+    W = \oint_C F \, dg =
+    \int_{a}^{b} F\left(g(t)\right) \cdot g'(t) \, dt
+\end{equation*}
 
 \subsubsection{Potencial Vetorial}
 
-TODO
+Diz-se que $\vec{G}$ é potencial vetorial de $\vec{F}$ se $\vec{F} =$ rot\,$\vec{G}$
+
+\begin{enumerate}
+    \item Verificar que div\,$\vec{F} = 0$
+    \item Resolver a equação $\vec{F} =$ rot\,$\vec{G}$:
+          \begin{align*}
+              \left(\vec{F_1},\,\vec{F_2},\,\vec{F_3}\right) & = \text{rot}\,\vec{G}
+              \\ \Leftrightarrow
+              \left(\vec{F_1},\,\vec{F_2},\,\vec{F_3}\right) & =
+              \left(\frac{\partial G_3}{\partial y} - \frac{\partial G_2}{\partial z}
+              ,\,\frac{\partial G_1}{\partial z} - \frac{\partial G_3}{\partial x}
+              ,\,\frac{\partial G_2}{\partial x} - \frac{\partial G_1}{\partial y}
+              \right)
+          \end{align*}
+    \item Assumir que uma das componentes de $G$ é nulo, (ex. $G_2$):
+          \begin{equation*}
+              \left(\vec{F_1},\,\vec{F_2},\,\vec{F_3}\right) =
+              \left(\frac{\partial G_3}{\partial y}
+              ,\,\frac{\partial G_1}{\partial z} - \frac{\partial G_3}{\partial x}
+              ,\, - \frac{\partial G_1}{\partial y}
+              \right)
+          \end{equation*}
+    \item Integrar as outras componente em ordem à variável corresponde ao
+          componente anulado (ex. $y$):
+          \begin{equation*}
+              \int \vec{F_1} \,dy = \int \frac{\partial G_3}{\partial y} \,dy
+          \end{equation*}
+          \begin{equation*}
+              \int \vec{F_3} \,dy = \int -\frac{\partial G_1}{\partial y} \,dy
+          \end{equation*}
+\end{enumerate}
 
 \newpage
 
+\section{Séries de Fourier}
+
+Sendo $f(x)$ uma função $f$ com extensão periódica $\bar{f}$ com período $2L$:
+
+\begin{equation*}
+    SFf(x) = \frac{a_0}{2} + \sum_{n=1}^{+\infty}
+    \left(
+    a_n \cdot \cos\left(\frac{n\pi x}{L}\right) +
+    b_n \cdot \sin\left(\frac{n\pi x}{L}\right)
+    \right)
+\end{equation*}
+
+\begin{equation*}
+    a_n =
+    \frac{1}{L} \int_{-L}^{L} f(x) \cdot \cos\left(\frac{n\pi x}{L}\right) \, dx
+    \ \ \ \Rightarrow \ \ \
+    a_0 =
+    \frac{1}{L} \int_{-L}^{L} f(x) \, dx
+\end{equation*}
+
+\begin{equation*}
+    b_n =
+    \frac{1}{L} \int_{-L}^{L} f(x) \cdot \sin\left(\frac{n\pi x}{L}\right) \, dx
+\end{equation*}
+
+\begin{center}
+    \begin{tblr}[T]{colspec={ | Q[c,m] | Q[c,m] | Q[c,m] | }}
+        \hline
+        $\cos(x) = - \cos(x)$ (par)    &
+        $\cos(n\pi) = (-1)^n$          &
+        $\displaystyle \int_a^b \cos(*x) = \left[\frac{\sin(*x)}{*}\right]_a^b$ \\\hline
+        $\sin(x) = - \sin(-x)$ (ímpar) &
+        $\sin(n\pi) = 0$               &
+        $\displaystyle \int_a^b \sin(*x) = \left[-\frac{\cos(*x)}{*}\right]_a^b$
+        \\\hline
+    \end{tblr}
+\end{center}
+
+\subsection{Teorema da Convergência Pontual}
+
+\begin{equation*}
+    SFf(x) =
+    \begin{cases}
+        f(x)                     & \text{se $x$ é um ponto de continuidade de $f$}    \\
+        \frac{f(x^+)+f(x^-)}{2}  & \text{se $x$ é um ponto de descontinuidade de $f$} \\
+        \frac{f(-L^+)+f(L^-)}{2} & \text{se $x = -L$ ou $x = L$}                      \\
+    \end{cases}
+\end{equation*}
+
+\subsection{Série de Senos}
+
+Quando a função $f(x)$ é \textbf{ímpar}:
+
+\begin{equation*}
+    S_{\sin} f(x) =
+    \sum_{n=1}^{+\infty}b_n \cdot \sin\left(\frac{n\pi x}{L}\right)
+\end{equation*}
+
+\begin{equation*}
+    b_n =
+    \frac{2}{L} \int_{0}^{L} f(x) \cdot \sin\left(\frac{n\pi x}{L}\right) \, dx
+\end{equation*}
+
+\subsection{Série de Cossenos}
+
+Quando a função $f(x)$ é \textbf{par}:
+
+\begin{equation*}
+    S_{\cos} f(x) = \frac{a_0}{2} + \sum_{n=1}^{+\infty}
+    a_n \cdot \cos\left(\frac{n\pi x}{L}\right)
+\end{equation*}
+
+\begin{equation*}
+    a_n =
+    \frac{2}{L} \int_{0}^{L} f(x) \cdot \cos\left(\frac{n\pi x}{L}\right) \, dx
+    \ \ \ \Rightarrow \ \ \
+    a_0 =
+    \frac{2}{L} \int_{0}^{L} f(x) \, dx
+\end{equation*}
+
+\subsubsection*{Integral por partes}
+
+\begin{equation*}
+    \int_a^b uv' = [uv] _a^b - \int_a^b u'v
+\end{equation*}
+
+\newpage
 
 \section{Introdução às Equações Diferenciais Parciais}
 
-\subsection{Método de Separação de Variáveis [10]}
+\subsection{Método de Separação de Variáveis}
 
-TODO
+\begin{equation*}
+    u(t, x) = T(t)X(x)
+\end{equation*}
+\begin{equation*}
+    \text{Condição de fronteira (CF):\ \ } u(t, 0) = u(t, \pi) = 0 \text{\ \ ($t$ variável)}
+\end{equation*}
+\begin{equation*}
+    \text{Condição inicial (CI):\ \ } u(0, x) = f(x) \text{\ \ ($t$ fixo $= 0$)}
+\end{equation*}
 
-\subsection{Séries de Fourier [10]}
+\begin{enumerate}
+    \item Substituir $u(t, x)$ na equação diferencial por $T(t)X(x)$
+    \item Separar as variáveis dos dois lados da igualdade:
+          \begin{equation*}
+              \frac{T'}{T} = \frac{X''}{X}
+          \end{equation*}
+    \item Igualar os dois lados da equação a lambda ($\lambda$):
+          \begin{equation*}
+              \frac{T'}{T} = \lambda \text{\ \ \ \ e \ \ \ }
+              \frac{X''}{X} = \lambda
+          \end{equation*}
+    \item Analisar as condições de fronteira, sabendo que $T(t) \neq 0$:
+          \begin{equation*}
+              u(t, 0) = u(t, \pi) = 0 \ \Rightarrow\ X(0) = X(\pi) = 0
+          \end{equation*}
+    \item Construir os dois problemas (EDOs)a resolver:
+          \begin{equation*}
+              \text{P1:\ \ \ }
+              \begin{cases}
+                  X'' - \lambda X = 0 \\
+                  X(0) = X(\pi) = 0
+              \end{cases}
+              \text{se $x \in\ ]0, \pi[$}
+          \end{equation*}
+          \begin{equation*}
+              \text{P2:\ \ \ } \frac{T'}{T} = \lambda \ \Leftrightarrow \
+              T' = \lambda T \ \Leftrightarrow \
+              T' - \lambda T = 0 \ \Rightarrow
+              P(R) = R-\lambda = 0
+          \end{equation*}
+    \item Resolver P1 testando as várias possibilidades para $\lambda$:
+          \begin{itemize}
+              \item $\lambda = 0$
+              \item $\lambda > 0$
+              \item $\lambda < 0$
+          \end{itemize}
+    \item Resolver P2 para os valores de $\lambda$ obtidos anteriormente
+    \item Combinar os resultados obtidos, obtendo a solução do PVF:
+          \begin{equation*}
+              u_k(t, x) = T_k(t) X_k(t) \ \Rightarrow \
+              u(t,x) = \sum_{k=1}^{\infty} c_k T_k X_k
+          \end{equation*}
+    \item Calcular as constantes $c_k$ utilizando a condição inicial:
+          \begin{equation*}
+              u(0,x) = \sum_{k=1}^{\infty} c_k X_k = \text{CI}
+          \end{equation*}
+    \item Substituir os valores obtidos em $u(t,x)$
+\end{enumerate}
 
-TODO
+\newpage
 
-\subsection{[11]}
+\section{Extras}
+
+\subsection{Mudança de Variáveis de Integração}
+
+\subsubsection{Coordenadas Polares}
+
+\begin{equation*}
+    \iint f(r\cos\theta, r\sin\theta) \cdot r\,dr\,d\theta
+\end{equation*}
+
+\subsubsection{Coordenadas Cilíndricas}
+
+\begin{equation*}
+    \iiint f(r\cos\theta, r\sin\theta, z) \cdot r\,dz\,dr\,d\theta
+\end{equation*}
+
+\subsubsection{Coordenadas Esféricas}
+
+\begin{equation*}
+    \iiint f(r\sin\varphi\cos\theta, r\sin\varphi\sin\theta, r\cos\varphi) \cdot r^2\sin\varphi\,dr\,d\varphi\,d\theta
+\end{equation*}
 
 \end{document}

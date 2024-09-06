@@ -124,13 +124,32 @@
 
 \subsection{Equações Diferenciais Ordinárias de Ordem $n$}
 
-\subsubsection{Equações Lineares de Ordem $n$ — Caso Homogéneo}
+\subsubsection{Equações Lineares de Ordem $n$}
 
 TODO
 
+\begin{equation*}
+    y(t) = y_G(t) + y_P(t)
+\end{equation*}
+
 \begin{enumerate}
-    \item Colocar na
+    \item Escrever o \textbf{polinómio característico}
+    \item Calcular as suas raízes
 \end{enumerate}
+
+\begin{center}
+    \begin{tblr}[T]{colspec={ | Q[c,m] | Q[c,m] | Q[c,m] | Q[c,m] | }}
+        \hline
+        Raíz                  & Multiplicidade & Solução \\\hline
+        $\lambda$             & $m$            &
+        $\displaystyle \sum_{n=0}^{m-1} c\,t^n e^{\lambda t}$
+        \\\hline
+        $\alpha \pm i\,\beta$ & $m$            &
+        $\displaystyle \sum_{n=0}^{m-1} c_1\,t^n e^{\alpha t} \cos(\beta t) +
+            c_2\,t^n e^{\alpha t} \sin(\beta t)$
+        \\\hline
+    \end{tblr}
+\end{center}
 
 \subsection{Equações Vetoriais de 1ª Ordem}
 

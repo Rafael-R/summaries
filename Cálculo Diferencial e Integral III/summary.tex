@@ -122,78 +122,264 @@
 
 \end{enumerate}
 
-\subsection{Equações Diferenciais Ordinárias de Ordem $n$}
+\subsection{Equações Vetoriais Lineares}
 
-\subsubsection{Equações Lineares de Ordem $n$}
-
-TODO
+\subsubsection*{Valores Próprios}
 
 \begin{equation*}
-    y(t) = y_G(t) + y_P(t)
+    \text{det}(A - \lambda I) = 0 \Leftrightarrow 
+    \left\lvert \begin{matrix} 
+        a - \lambda_1 & b \\ c & d - \lambda_2
+    \end{matrix}\right\rvert = 0 \Leftrightarrow
+    (a - \lambda_1)(d - \lambda_2) - cd = 0
+\end{equation*}
+
+\subsubsection*{Vetores Próprios}
+
+\begin{itemize}
+    \item $\lambda_1 \ne \lambda_2$
+        \begin{equation*}
+            \begin{matrix}
+                \left[A - \lambda_1 I\right] \cdot \vec{v}_1 = 0 & \text{e} &
+                \left[A - \lambda_2 I\right] \cdot \vec{v}_2 = 0
+            \end{matrix}
+        \end{equation*}
+    \item $\lambda_1 = \lambda_2$
+        \begin{equation*}
+            \begin{matrix}
+                \left[A - \lambda I\right] \cdot \vec{v}_1 = 0 & \text{e} &
+                \left[A - \lambda I\right] \cdot \vec{v}_2 = \vec{v}_1
+            \end{matrix}
+        \end{equation*}
+    \item $\lambda = a \pm bi$
+        \begin{equation*}
+                \left[A - (a \pm bi)\, I\right] \cdot \vec{v} = 0
+        \end{equation*}
+\end{itemize}
+
+\subsubsection{Exponencial de uma Matriz}
+
+\begin{itemize}
+    \item Diretas
+    \begin{enumerate}
+        \item Matriz Diagonal
+        \begin{equation*}
+            A = \left[\begin{matrix}
+                \alpha & \cdots & 0 \\
+                \vdots & \ddots & \vdots \\
+                0 & \cdots & \beta 
+            \end{matrix}\right] 
+            \ \ \ \Rightarrow\ \ \ 
+            e^{At} = \left[\begin{matrix}
+                e^{\alpha t} & \cdots & 0 \\
+                \vdots & \ddots & \vdots \\
+                0 & \cdots & e^{\beta t} 
+            \end{matrix}\right]
+        \end{equation*}
+        \item Bloco de Jordan
+        \begin{equation*}
+            A = \left[\begin{matrix}
+                \alpha & 1 & \cdots & 0 \\
+                0 & \ddots & \ddots & \vdots \\
+                \vdots & \ddots & \ddots & 1 \\
+                0 & \cdots & 0 & \alpha 
+            \end{matrix}\right]
+            \ \ \ \Rightarrow\ \ \ 
+            e^{At} = \left[\begin{matrix}
+                e^{\alpha t} & e^{\alpha t}t & \cdots & e^{\alpha t}\frac{t^n}{n!} \\
+                0 & \ddots & \ddots & \vdots \\
+                \vdots & \ddots & \ddots & e^{\alpha t}t \\
+                0 & \cdots & 0 & e^{\alpha t}
+            \end{matrix}\right]
+        \end{equation*}
+    \end{enumerate}
+    \item Indiretas
+    \begin{equation*}
+        e^{At} = S \cdot e^{\Lambda t} \cdot S^{-1}
+    \end{equation*}
+    \begin{enumerate}
+        \item Calcular os \textbf{valores próprios} de $A$:
+        \begin{enumerate}
+            \item Se $\lambda_1 \ne \lambda_2$:
+            \begin{equation*}
+                \Lambda = \left[\begin{matrix}
+                    \lambda_1 & 0 \\
+                    0 & \lambda_2
+                \end{matrix}\right] \ \ \ \ \Rightarrow \ \ \ \ 
+                e^{\Lambda t} = \left[\begin{matrix}
+                    e^{\lambda_1 t} & 0 \\
+                    0 & e^{\lambda_2 t}
+                \end{matrix}\right]
+            \end{equation*}
+            \item Se $\lambda_1 = \lambda_2$:
+            \begin{equation*}
+                \Lambda = \left[\begin{matrix}
+                    \lambda & 1 \\
+                    0 & \lambda
+                \end{matrix}\right] \ \ \ \ \Rightarrow \ \ \ \ 
+                e^{\Lambda t} = \left[\begin{matrix}
+                    e^{\lambda t} & e^{\lambda t}t \\
+                    0 & e^{\lambda t}
+                \end{matrix}\right]
+            \end{equation*}
+            \item Se $\lambda = a \pm bi$:
+            \begin{equation*}
+                \Lambda = \left[\begin{matrix}
+                    a+bi & 0 \\
+                    0 & a-bi
+                \end{matrix}\right] \ \ \ \ \Rightarrow \ \ \ \ 
+                e^{\Lambda t} = \left[\begin{matrix}
+                    e^{(a+bi) t} & 0 \\
+                    0 & e^{(a-bi) t}
+                \end{matrix}\right]
+            \end{equation*}
+        \end{enumerate}
+        \item Calcular os \textbf{vetores próprios} de $A$:
+        \begin{equation*}
+            S = \left[\begin{matrix}
+                \vdots & \vdots \\
+                v_1 & v_2 \\
+                \vdots & \vdots
+            \end{matrix}\right]
+            \ \ \ \ \ \ \ \ \ \
+            S^{-1} = \frac{1}{\text{det}} \left[\begin{matrix}
+                d & -b \\
+                -c & a 
+            \end{matrix}\right]
+        \end{equation*}
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Caso Homogéneo}
+
+\begin{equation*}
+    X' = AX \Leftrightarrow
+    \left[ \begin{matrix} x' \\ y' \end{matrix} \right] = 
+    \left[ \begin{matrix} a & b \\ c & d \end{matrix} \right]
+    \left[ \begin{matrix} x \\ y \end{matrix} \right]
+\end{equation*}
+
+\begin{itemize}
+    \item $\lambda_1 \ne \lambda_2$
+        \begin{equation*}
+            X(t) = c_1 e^{\lambda_1 t}[\vec{v}_1] + 
+                c_2 e^{\lambda_2 t}[\vec{v}_2]
+        \end{equation*}
+    \item $\lambda_1 = \lambda_2$
+        \begin{equation*}
+            X(t) = c_1 e^{\lambda_1 t}[\vec{v}_1] + 
+                c_2 e^{\lambda_1 t}[t\vec{v}_1 + \vec{v}_2]
+        \end{equation*}
+    \item $\lambda = a \pm bi$
+        \begin{equation*}
+            X(t) = c_1 [\text{Re}] + c_2 [\text{Im}]
+        \end{equation*}
+\end{itemize}
+
+\subsubsection*{Solução com Matriz Exponencial}
+
+\begin{equation*}
+    X(t) = e^{A(t-t_0)} \cdot X(t_0)
+\end{equation*}
+
+\subsubsection{Caso não Homogéneo}
+
+\begin{equation*}
+    X' = AX + b(t) \Leftrightarrow
+    \left[ \begin{matrix} x' \\ y' \end{matrix} \right] = 
+    \left[ \begin{matrix} a & b \\ c & d \end{matrix} \right]
+    \left[ \begin{matrix} x \\ y \end{matrix} \right] + 
+    \left[ \begin{matrix} f(t) \\ g(t) \end{matrix} \right]
+\end{equation*}
+
+\begin{equation*}
+    X(t) = e^{A(t - t_0)} \cdot X(t_0) + \int_{t_0}^{t} e^{A(t-s)} \cdot b(s) \, ds
+\end{equation*}
+
+\newpage
+
+\subsection{Equações Diferenciais Lineares de Ordem Superior}
+
+\begin{equation*}
+    a_n y^{(n)} + a_{n-1} y^{(n-1)} + \ldots + a_0 y = f(t)
+\end{equation*}
+
+\subsubsection{Caso Homogéneo}
+
+\begin{equation*}
+    f(t) = 0 \ \ \ \ \Rightarrow \ \ \ \ y(t) = y_H
 \end{equation*}
 
 \begin{enumerate}
-    \item Cálculo de $y_G$:
-          \begin{enumerate}
-              \item Escrever o \textbf{polinómio característico}
-              \item Calcular as suas raízes
-          \end{enumerate}
-    \item Cálculo de $y_P$ (caso não homogéneo):
-          \begin{enumerate}
-              \item
-          \end{enumerate}
+    \item Escrever na forma em que $a_n = 0$
+    \item Escrever o \textbf{polinómio aniquilador}
+        \begin{equation*}
+            P(D)y = 0 \Leftrightarrow
+            \left(D^n + a_{n-1} D^{n-1} + \ldots + a_0\right) y = 0 
+        \end{equation*}
+    \item Escrever o \textbf{polinómio característico}
+        \begin{equation*}
+            P(\lambda) = 0 \Leftrightarrow 
+            P^n + a_{n-1} P^{n-1} + \ldots + a_0 = 0
+        \end{equation*}
+    \item Calcular as raízes do polinómio característico para encontrar as 
+    \textbf{bases} das soluções
+    \item Escrever a solução do problema como combinação linear das bases
 \end{enumerate}
+
+\subsubsection{Caso não Homogéneo}
+
+\begin{equation*}
+    f(t) \ne 0 \ \ \ \ \Rightarrow \ \ \ \ y(t) = y_H + y_P
+\end{equation*}
+
+\begin{enumerate}
+    \item Calcular $y_H$ como se de um caso homogéneo se tratasse
+    \item Determinar o \textbf{polinómio aniquilador} de $f(t)$
+    \begin{equation*}
+        P(D)f(t) = 0
+    \end{equation*}
+    \item Multiplicar ambos os lados da equação pelo polinómio, obtendo uma nova
+    equação homogénea
+    \item Calcular $y_P$ resolvendo a nova equação homogénea
+    \item Juntar as duas soluções, verificando que não existe repetição de termos. \\
+    Caso exista, multiplicar por $t,\,t^2,\ldots$
+    \item Achar as constantes de $y_P$ pelo métodos dos coeficientes indeterminados
+\end{enumerate}
+
+TODO
 
 \begin{center}
     \begin{tblr}[T]{colspec={ | Q[c,m] | Q[c,m] | Q[c,m] | Q[c,m] | }}
         \hline
-        Raíz                  & Multiplicidade & Solução \\\hline
-        $\lambda$             & $m$            &
-        $\displaystyle \sum_{n=0}^{m-1} c\,t^n e^{\lambda t}$
-        \\\hline
-        $\alpha \pm i\,\beta$ & $m$            &
-        $\displaystyle \sum_{n=0}^{m-1} c_1\,t^n e^{\alpha t} \cos(\beta t) +
-            c_2\,t^n e^{\alpha t} \sin(\beta t)$
-        \\\hline
+        Raíz         & Multiplicidade & Base da Solução \\\hline
+        $\lambda$    & $m$            &
+        $\displaystyle \sum_{n=0}^{m-1} c\,t^n e^{\lambda t}$ \\\hline
+        $a \pm b\,i$ & $m$            &
+        $\displaystyle \sum_{n=0}^{m-1} c_1\,t^n e^{a t} \cos(b t) +
+        c_2\,t^n e^{a t} \sin(b t)$ \\\hline
     \end{tblr}
 \end{center}
 
-\subsection{Equações Vetoriais de 1ª Ordem}
-
-\subsubsection{Equações Vetoriais Lineares — Caso Homogéneo}
-
-TODO
-
-\subsubsection{Equações Vetoriais Lineares — Caso não Homogéneo}
-
-TODO
-
-Exercício 1 e 2 da Aula Prática 5
-
-\subsubsection{Exponencial de uma Matriz}
-
-TODO
-
-Exercício 1 da Aula Prática 4
-
-Verificação:
-\begin{itemize}
-    \item $\displaystyle e^{At}|_{t=0} = I$
-    \item $\displaystyle \frac{d}{dt}e^{At}|_{t=0} = A $
-\end{itemize}
-
-\subsection{Equações Lineares de Ordem $n$ — Caso não Homogéneo}
-
-TODO
-
-Exercícios 1 e 2 da Aula Prática 5
+\newpage
 
 \subsection{Existência, Unicidade, Prolongamento de Soluções}
 
-TODO
+\subsubsection{Teorema de Picard}
 
-Exercícios 3, 4 e 5 da Aula Prática 5 \\
-Exercícios 1 e 2 da Aula Prática 6 (Ficha 5b)
+\begin{equation*}
+    \begin{cases}
+        y' = f(x, y) \\
+        y(x_o) = y_o
+    \end{cases}
+\end{equation*}
+
+O Teorema de Picard garante que o problema tem \textbf{solução única} se 
+$f(x, y)$ e $\displaystyle \frac{\partial f}{\partial y}$ são contínuas na 
+vizinhança de $(x_o, y_o)$. \\
+
+Caso alguma destas verificações falhe o teorema não é aplicável, sendo assim 
+possível existirem várias soluções sem o contradizer.
 
 \newpage
 
@@ -377,6 +563,59 @@ Diz-se que $\vec{G}$ é potencial vetorial de $\vec{F}$ se $\vec{F} =$ rot\,$\ve
 
 \newpage
 
+\section{Transformadas de Laplace}
+
+\begin{equation*}
+    \mathcal{L}\left\{f(t)\right\} = F(s) = 
+    \int_{0}^{+\infty} e^{-st}\cdot f(t) \, dt
+\end{equation*}
+
+\subsection{Tabela}
+
+\begin{center}
+    \begin{tblr}[T]{colspec={ Q[c,m] | Q[c,m] }}
+        \hline
+        $f(t) = \mathcal{L}^{-1}\left\{F(s)\right\}$ & 
+        $F(s) = \mathcal{L}^{-1}\left\{f(t)\right\} \ , \ s > \alpha$ \\\hline
+        $1$    & $m$            \\\hline
+        $e^{at}$ & $m$            \\\hline
+        $e^{at}$ & $m$            \\\hline
+        $e^{at}$ & $m$            \\\hline
+        $e^{at}$ & $m$            \\\hline
+        $e^{at}$ & $m$            \\\hline
+        
+    \end{tblr}
+\end{center}
+
+\subsection*{Função Heaviside}
+
+\begin{equation*}
+    H_a(t) = H(t-a) = 
+    \begin{cases}
+        1, \ t > a \\
+        0, \ t < a
+    \end{cases}
+\end{equation*}
+
+\begin{equation*}
+    1 - H_a(t) = 
+    \begin{cases}
+        0, \ t > a \\
+        1, \ t < a
+    \end{cases}
+\end{equation*}
+
+\begin{equation*}
+    H_a(t) - H_b(t) = 
+    \begin{cases}
+        0, \ t < a \\
+        1, \ a < t < b \\
+        0, \ t > b
+    \end{cases}
+\end{equation*}
+
+\newpage
+
 \section{Séries de Fourier}
 
 Sendo $f(x)$ uma função $f$ com extensão periódica $\bar{f}$ com período $2L$:
@@ -465,30 +704,114 @@ Quando a função $f(x)$ é \textbf{par}:
 
 \newpage
 
-\section{Introdução às Equações Diferenciais Parciais}
+\section{Equações Diferenciais Parciais}
 
-\subsection{Método de Separação de Variáveis}
+\subsection{Método das Características (EDPs de 1ª Ordem)}
 
 \begin{equation*}
-    u(t, x) = T(t)X(x)
+    a(x,y)\frac{\partial u}{\partial x} + 
+    b(x,y)\frac{\partial u}{\partial y} =
+    c(x,y)
 \end{equation*}
+
+\subsubsection{Caso homogéneo}
+
 \begin{equation*}
-    \text{Condição de fronteira (CF):\ \ } u(t, 0) = u(t, \pi) = 0 \text{\ \ ($t$ variável)}
-\end{equation*}
-\begin{equation*}
-    \text{Condição inicial (CI):\ \ } u(0, x) = f(x) \text{\ \ ($t$ fixo $= 0$)}
+    c(x,y) = 0 \ \ \Rightarrow \ \ 
+    a(x,y)\frac{\partial u}{\partial x} + 
+    b(x,y)\frac{\partial u}{\partial y} = 0
 \end{equation*}
 
 \begin{enumerate}
-    \item Substituir $u(t, x)$ na equação diferencial por $T(t)X(x)$
-    \item Separar as variáveis dos dois lados da igualdade:
+    \item Resolver a EDO, isolando a constante $C$:
+    \begin{equation*}
+        \frac{dy}{dx} = \frac{b(x,y)}{a(x,y)} \ \ \Leftrightarrow \ \ 
+        \ldots \ \ \Leftrightarrow \ \ C = g(x,y)
+    \end{equation*}
+    \item Escrever a solução:
+    \begin{equation*}
+        u(x,y) = f(C)
+    \end{equation*}
+\end{enumerate}
+
+\subsubsection{Caso não homogéneo}
+
+\begin{enumerate}
+    \item Determinar as curvas características:
+    \begin{enumerate}
+        \item resolver a seguinte EDO, isolando a constante $C$:
+        \begin{equation*}
+            \frac{dy}{dx} = \frac{b(x,y)}{a(x,y)} \ \ \Leftrightarrow \ \ 
+            \ldots \ \ \Leftrightarrow \ \ C = f(x,y)
+        \end{equation*}
+    \end{enumerate}
+    \item Fazer uma mudança de varáveis $(x,y) \rightarrow (s,r)$
+    \begin{enumerate}
+        \item Escolher $s = C = f(x,y)$
+        \item Escolher $r$ tal que o jacobiano da transformação seja \textbf{não nulo}:
+        \begin{equation*}
+            J(s, r) =
+            \left\lvert
+            \begin{array}{l l}
+                \frac{\partial s}{\partial x} &
+                \frac{\partial s}{\partial y} \vspace{2pt} \\
+                \frac{\partial r}{\partial x} &
+                \frac{\partial r}{\partial y}
+            \end{array}
+            \right\rvert \ne 0
+        \end{equation*}
+        \item Utilizar a regra da cadeia para simplificar 
+        $\frac{\partial u}{\partial x}$ e $\frac{\partial u}{\partial y}$:
+        \begin{itemize}
+            \item $\displaystyle \frac{\partial u}{\partial x} = 
+            \frac{\partial u}{\partial s} \frac{\partial s}{\partial x} + 
+            \frac{\partial u}{\partial r} \frac{\partial r}{\partial x}$
+            \item $\displaystyle \frac{\partial u}{\partial y} = 
+            \frac{\partial u}{\partial s} \frac{\partial s}{\partial y} + 
+            \frac{\partial u}{\partial r} \frac{\partial r}{\partial y}$
+        \end{itemize}
+    \end{enumerate}
+    \item Substituir na equação original e simplificar, \textbf{deve obter-se uma EDO}:
+        \begin{equation*}
+            a(s,r)\left(\frac{\partial u}{\partial s} 
+            \frac{\partial s}{\partial x} + 
+            \frac{\partial u}{\partial r} \frac{\partial r}{\partial x}\right) + 
+            b(s,r)\left(\frac{\partial u}{\partial s} 
+            \frac{\partial s}{\partial y} + 
+            \frac{\partial u}{\partial r} \frac{\partial r}{\partial y}\right) =
+            c(s,r)
+        \end{equation*}
+    \item Resolver a EDO obtida, obtendo-se uma solução na forma $u(s, r)$
+    \item Inverter a mudança de variáveis:
+    \begin{equation*}
+        u(s, r) \rightarrow u(x, y)
+    \end{equation*}
+\end{enumerate}
+
+\newpage
+
+\subsection{Método de Separação de Variáveis (EDPs de 2ª Ordem)}
+
+\begin{equation*}
+    u(x, t) = X(x) \cdot T(t)
+\end{equation*}
+\begin{equation*}
+    \text{Condição de fronteira (CF):\ \ } u(0, t) = u(\pi, t) = 0 \text{\ \ ($t$ variável)}
+\end{equation*}
+\begin{equation*}
+    \text{Condição inicial (CI):\ \ } u(x, 0) = f(x) \text{\ \ ($t$ fixo $= 0$)}
+\end{equation*}
+
+\begin{enumerate}
+    \item Substituir $u(x, t)$ na equação diferencial por $X(x)T(t)$
+    \item Separar as variáveis dos dois lados da igualdade 
+          (deixar $X$ \textbf{mais simples}):
           \begin{equation*}
               \frac{T'}{T} = \frac{X''}{X}
           \end{equation*}
     \item Igualar os dois lados da equação a lambda ($\lambda$):
           \begin{equation*}
-              \frac{T'}{T} = \lambda \text{\ \ \ \ e \ \ \ }
-              \frac{X''}{X} = \lambda
+              \frac{T'}{T} = \frac{X''}{X} = \lambda
           \end{equation*}
     \item Analisar as condições de fronteira, sabendo que $T(t) \neq 0$:
           \begin{equation*}
@@ -504,10 +827,7 @@ Quando a função $f(x)$ é \textbf{par}:
               \text{se $x \in\ ]0, \pi[$}
           \end{equation*}
           \begin{equation*}
-              \text{P2:\ \ \ } \frac{T'}{T} = \lambda \ \Leftrightarrow \
-              T' = \lambda T \ \Leftrightarrow \
-              T' - \lambda T = 0 \ \Rightarrow
-              P(R) = R-\lambda = 0
+              \text{P2:\ \ \ } \frac{T'}{T} = \lambda
           \end{equation*}
     \item Resolver P1 testando as várias possibilidades para $\lambda$:
           \begin{itemize}
